@@ -64,32 +64,11 @@ if (empty($_REQUEST['id'])) {
         <div class="card-body">
           <form action="" method="post">
             <?php echo isset($alert) ? $alert : ''; ?>
-
-         <div class="form-group">
-           <label>Cliente</label>
-           <?php
-            $query_cliente = mysqli_query($conexion, "SELECT idcliente, nombre FROM cliente ORDER BY nombre ASC");
-            $resultado_cliente = mysqli_num_rows($query_cliente);
-            ?>
-           <select id="cliente" name="cliente" class="form-control">
-             <?php
-              if ($resultado_cliente > 0) {
-                while ($cliente = mysqli_fetch_array($query_cliente)) {
-                  // code...
-              ?>
-                 <option value="<?php echo $cliente['idcliente']; ?>"><?php echo $cliente['nombre']; ?></option>
-             <?php
-                }
-              }
-              ?>
-           </select>
-         </div>
-         <div class="form-group">
+            <div class="form-group">
            <label>Proveedor</label>
            <?php
             $query_proveedor = mysqli_query($conexion, "SELECT codproveedor, proveedor FROM proveedor ORDER BY proveedor ASC");
             $resultado_proveedor = mysqli_num_rows($query_proveedor);
-            mysqli_close($conexion);
 
             ?>
            <select id="proveedor" name="proveedor" class="form-control">
@@ -107,24 +86,45 @@ if (empty($_REQUEST['id'])) {
               ?>
            </select>
          </div>
+         <div class="form-group">
+           <label>Cliente</label>
+           <?php
+            $query_cliente = mysqli_query($conexion, "SELECT idcliente, nombre FROM cliente ORDER BY nombre ASC");
+            $resultado_cliente = mysqli_num_rows($query_cliente);
+            ?>
+           <select id="cliente" name="cliente" class="form-control">
+             <?php
+              if ($resultado_cliente > 0) {
+                while ($cliente = mysqli_fetch_array($query_cliente)) {
+                  mysqli_close($conexion);
+
+                  // code...
+              ?>
+                 <option value="<?php echo $cliente['idcliente']; ?>"><?php echo $cliente['nombre']; ?></option>
+             <?php
+                }
+              }
+              ?>
+           </select>
+         </div>
             <div class="form-group">
-              <label for="preciodiario">preciodiario</label>                                                                                 
-              <input type="Decimal" placeholder="Ingrese el precio diario" name="preciodiario" id="precioDiario" class="form-control" value="<?php echo $data_pedido['preciodiario']; ?>">
+              <label for="preciodiario">Precio diario</label>                                                                                 
+              <input type="number" placeholder="Ingrese el precio diario" name="preciodiario" id="precioDiario" class="form-control" value="<?php echo $data_pedido['preciodiario']; ?>">
             </div>
             <div class="form-group">
-              <label for="cjabamacho">cjabamacho</label>
-              <input type="number" placeholder="Ingrese el precio precioVenta" class="form-control" name="cjabamacho" id="cjabamacho" value="<?php echo $data_pedido['cjabamacho']; ?>">
+              <label for="cjabamacho">Jabas de Macho</label>
+              <input type="number" placeholder="Ingrese Jabas de Macho" class="form-control" name="cjabamacho" id="cjabamacho" value="<?php echo $data_pedido['cjabamacho']; ?>">
             </div>
 
         
             <div class="form-group">
-              <label for="cjabamixto">cjabamixto</label>
-              <input type="number" placeholder="Ingrese el precio de Subida Interna" class="form-control" name="cjabamixto" id="cjabamixto" value="<?php echo $data_pedido['cjabamixto']; ?>">
+              <label for="cjabamixto">Jabas de Mixto</label>
+              <input type="number" placeholder="Ingrese Jabas de Mixto" class="form-control" name="cjabamixto" id="cjabamixto" value="<?php echo $data_pedido['cjabamixto']; ?>">
             </div>
 
             <div class="form-group">
-              <label for="cjabahembra">cjabahembra</label>
-              <input type="number" placeholder="Ingrese el precio de Venta Final" class="form-control" name="cjabahembra" id="cjabahembra" value="<?php echo $data_pedido['cjabahembra']; ?>">
+              <label for="cjabahembra">Jabas de Hembra</label>
+              <input type="number" placeholder="Ingrese Jabas de Hembra" class="form-control" name="cjabahembra" id="cjabahembra" value="<?php echo $data_pedido['cjabahembra']; ?>">
             </div>
             <input type="submit" value="Actualizar Precio" class="btn btn-primary">
           </form>

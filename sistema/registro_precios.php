@@ -66,20 +66,20 @@
            </select>
          </div>
          <div class="form-group">
-           <label for="preciocompra">preciocompra</label>
-           <input type="Decimal" placeholder="Ingrese el precio compra" name="precioCompra" id="precioCompra" class="form-control">
-         </div>
-         <div class="form-group">
-           <label for="precioVenta">precioVenta</label>
-           <input type="Decimal" placeholder="Ingrese el precio precioVenta" class="form-control" name="precioVenta" id="precioVenta">
-         </div>
-         <div class="form-group">
-           <label for="SubidaInterna">SubidaInterna</label>
-           <input type="Decimal" placeholder="Ingrese el precio de Subida Interna" class="form-control" name="subidaInterna" id="subidaInterna">
-         </div>
-         <div class="form-group">
-           <label for="fechavalidacion">fechavalidacion</label>
+           <label for="fechavalidacion">Fecha de validacion</label>
            <input type="text" placeholder="Ingrese la fecha valida del registro" class="form-control datepicker" name="fechavalidacion" id="fechavalidacion">
+         </div>
+         <div class="form-group">
+           <label for="preciocompra">Precio de Compra</label>
+           <input type="number" placeholder="Ingrese el precio de Compra" name="precioCompra" id="precioCompra" class="form-control"data-field="Amount" min="0.01" step="0.01">
+         </div>
+         <div class="form-group">
+           <label for="precioVenta">Precio de Venta</label>
+           <input type="number" placeholder="Ingrese el precio de Venta " class="form-control" name="precioVenta" id="precioVenta"data-field="Amount" min="0.01" step="0.01">
+         </div>
+         <div class="form-group">
+           <label for="SubidaInterna">Subida Interna</label>
+           <input type="number" placeholder="Ingrese el precio de Subida Interna" class="form-control" name="subidaInterna" id="subidaInterna"data-field="Amount" min="0.01" step="0.01">
          </div>
          <input type="submit" value="Guardar Precios" class="btn btn-primary">
        </form>

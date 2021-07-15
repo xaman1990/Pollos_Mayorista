@@ -37,7 +37,7 @@
 
    <!-- Page Heading -->
    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-     <h1 class="h3 mb-0 text-gray-800">Ingresar Nuevos pedidos</h1>
+     <h1 class="h3 mb-0 text-gray-800">Registro de pedido</h1>
      <a href="lista_pedido.php" class="btn btn-primary">Regresar</a>
    </div>
 
@@ -47,30 +47,10 @@
        <form action="" method="post" autocomplete="off">
          <?php echo isset($alert) ? $alert : ''; ?>
          <div class="form-group">
-           <label>Cliente</label>
-           <?php
-            $query_cliente = mysqli_query($conexion, "SELECT idcliente, nombre FROM cliente ORDER BY nombre ASC");
-            $resultado_cliente = mysqli_num_rows($query_cliente);
-            ?>
-           <select id="cliente" name="cliente" class="form-control">
-             <?php
-              if ($resultado_cliente > 0) {
-                while ($cliente = mysqli_fetch_array($query_cliente)) {
-                  // code...
-              ?>
-                 <option value="<?php echo $cliente['idcliente']; ?>"><?php echo $cliente['nombre']; ?></option>
-             <?php
-                }
-              }
-              ?>
-           </select>
-         </div>
-         <div class="form-group">
            <label>Proveedor</label>
            <?php
             $query_proveedor = mysqli_query($conexion, "SELECT codproveedor, proveedor FROM proveedor ORDER BY proveedor ASC");
             $resultado_proveedor = mysqli_num_rows($query_proveedor);
-            mysqli_close($conexion);
 
             ?>
            <select id="proveedor" name="proveedor" class="form-control">
@@ -88,30 +68,53 @@
               ?>
            </select>
          </div>
-
+         
          <div class="form-group">
-           <label for="fechapedido">fechapedido</label>
-           <input type="text" placeholder="Ingrese la fecha  de pedido  " class="form-control datepicker" name="fechapedido" id="fechapedido">
+           <label>Cliente</label>
+           <?php
+            $query_cliente = mysqli_query($conexion, "SELECT idcliente, nombre FROM cliente ORDER BY nombre ASC");
+            $resultado_cliente = mysqli_num_rows($query_cliente);
+            mysqli_close($conexion);
+            ?>
+           <select id="cliente" name="cliente" class="form-control">
+             <?php
+              if ($resultado_cliente > 0) {
+                while ($cliente = mysqli_fetch_array($query_cliente)) {
+                  // code...
+              ?>
+                 <option value="<?php echo $cliente['idcliente']; ?>"><?php echo $cliente['nombre']; ?></option>
+             <?php
+                }
+              }
+              ?>
+           </select>
          </div>
          <div class="form-group">
-           <label for="preciocompra">preciodiario</label>
-           <input type="Decimal" placeholder="Ingrese el precio compra" name="preciodiario" id="precioDiario" class="form-control">
+           <label for="fechapedido">Fecha de Pedido</label>
+           <input type="text" placeholder="Ingrese la fecha  de pedido  " class="form-control datepicker" name="fechapedido" id="fechapedido">
+           <div class="col-md-10"> 
+      <input type="button" name="Validar" id="Validar" value="Validar" class="btn btn-info active" />
+     </div>
+          </div>
+         <div class="form-group">
+           <label for="preciocompra">Precio Diario</label>
+           <input type="number" placeholder="Ingrese el precio diario" name="preciodiario" id="precioDiario" class="form-control"data-field="Amount" min="0.01" step="0.01">
          
          </div>
          <div class="form-group">
-           <label for="precioVenta">cjabamacho</label>
-           <input type="number" placeholder="Ingrese el precio precioVenta" class="form-control" name="cjabamacho" id="cjabamacho">
+           <label for="precioVenta">Jabas de Macho</label>
+           <input type="number" placeholder="Ingrese Las jabas de Macho" class="form-control" name="cjabamacho" id="cjabamacho">
          </div>
 
     
          <div class="form-group">
-           <label for="SubidaInterna">cjabamixto</label>
-           <input type="number" placeholder="Ingrese el precio de Subida Interna" class="form-control" name="cjabamixto" id="cjabamixto">
+           <label for="SubidaInterna">Jabas de Mixto</label>
+           <input type="number" placeholder="Ingrese Las bajas de Mixto" class="form-control" name="cjabamixto" id="cjabamixto">
          </div>
 
          <div class="form-group">
-           <label for="PrecioVentaF">cjabahembra</label>
-           <input type="number" placeholder="Ingrese el precio de Venta Final" class="form-control" name="cjabahembra" id="cjabahembra">
+           <label for="PrecioVentaF">Jabas de Hembra </label>
+           <input type="number" placeholder="Ingrese las Jabas de hembra" class="form-control" name="cjabahembra" id="cjabahembra">
          </div>
         
          <input type="submit" value="Guardar Precios" class="btn btn-primary">

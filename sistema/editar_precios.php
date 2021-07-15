@@ -4,7 +4,7 @@ include "../conexion.php";
 if (!empty($_POST)) {
   $alert = "";
 
-  if (empty($_POST['proveedor']) || empty($_POST['precioCompra']) || empty($_POST['precioVenta']) || empty($_POST['subidaInterna']) || empty($_POST['precioVentaF'])  ) {
+  if (empty($_POST['proveedor']) || empty($_POST['precioCompra']) || empty($_POST['precioVenta']) || empty($_POST['subidaInterna']) ) {
     $alert = '<div class="alert alert-danger" role="alert">
               Todo los campos son obligatorios
             </div>';
@@ -14,9 +14,9 @@ if (!empty($_POST)) {
     $preciocompra = $_POST['precioCompra'];
     $PrecioVenta = $_POST['precioVenta'];
     $SubidaInterna = $_POST['subidaInterna'];
-    $PrecioVentaF = $_POST['precioVentaF'];
+    $PrecioVentaF = $SubidaInterna+$PrecioVenta;
     
-    $query_update = mysqli_query($conexion, "UPDATE precio SET codproveedor = '$codproveedor', preciocompra= $preciocompra,PrecioVenta= $PrecioVenta ,SubidaInterna=$SubidaInterna,PrecioVentaF=$PrecioVentaF WHERE idprecio = $idprecio");
+    $query_update = mysqli_query($conexion, "UPDATE precio SET codproveedor = '$codproveedor', preciocompra= $preciocompra,PrecioVenta= $PrecioVenta ,SubidaInterna=$SubidaInterna,PrecioVentaF=$SubidaInterna+$PrecioVenta WHERE idprecio = $idprecio");
     if ($query_update) {
       $alert = '<div class="alert alert-primary" role="alert">
               Modificado
@@ -83,24 +83,19 @@ if (empty($_REQUEST['id'])) {
               </select>
             </div>
             <div class="form-group">
-              <label for="preciocompra">preciocompra</label>                                                                                 
-              <input type="Decimal" placeholder="Ingrese el precio compra" name="precioCompra" id="precioCompra" class="form-control" value="<?php echo $data_precio['preciocompra']; ?>">
+              <label for="preciocompra">Precio de compra</label>                                                                                 
+              <input type="number" placeholder="Ingrese el precio compra" name="precioCompra" id="precioCompra" class="form-control" value="<?php echo $data_precio['preciocompra']; ?>">
             
             </div>
             <div class="form-group">
-              <label for="precioVenta">precioVenta</label>
-              <input type="Decimal" placeholder="Ingrese el precio precioVenta" class="form-control" name="precioVenta" id="precioVenta" value="<?php echo $data_precio['precioVenta']; ?>">
+              <label for="precioVenta">Precio de venta </label>
+              <input type="number" placeholder="Ingrese el precio precioVenta" class="form-control" name="precioVenta" id="precioVenta" value="<?php echo $data_precio['precioVenta']; ?>">
             </div>
 
         
             <div class="form-group">
-              <label for="SubidaInterna">SubidaInterna</label>
-              <input type="Decimal" placeholder="Ingrese el precio de Subida Interna" class="form-control" name="subidaInterna" id="subidaInterna" value="<?php echo $data_precio['SubidaInterna']; ?>">
-            </div>
-
-            <div class="form-group">
-              <label for="PrecioVentaF">PrecioVentaF</label>
-              <input type="Decimal" placeholder="Ingrese el precio de Venta Final" class="form-control" name="precioVentaF" id="precioVentaF" value="<?php echo $data_precio['PrecioVentaF']; ?>">
+              <label for="SubidaInterna">Subida Interna</label>
+              <input type="number" placeholder="Ingrese el precio de Subida Interna" class="form-control" name="subidaInterna" id="subidaInterna" value="<?php echo $data_precio['SubidaInterna']; ?>">
             </div>
             <input type="submit" value="Actualizar Precio" class="btn btn-primary">
           </form>

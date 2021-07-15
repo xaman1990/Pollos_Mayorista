@@ -68,24 +68,24 @@ if ($result_sql == 0) {
                 <?php echo isset($alert) ? $alert : ''; ?>
                 <input type="hidden" name="id" value="<?php echo $idcliente; ?>">
                 <div class="form-group">
-                  <label for="nombre">nombre</label>
-                  <input type="text" placeholder="Ingrese nombre" name="nombre" id="nombre" class="form-control" value="<?php echo $nombre; ?>">
+                  <label for="nombre">Nombre de cliente </label>
+                  <input type="text" placeholder="Ingrese nombre del cliente " name="nombre" id="nombre" class="form-control" value="<?php echo $nombre; ?>">
                 </div>
                 <div class="form-group">
-                  <label for="telefono">telefono</label>
-                  <input type="number" placeholder="Ingrese telefono" name="telefono" class="form-control" id="telefono" value="<?php echo $telefono; ?>">
+                  <label for="direccion">Direccion</label>
+                  <input type="text" placeholder="Ingrese direccion del cliente " name="direccion" class="form-control" id="direccion" value="<?php echo $direccion; ?>">
                 </div>
                 <div class="form-group">
-                  <label for="direccion">direccion</label>
-                  <input type="text" placeholder="Ingrese direccion" name="direccion" class="form-control" id="direccion" value="<?php echo $direccion; ?>">
+                  <label for="telefono">Telefono</label>
+                  <input type="number" placeholder="Ingrese telefono del cliente " name="telefono" class="form-control" id="telefono" value="<?php echo $telefono; ?>">
                 </div>
                 <div class="form-group">
-                  <label for="puntos">puntos</label>
-                  <input type="decimal" placeholder="Ingrese puntos" name="puntos" class="form-control" id="puntos" value="<?php echo $puntos; ?>">
+                  <label for="puntos">Puntos</label>
+                  <input type="number" placeholder="Ingrese puntos del cliente " name="puntos" class="form-control"  id="puntos" value="<?php echo $puntos; ?>">
                 </div>
                 <div class="form-group">
-                  <label for="preciodejaba">preciodejaba</label>
-                  <input type="decimal" placeholder="Ingrese preciodejaba" name="preciodejaba" class="form-control" id="preciodejaba" value="<?php echo $preciodejaba; ?>">
+                  <label for="preciodejaba">Precio de Jaba </label>
+                  <input type="number" placeholder="Ingrese el Precio de Jaba " name="preciodejaba" class="form-control" id="preciodejaba" value="<?php echo $preciodejaba; ?>">
                 </div>
 
                 <button type="submit" class="btn btn-primary"><i class="fas fa-user-edit"></i> Editar Cliente</button>

@@ -55,24 +55,24 @@ if (!empty($_POST)) {
             <form action="" method="post" autocomplete="off">
                 <?php echo isset($alert) ? $alert : ''; ?>
                 <div class="form-group">
-                    <label for="nombre">nombre</label>
+                    <label for="nombre">Nombre del Cliente</label>
                     <input type="text" placeholder="Ingrese nombre de cliente" name="nombre" id="nombre" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="telefono">telefono</label>
-                    <input type="text" placeholder="Ingrese telefono de cliente" name="telefono" id="telefono" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="direccion">direccion</label>
+                    <label for="direccion">Direccion</label>
                     <input type="text" placeholder="Ingrese direccion de cliente" name="direccion" id="direccion" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="puntos">puntos</label>
-                    <input type="decimal" placeholder="Ingrese puntos de cliente" name="puntos" id="puntos" class="form-control">
+                    <label for="telefono">Telefono</label>
+                    <input type="number" placeholder="Ingrese telefono de cliente" name="telefono" id="telefono" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="preciodejaba">preciodejaba</label>
-                    <input type="decimal" placeholder="Ingrese precio de jaba" name="preciodejaba" id="preciodejaba" class="form-control">
+                    <label for="puntos">Puntos</label>
+                    <input type="number" placeholder="Ingrese puntos de cliente" name="puntos" id="puntos" class="form-control" data-field="Amount" min="0.01" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="preciodejaba">Precio de la jaba</label>
+                    <input type="number" placeholder="Ingrese precio de jaba" name="preciodejaba" id="preciodejaba" class="form-control"  data-field="Amount" min="0.01" step="0.01">
                 </div>
                 <input type="submit" value="Guardar Cliente" class="btn btn-primary">
             </form>
