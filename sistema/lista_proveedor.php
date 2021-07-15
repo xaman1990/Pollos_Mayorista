@@ -30,13 +30,13 @@
 						<?php
 						include "../conexion.php";
 
-						$query = mysqli_query($conexion, "SELECT * FROM proveedor");
+						$query = mysqli_query($conexion, " SELECT r.codproveedor ,  p.tipoproveedor, r.proveedor , r.preciojaba, r.fechadecreacion , r.Estado FROM proveedor r INNER JOIN tipoproveedor p ON r.tipoproveedor=p.idtipoproveedor");
 						$result = mysqli_num_rows($query);
 						if ($result > 0) {
 							while ($data = mysqli_fetch_assoc($query)) { ?>
 								<tr>
 									<td><?php echo $data['codproveedor']; ?></td>
-									<td><?php echo $data['tipodeproveedor']; ?></td>
+									<td><?php echo $data['tipoproveedor']; ?></td>
 									<td><?php echo $data['proveedor']; ?></td>
 									<td><?php echo $data['preciojaba']; ?></td>
 									<td><?php echo $data['fechadecreacion']; ?></td>

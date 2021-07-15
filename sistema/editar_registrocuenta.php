@@ -4,20 +4,20 @@ include "../conexion.php";
 if (!empty($_POST)) {
   $alert = "";
 
-  if (empty($_POST['cliente']) ||empty($_POST['proveedor']) || empty($_POST['preciodiario']) || empty($_POST['cjabamacho']) || empty($_POST['cjabamixto']) || empty($_POST['cjabahembra'])  ) {
+  if (empty($_POST['cliente']) ||empty($_POST['proveedor']) || empty($_POST['preciodiario']) || empty($_POST['totaljaba'])|| empty($_POST['pesototal'])|| empty($_POST['montoacobrar'])) {
     $alert = '<div class="alert alert-danger" role="alert">
               Todo los campos son obligatorios
             </div>';
   } else {
-    $idpedido = $_GET['id'];  
+    $idregistro = $_GET['id'];  
     $idcliente = $_POST['cliente'];
     $codproveedor = $_POST['proveedor'];
     $preciodiario = $_POST['preciodiario'];
-    $cjabamacho = $_POST['cjabamacho'];
-    $cjabamixto = $_POST['cjabamixto'];
-    $cjabahembra = $_POST['cjabahembra'];
+    $totaljaba = $_POST['totaljaba'];
+    $pesototal = $_POST['pesototal'];
+    $montoacobrar = $_POST['montoacobrar'];
     
-    $query_update = mysqli_query($conexion, "UPDATE pedidos SET idcliente=$idcliente ,codproveedor=$codproveedor,preciodiario=$preciodiario,cjabamacho=$cjabamacho,cjabamixto=$cjabamixto,cjabahembra=$cjabahembra WHERE idpedido=$idpedido");
+    $query_update = mysqli_query($conexion, "UPDATE registrocuentas SET idcliente=$idcliente ,codproveedor=$codproveedor,preciodiario=$preciodiario,totaljaba=$totaljaba, pesototal=$pesototal , montoacobrar=$montoacobrar WHERE idregistro=$idregistro");
     if ($query_update) {
       $alert = '<div class="alert alert-primary" role="alert">
               Modificado
@@ -34,32 +34,32 @@ if (!empty($_POST)) {
 // Validar producto
 
 if (empty($_REQUEST['id'])) {
-  header("Location: lista_pedido.php");
+  header("Location: lista_registrocuenta.php");
 } else {
-  $idpedido = $_REQUEST['id'];
-  if (!is_numeric($idpedido)) {
-    header("Location: lista_pedido.php");
+  $idregistro = $_REQUEST['id'];
+  if (!is_numeric($idregistro)) {
+    header("Location: lista_registrocuenta.php");
   }
-  $query_pedido = mysqli_query($conexion, "SELECT idpedido,c.idcliente ,p.codproveedor, p.proveedor, c.nombre ,r.codproveedor, r.preciodiario , r.cjabamacho , r.cjabamixto , r.cjabahembra , r.fechapedido , r.estado  FROM 
-  cliente c  INNER JOIN pedidos r ON c.idcliente= r.idcliente INNER JOIN proveedor p ON p.codproveedor=r.codproveedor WHERE idpedido = $idpedido");
-  $result_pedido = mysqli_num_rows($query_pedido);
+  $query_registro = mysqli_query($conexion, "SELECT idregistro ,c.idcliente ,p.codproveedor, p.proveedor, c.nombre ,r.codproveedor, r.preciodiario , r.totaljaba , r.pesototal, r.montoacobrar, r.estado  FROM 
+  cliente c  INNER JOIN registrocuentas r ON c.idcliente= r.idcliente INNER JOIN proveedor p ON p.codproveedor=r.codproveedor WHERE idregistro = $idregistro");
+  $result_registro  = mysqli_num_rows($query_registro );
 
-  if ($result_pedido > 0) {
-    $data_pedido = mysqli_fetch_assoc($query_pedido);
+  if ($result_registro > 0) {
+    $data_registro = mysqli_fetch_assoc($query_registro);
   } else {
-    header("Location: lista_pedido.php");
+    header("Location: lista_registrocuenta.php");
   }
 }
 ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
-<a href="lista_pedido.php" class="btn btn-primary">Regresar</a>
+<a href="lista_registrocuenta.php" class="btn btn-primary">Regresar</a>
 
   <div class="row">
     <div class="col-lg-6 m-auto">
       <div class="card">
         <div class="card-header bg-primary text-white">
-          Modificar pedido
+          Modificar Registro de cuenta
         </div>
         <div class="card-body">
           <form action="" method="post">
@@ -108,25 +108,23 @@ if (empty($_REQUEST['id'])) {
            </select>
          </div>
             <div class="form-group">
-              <label for="preciodiario">preciodiario</label>                                                                                 
-              <input type="Decimal" placeholder="Ingrese el precio diario" name="preciodiario" id="precioDiario" class="form-control" value="<?php echo $data_pedido['preciodiario']; ?>">
+              <label for="preciodiario">Precio Diario</label>                                                                                 
+              <input type="Decimal" placeholder="Ingrese el precio diario" name="preciodiario" id="precioDiario" class="form-control" value="<?php echo $data_registro['preciodiario']; ?>">
             </div>
             <div class="form-group">
-              <label for="cjabamacho">cjabamacho</label>
-              <input type="number" placeholder="Ingrese el precio precioVenta" class="form-control" name="cjabamacho" id="cjabamacho" value="<?php echo $data_pedido['cjabamacho']; ?>">
+              <label for="totaljaba">Total de jabas</label>
+              <input type="number" placeholder="Ingrese el total de jaba" class="form-control" name="totaljaba" id="totaljaba" value="<?php echo $data_registro['totaljaba']; ?>">
+            </div>
+            <div class="form-group">
+              <label for="pesototal">Peso Total</label>
+              <input type="texto" placeholder="Ingrese el peso total" class="form-control" name="pesototal" id="pesototal" value="<?php echo $data_registro['pesototal']; ?>">
+            </div>
+            <div class="form-group">
+              <label for="montoacobrar">Monto a cobrar </label>
+              <input type="number" placeholder="Ingrese el monto a cobrar " class="form-control" name="montoacobrar" id="montoacobrar" value="<?php echo $data_registro['montoacobrar']; ?>">
             </div>
 
-        
-            <div class="form-group">
-              <label for="cjabamixto">cjabamixto</label>
-              <input type="number" placeholder="Ingrese el precio de Subida Interna" class="form-control" name="cjabamixto" id="cjabamixto" value="<?php echo $data_pedido['cjabamixto']; ?>">
-            </div>
-
-            <div class="form-group">
-              <label for="cjabahembra">cjabahembra</label>
-              <input type="number" placeholder="Ingrese el precio de Venta Final" class="form-control" name="cjabahembra" id="cjabahembra" value="<?php echo $data_pedido['cjabahembra']; ?>">
-            </div>
-            <input type="submit" value="Actualizar Precio" class="btn btn-primary">
+            <input type="submit" value="Actualizar registro de cuenta" class="btn btn-primary">
           </form>
         </div>
       </div>

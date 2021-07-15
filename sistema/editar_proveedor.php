@@ -3,15 +3,15 @@ include "includes/header.php";
 include "../conexion.php";
 if (!empty($_POST)) {
   $alert = "";
-  if (empty($_POST['proveedor']) || empty($_POST['tipodeproveedor'])|| empty($_POST['preciojaba']))  {
+  if (empty($_POST['proveedor']) || empty($_POST['tipoproveedor'])|| empty($_POST['preciojaba']))  {
     $alert = '<p class"msg_error">Todo los campos son requeridos</p>';
   } else {
     $idproveedor = $_GET['id'];
     $proveedor = $_POST['proveedor'];
-    $tipodeproveedor = $_POST['tipodeproveedor'];
+    $tipoproveedor = $_POST['tipoproveedor'];
     $preciojaba = $_POST['preciojaba'];
 
-    $sql_update = mysqli_query($conexion, "UPDATE proveedor SET proveedor = '$proveedor', tipodeproveedor = '$tipodeproveedor', preciojaba='$preciojaba' WHERE codproveedor = $idproveedor");
+    $sql_update = mysqli_query($conexion, "UPDATE proveedor SET proveedor = '$proveedor', tipoproveedor = '$tipoproveedor', preciojaba='$preciojaba' WHERE codproveedor = $idproveedor");
 
     if ($sql_update) {
       $alert = '<p class"msg_save">Proveedor Actualizado correctamente</p>';
@@ -28,7 +28,7 @@ if (empty($_REQUEST['id'])) {
 }
 $idproveedor = $_REQUEST['id'];
 $sql = mysqli_query($conexion, "SELECT * FROM proveedor WHERE codproveedor = $idproveedor");
-mysqli_close($conexion);
+
 $result_sql = mysqli_num_rows($sql);
 if ($result_sql == 0) {
   header("Location: lista_proveedor.php");
@@ -36,7 +36,7 @@ if ($result_sql == 0) {
   while ($data = mysqli_fetch_array($sql)) {
     $idproveedor = $data['codproveedor'];
     $proveedor = $data['proveedor'];
-    $tipodeproveedor = $data['tipodeproveedor'];
+    $idtipoproveedor = $data['tipoproveedor'];
     $preciojaba = $data['preciojaba'];
   }
 }
@@ -55,9 +55,27 @@ if ($result_sql == 0) {
           <input type="text" placeholder="Ingrese proveedor" name="proveedor" class="form-control" id="proveedor" value="<?php echo $proveedor; ?>">
         </div>
         <div class="form-group">
-          <label for="tipodeproveedor">TipoDeProveedor</label>
-          <input type="text" placeholder="Ingrese tipo Proveedor" name="tipodeproveedor" class="form-control" id="tipodeproveedor" value="<?php echo $tipodeproveedor; ?>">
-        </div>
+                    <label>Tipo de proveedor</label>
+                    <select name="tipoproveedor" id="tipoproveedor" class="form-control">
+                        <?php
+                        $query_tipoproveedor = mysqli_query($conexion, "select * from tipoproveedor");
+                        mysqli_close($conexion);
+                        $resultado_tipoproveedor = mysqli_num_rows($query_tipoproveedor);
+                        if ($resultado_tipoproveedor > 0) {
+                            while ($tipoproveedor = mysqli_fetch_array($query_tipoproveedor)) {
+                        ?>
+                                <option value="<?php echo $tipoproveedor["idtipoproveedor"]; ?>" <?php
+                              if ($tipoproveedor["idtipoproveedor"] == $idtipoproveedor) {
+                                echo "selected";
+                              }
+                              ?> ><?php echo $tipoproveedor["tipoproveedor"] ?></option>
+                        <?php
+
+                            }
+                        }
+
+                        ?>
+                    </select></div>
         <div class="form-group">
           <label for="preciojaba">PrecioJaba</label>
           <input type="text" placeholder="Ingrese Peso de jaba" name="preciojaba" class="form-control" id="preciojaba" value="<?php echo $preciojaba; ?>">

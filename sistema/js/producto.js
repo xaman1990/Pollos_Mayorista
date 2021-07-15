@@ -1,5 +1,9 @@
 $(document).ready(function(){
- 
+  function limpiarletras(obj) {
+    obj.value = obj.value.replace(/[^0-9]/g, '');
+     
+}
+
   $( function() {
     
     $( ".datepicker" ).datepicker({
