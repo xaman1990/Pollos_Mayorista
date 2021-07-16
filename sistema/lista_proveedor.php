@@ -2,8 +2,8 @@
 
 
 $busqueda='';
-$fecha_de='';
-$fecha_a='';
+$fecha_de="1990-01-01";
+$fecha_a=date("Y-m-d");
  if (!empty($_REQUEST['busqueda'])){
    if(!is_numeric($_REQUEST['busqueda'])){
          header("location: lista_proveedor.php");
@@ -25,13 +25,13 @@ header("location : lista_proveedores.php");
 }else if ($fecha_de == $fecha_a) {
 
 
-$where = "fecha LIKE '$fecha_de%'";
+$where = "r.fechadecreacion LIKE '$fecha_de%'";
 $buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a";
 
-}else{
-$f_de = $fecha_de.'00:00:00';
-$f_a = $fecha_a.'23:59:59';
-$where = "fecha BETWEEN '$f_de' AND '$f_a'";
+}else if ($fecha_de < $fecha_a){
+$f_de = $fecha_de;
+$f_a = $fecha_a;
+$where = "r.fechadecreacion BETWEEN '$f_de' AND '$f_a'";
 $buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a";
 
 }
@@ -85,7 +85,7 @@ $buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a";
 						<?php
 						include "../conexion.php";
 
-						$query = mysqli_query($conexion, " SELECT  r.codproveedor ,  p.tipoproveedor, r.proveedor , r.preciojaba, r.fechadecreacion , r.Estado FROM proveedor r INNER JOIN tipoproveedor p ON r.tipoproveedor=p.idtipoproveedor");
+						$query = mysqli_query($conexion, " SELECT  r.codproveedor ,  p.tipoproveedor, r.proveedor , r.preciojaba, r.fechadecreacion , r.Estado FROM proveedor r INNER JOIN tipoproveedor p ON r.tipoproveedor=p.idtipoproveedor WHERE + $where"  );
 						$result = mysqli_num_rows($query);
 						if ($result > 0) {
 							while ($data = mysqli_fetch_assoc($query)) { ?>
