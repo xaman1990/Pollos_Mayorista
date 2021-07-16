@@ -38,16 +38,6 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 		</button>
 
 	</div>
-	<div>
-		<h5> buscar por fecha </h5>
-		<form action="lista_proveedor.php" method="get" class="form_search_date">
-			<label>DE: </label>
-			<input type="date" name="fecha_de" id="fecha_de" value="<?php echo $fecha_de; ?>" required>
-			<label> A </label>
-			<input type="date" name="fecha_a" id="fecha_a" value="<?php echo $fecha_a; ?>" required>
-			<button type="submit" class="btn_view"><i class="fas fa-search"></i></button>
-		</form>
-	</div>
 	<br />
 	<div class="row">
 		<div class="col-lg-12">

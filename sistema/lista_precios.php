@@ -1,16 +1,53 @@
-<?php include_once "includes/header.php"; ?>
+<?php include_once "includes/header.php";
+
+
+
+$where = "r.Estado='A'";
+$fecha_de = "";
+$fecha_a = "";
+
+if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
+	$fecha_de = $_REQUEST['fecha_de'];
+	$fecha_a = $_REQUEST['fecha_a'];
+	if ($fecha_de > $fecha_a) {
+	} else if ($fecha_de == $fecha_a) {
+		$where = " r.FechaCreacion LIKE '%$fecha_de%' and r.Estado='A'";
+	} else {
+		$f_de = date("Y-m-d", strtotime($fecha_de . "0 days"));
+		$f_a =  date("Y-m-d", strtotime($fecha_a . "+ 1 days"));
+
+		$where = " r.FechaCreacion BETWEEN '$f_de' AND '$f_a' and r.Estado='A'";
+		$buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a";
+	}
+} else if (empty($_REQUEST['fecha_de']) || empty($_REQUEST['fecha_a'])) {
+	$where = "r.Estado='A'";
+}
+
+?>
 
 <!-- Begin Page Content -->
+
 <div class="container-fluid">
 
 	<!-- Page Heading -->
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
-		<h1 class="h3 mb-0 text-gray-800">Lista de Precios Diarios</h1>
-		<?php if ($_SESSION['rol'] == 1) { ?>
-		<a href="registro_precios.php" class="btn btn-primary">Nuevo Precio</a>
-		<?php } ?>
-	</div>
+		<h1 class="h3 mb-0 text-gray-800">Precio diario</h1>
+		<button class="btn btn-info" data-toggle="modal" data-target="#modalAgregarProveedor" style="float:right">
+			Nuevo Precio diario
+		</button>
 
+	</div>
+	<div>
+		<h5> buscar por fecha </h5>
+		<form action="lista_precios.php" method="get" class="form_search_date">
+			<label>DE: </label>
+			<input type="date" name="fecha_de" id="fecha_de" value="<?php echo $fecha_de; ?>" required>
+			<label> A </label>
+			<input type="date" name="fecha_a" id="fecha_a" value="<?php echo $fecha_a; ?>" required>
+			<button type="submit" class="btn_view"><i class="fas fa-search"></i></button>
+		</form>
+	</div>
+	<br />
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="table-responsive">
@@ -35,7 +72,7 @@
 						<?php
 						include "../conexion.php";
 
-						$query = mysqli_query($conexion, "SELECT r.idprecio,  p.codproveedor , p.proveedor , r.preciocompra , r.precioVenta , r.SubidaInterna , r.PrecioVentaF , r.FechaCreacion , r.Estado,r.fechavalidacion FROM proveedor p INNER JOIN precio r ON p.codproveedor= r.codproveedor");
+						$query = mysqli_query($conexion, "SELECT r.idprecio,  p.codproveedor , p.proveedor , r.preciocompra , r.precioVenta , r.SubidaInterna , r.PrecioVentaF , r.FechaCreacion , r.Estado,r.fechavalidacion FROM proveedor p INNER JOIN precio r ON p.codproveedor= r.codproveedor WHERE + $where");
 						$result = mysqli_num_rows($query);
 						if ($result > 0) {
 							while ($data = mysqli_fetch_assoc($query)) { ?>
@@ -77,3 +114,4 @@
 
 
 <?php include_once "includes/footer.php"; ?>
+<?php include_once "registro_proveedor.php"; ?>

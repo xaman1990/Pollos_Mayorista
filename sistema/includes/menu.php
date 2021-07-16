@@ -21,43 +21,23 @@
 	<li class="nav-item">
 		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProveedor" aria-expanded="true" aria-controls="collapseUtilities">
 			<i class="fas fa-hospital"></i>
-			<span>Proveedores</span>
+			<span>Mantenimiento</span>
 		</a>
 		<div id="collapseProveedor" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
-				<a class="collapse-item" href="registro_proveedor.php">Nuevo Proveedor</a>
 				<a class="collapse-item" href="lista_proveedor.php">Proveedores</a>
+				<a class="collapse-item" href="lista_cliente.php">Clientes</a>
+				<a class="collapse-item" href="lista_usuarios.php">Usuarios</a>
+				<a class="collapse-item" href="lista_precios.php">Precio diario</a>
+
+
+
 			</div>
 		</div>
 	</li>
 	<!-- Nav Item - Pages Collapse Menu -->
-	<li class="nav-item">
-		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecliente" aria-expanded="true" aria-controls="collapseUtilities">
-			<i class="fas fa-fw fa-wrench"></i>
-			<span>Clientes</span>
-		</a>
-		<div id="collapsecliente" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-			<div class="bg-white py-2 collapse-inner rounded">
-			
-				<a class="collapse-item" href="registro_cliente.php">Nuevo cliente</a>
-				<a class="collapse-item" href="lista_cliente.php">Clientes</a>
-			</div>
-		</div>
-	</li>
+
 		<!-- Nav Item - Pages Collapse Menu -->
-		<li class="nav-item">
-		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePrecio" aria-expanded="true" aria-controls="collapseUtilities">
-			<i class="fas fa-fw fa-wrench"></i>
-			<span>Precio Diario</span>
-		</a>
-		<div id="collapsePrecio" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-			<div class="bg-white py-2 collapse-inner rounded">
-			
-				<a class="collapse-item" href="registro_precios.php">Nuevo Precio</a>
-				<a class="collapse-item" href="lista_precios.php">Precios</a>
-			</div>
-		</div>
-	</li>
 	<!-- Nav Item - Pages Collapse Menu -->
 	<li class="nav-item">
 		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePedido" aria-expanded="true" aria-controls="collapseUtilities">
@@ -144,18 +124,7 @@
 	<!-- Nav Item - Utilities Collapse Menu -->
 	<?php if ($_SESSION['rol'] == 1) { ?>
 		<!-- Nav Item - Usuarios Collapse Menu -->
-		<li class="nav-item">
-			<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsuarios" aria-expanded="true" aria-controls="collapseUtilities">
-				<i class="fas fa-user"></i>
-				<span>Lista de Usuarios</span>
-			</a>
-			<div id="collapseUsuarios" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-				<div class="bg-white py-2 collapse-inner rounded">
-					<a class="collapse-item" href="registro_usuario.php">Nuevo Usuario</a>
-					<a class="collapse-item" href="lista_usuarios.php">Usuarios</a>
-				</div>
-			</div>
-		</li>
+		
 	<?php } ?>
 
 </ul>
