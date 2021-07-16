@@ -49,7 +49,7 @@
          <div class="form-group">
            <label>Proveedor</label>
            <?php
-            $query_proveedor = mysqli_query($conexion, "SELECT codproveedor, proveedor FROM proveedor ORDER BY proveedor ASC");
+            $query_proveedor = mysqli_query($conexion, "SELECT codproveedor, proveedor FROM proveedor where estado='A' ORDER BY proveedor ASC");
             $resultado_proveedor = mysqli_num_rows($query_proveedor);
 
             ?>
@@ -72,7 +72,7 @@
          <div class="form-group">
            <label>Cliente</label>
            <?php
-            $query_cliente = mysqli_query($conexion, "SELECT idcliente, nombre FROM cliente ORDER BY nombre ASC");
+            $query_cliente = mysqli_query($conexion, "SELECT idcliente, nombre FROM cliente where estado='A' ORDER BY nombre ASC");
             $resultado_cliente = mysqli_num_rows($query_cliente);
             mysqli_close($conexion);
             ?>

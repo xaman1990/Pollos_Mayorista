@@ -48,7 +48,7 @@
          <div class="form-group">
            <label>Proveedor</label>
            <?php
-            $query_proveedor = mysqli_query($conexion, "SELECT codproveedor, proveedor FROM proveedor ORDER BY proveedor ASC");
+            $query_proveedor = mysqli_query($conexion, "SELECT codproveedor, proveedor FROM proveedor where estado='A' ORDER BY proveedor ASC");
             $resultado_proveedor = mysqli_num_rows($query_proveedor);
             mysqli_close($conexion);
             ?>

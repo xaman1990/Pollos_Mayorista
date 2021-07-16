@@ -11,12 +11,12 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 	$fecha_a = $_REQUEST['fecha_a'];
 	if ($fecha_de > $fecha_a) {
 	} else if ($fecha_de == $fecha_a) {
-		$where = " r.fechadecreacion LIKE '%$fecha_de%'";
+		$where = " r.fechadecreacion LIKE '%$fecha_de%' and r.estado='A'";
 	} else {
 		$f_de = date("Y-m-d", strtotime($fecha_de . "0 days"));
 		$f_a =  date("Y-m-d", strtotime($fecha_a . "+ 1 days"));
 
-		$where = " r.fechadecreacion BETWEEN '$f_de' AND '$f_a'";
+		$where = " r.fechadecreacion BETWEEN '$f_de' AND '$f_a' and r.estado='A'";
 		$buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a";
 	}
 } else if (empty($_REQUEST['fecha_de']) || empty($_REQUEST['fecha_a'])) {
@@ -71,7 +71,7 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 						<?php
 						include "../conexion.php";
 
-						$query = mysqli_query($conexion, " SELECT  r.codproveedor ,  p.tipoproveedor, r.proveedor , r.preciojaba, r.fechadecreacion , r.Estado FROM proveedor r INNER JOIN tipoproveedor p ON r.tipoproveedor=p.idtipoproveedor WHERE + $where"  );
+						$query = mysqli_query($conexion, " SELECT  r.codproveedor ,  p.tipoproveedor, r.proveedor , r.preciojaba, r.fechadecreacion , r.Estado FROM proveedor r Left JOIN tipoproveedor p ON r.tipoproveedor=p.idtipoproveedor WHERE + $where"  );
 						$result = mysqli_num_rows($query);
 						if ($result > 0) {
 							while ($data = mysqli_fetch_assoc($query)) { ?>
