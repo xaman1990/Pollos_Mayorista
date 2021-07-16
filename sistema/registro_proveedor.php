@@ -86,11 +86,11 @@ if (!empty($_POST)) {
                                 <?php echo isset($alert) ? $alert : ''; ?>
                                 <div class="form-group">
                                     <label for="nombre">Nombre de Proveedor</label>
-                                    <input type="text" placeholder="Ingrese nombre de Proveedor" name="proveedor" id="nombre" class="form-control">
+                                    <input type="text" placeholder="Ingrese nombre de Proveedor" name="proveedor" id="nombre" class="form-control" required>
                                 </div>
                                 <div class="form-group ">
                                     <label>Tipo de proveedor</label>
-                                    <select name="tipoproveedor" id="tipoproveedor" class="form-control">
+                                    <select name="tipoproveedor" id="tipoproveedor" class="form-control" required>
                                         <?php
                                         $query_tipoproveedor = mysqli_query($conexion, "select * from tipoproveedor");
                                         mysqli_close($conexion);
@@ -109,7 +109,7 @@ if (!empty($_POST)) {
                                 </div>
                                 <div class="form-group">
                                     <label for="preciojaba">Peso de Jaba</label>
-                                    <input type="number" placeholder="Ingrese peso de jaba" name="preciojaba" id="preciojaba" class="form-control" data-field="Amount" min="0.01" step="0.01">
+                                    <input type="number" placeholder="Ingrese peso de jaba" name="preciojaba" id="preciojaba" class="form-control" data-field="Amount" min="0.01" step="0.01" required>
                                 </div>
 
                                 <div class="modal-footer col-lg-12" >
