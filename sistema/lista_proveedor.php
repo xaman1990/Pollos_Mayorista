@@ -34,15 +34,8 @@ $f_a = $fecha_a.'23:59:59';
 $where = "fecha BETWEEN '$f_de' AND '$f_a'";
 $buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a";
 
-
 }
 }
-
-
-
-
-
-
 
 ?>
 
@@ -54,7 +47,9 @@ $buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a";
 	<!-- Page Heading -->
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
 		<h1 class="h3 mb-0 text-gray-800">Proveedores</h1>
-		<a href="registro_proveedor.php" class="btn btn-primary">Nuevo</a>
+		<button class="btn btn-info" data-toggle="modal" data-target="#modalAgregarProveedor" style="float:right">
+                    Nuevo Proveedor
+              </button>
 		
 	</div>
     <div>
@@ -78,7 +73,7 @@ $buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a";
 							<th>ID</th>
 							<th>Tipo de proveedor</th>
 							<th>Nombre de proveedor</th>
-							<th>presojaba</th>
+							<th>preciojaba</th>
 							<th>Fecha creacion</th>
 							<th>Estado</th>
 							<?php if ($_SESSION['rol'] == 1) { ?>
@@ -129,3 +124,4 @@ $buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a";
 
 
 <?php include_once "includes/footer.php"; ?>
+<?php include_once "registro_proveedor.php"; ?>

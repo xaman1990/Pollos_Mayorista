@@ -2,7 +2,7 @@
 <footer class="sticky-footer bg-white">
   <div class="container my-auto">
     <div class="copyright text-center my-auto">
-      <span>Copyright &copy; Vida Informatico <?php echo date("Y"); ?></span>
+      <span>Copyright &copy; Distribuidora Santa Beatriz <?php echo date("Y"); ?></span>
     </div>
   </div>
 </footer>
@@ -50,7 +50,7 @@
 <script src="js/sb-admin-2.min.js"></script>
 <script src="js/jquery.dataTables.min.js"></script>
 <script src="js/dataTables.bootstrap4.min.js"></script>
-<script src="js/sweetalert2@10.js"></script>
+<script src="js/sweetalert2.all.js"></script>
 <script type="text/javascript" src="js/producto.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
