@@ -32,7 +32,7 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 	<!-- Page Heading -->
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
 		<h1 class="h3 mb-0 text-gray-800">Precio diario</h1>
-		<button class="btn btn-info" data-toggle="modal" data-target="#modalAgregarProveedor" style="float:right">
+		<button class="btn btn-info" data-toggle="modal" data-target="#modalAgregarPrecio" style="float:right">
 			Nuevo Precio diario
 		</button>
 
@@ -72,7 +72,7 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 						<?php
 						include "../conexion.php";
 
-						$query = mysqli_query($conexion, "SELECT r.idprecio,  p.codproveedor , p.proveedor , r.preciocompra , r.precioVenta , r.SubidaInterna , r.PrecioVentaF , r.FechaCreacion , r.Estado,r.fechavalidacion FROM proveedor p INNER JOIN precio r ON p.codproveedor= r.codproveedor WHERE + $where");
+						$query = mysqli_query($conexion, "SELECT r.idprecio,  p.codproveedor , p.proveedor , r.preciocompra , r.precioVenta , r.SubidaInterna , r.PrecioVentaF , r.FechaCreacion , r.Estado,r.fechavalidacion FROM  precio r  INNER JOIN  proveedor p ON p.codproveedor= r.codproveedor WHERE r.estado='A' and + $where");
 						$result = mysqli_num_rows($query);
 						if ($result > 0) {
 							while ($data = mysqli_fetch_assoc($query)) { ?>
@@ -114,4 +114,4 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 
 
 <?php include_once "includes/footer.php"; ?>
-<?php include_once "registro_proveedor.php"; ?>
+<?php include_once "registro_precios.php"; ?>
