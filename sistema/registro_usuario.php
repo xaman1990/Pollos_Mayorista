@@ -3,9 +3,18 @@ include "../conexion.php";
 if (!empty($_POST)) {
     $alert = "";
     if (empty($_POST['nombre']) || empty($_POST['correo']) || empty($_POST['usuario']) || empty($_POST['clave']) || empty($_POST['rol'])) {
-        $alert = '<div class="alert alert-primary" role="alert">
-                    Todo los campos son obligatorios
-                </div>';
+        echo '<script>
+        Swal.fire({
+              type: "error",
+              title: "¡Todos los campos son obligatorios!",
+              showConfirmButton: true,
+              confirmButtonText: "Cerrar"
+              }).then(function(result){
+                if (result.value) {
+                window.location = "lista_usuarios.php";
+                }
+            })
+      </script>';
     } else {
 
         $nombre = $_POST['nombre'];
@@ -24,13 +33,31 @@ if (!empty($_POST)) {
         } else {
             $query_insert = mysqli_query($conexion, "INSERT INTO usuario(nombre,correo,usuario,clave,rol) values ('$nombre', '$email', '$user', '$clave', '$rol')");
             if ($query_insert) {
-                $alert = '<div class="alert alert-primary" role="alert">
-                            Usuario registrado
-                        </div>';
-            } else {
-                $alert = '<div class="alert alert-danger" role="alert">
-                        Error al registrar
-                    </div>';
+                echo '<script>
+                Swal.fire({
+                  type: "success",
+                  title: "¡El precio fue creado!",
+                  showConfirmButton: true,
+                  confirmButtonText: "Cerrar"
+                  }).then(function(result){
+                    if (result.value) {
+                    window.location = "lista_usuarios.php";
+                    }
+                })
+          </script>';
+          } else {
+          echo '<script>
+                Swal.fire({
+                  type: "error",
+                  title: "¡Error al crear al precio!",
+                  showConfirmButton: true,
+                  confirmButtonText: "Cerrar"
+                  }).then(function(result){
+                    if (result.value) {
+                    window.location = "lista_usuarios.php";
+                    }
+                })
+          </script>';
             }
         }
     }
@@ -38,13 +65,17 @@ if (!empty($_POST)) {
 ?>
 
 <!-- Begin Page Content -->
-<div class="container-fluid">
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Panel de Administración</h1>
-        <a href="lista_usuarios.php" class="btn btn-primary">Regresar</a>
-    </div>
+<div id="modalagregarusuario" class="modal fade" role="dialog">
 
+  <div class="modal-dialog">
+
+    <div class="modal-content" class="align-items-center">
+    <!-- Page Heading -->
+    <div class="modal-body">
+  <div class="box-body">
+          <div class="card-header bg-primary text-white">
+            Registro Usuario
+          </div>
     <!-- Content Row -->
     <div class="row">
         <div class="col-lg-6 m-auto">

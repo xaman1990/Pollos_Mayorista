@@ -3,9 +3,18 @@ include "../conexion.php";
 if (!empty($_POST)) {
     $alert = "";
     if (empty($_POST['nombre']) ) {
-        $alert = '<div class="alert alert-danger" role="alert">
-                                    El nombre es obligatorio
-                                </div>';
+        echo '<script>
+        Swal.fire({
+              type: "error",
+              title: "¡Todos los campos son obligatorios!",
+              showConfirmButton: true,
+              confirmButtonText: "Cerrar"
+              }).then(function(result){
+                if (result.value) {
+                window.location = "lista_cliente.php";
+                }
+            })
+      </script>';
     } else {
         $puntos = $_POST['puntos'];
         $nombre = $_POST['nombre'];
@@ -26,13 +35,31 @@ if (!empty($_POST)) {
         } else {
             $query_insert = mysqli_query($conexion, "INSERT INTO cliente(puntos,nombre,telefono,direccion,preciodejaba, usuario_id) values ('$puntos', '$nombre', '$telefono', '$direccion','$preciodejaba', '$usuario_id')");
             if ($query_insert) {
-                $alert = '<div class="alert alert-primary" role="alert">
-                                    Cliente Registrado
-                                </div>';
-            } else {
-                $alert = '<div class="alert alert-danger" role="alert">
-                                    Error al Guardar
-                            </div>';
+                 echo '<script>
+                Swal.fire({
+                  type: "success",
+                  title: "¡El precio fue creado!",
+                  showConfirmButton: true,
+                  confirmButtonText: "Cerrar"
+                  }).then(function(result){
+                    if (result.value) {
+                    window.location = "lista_cliente.php";
+                    }
+                })
+          </script>';
+          } else {
+          echo '<script>
+                Swal.fire({
+                  type: "error",
+                  title: "¡Error al crear al precio!",
+                  showConfirmButton: true,
+                  confirmButtonText: "Cerrar"
+                  }).then(function(result){
+                    if (result.value) {
+                    window.location = "lista_cliente.php";
+                    }
+                })
+          </script>';
             }
         }
     }
@@ -41,13 +68,17 @@ if (!empty($_POST)) {
 ?>
 
 <!-- Begin Page Content -->
-<div class="container-fluid">
+<div id="modalagregarcliente" class="modal fade" role="dialog">
 
+  <div class="modal-dialog">
+
+    <div class="modal-content" class="align-items-center">
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Registro Cliente</h1>
-        <a href="lista_cliente.php" class="btn btn-primary">Regresar</a>
-    </div>
+    <div class="modal-body">
+  <div class="box-body">
+          <div class="card-header bg-primary text-white">
+            Registro Cliente
+          </div>
 
     <!-- Content Row -->
     <div class="row">

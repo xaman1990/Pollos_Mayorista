@@ -72,7 +72,7 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 						<?php
 						include "../conexion.php";
 
-						$query = mysqli_query($conexion, "SELECT r.idprecio,  p.codproveedor , p.proveedor , r.preciocompra , r.precioVenta , r.SubidaInterna , r.PrecioVentaF , r.FechaCreacion , r.Estado,r.fechavalidacion FROM  precio r  INNER JOIN  proveedor p ON p.codproveedor= r.codproveedor WHERE r.estado='A' and + $where");
+						$query = mysqli_query($conexion, "SELECT r.idprecio,  p.codproveedor , p.proveedor , r.preciocompra , r.precioVenta , r.SubidaInterna , r.PrecioVentaF , r.FechaCreacion , r.Estado,r.fechavalidacion FROM  precio r  INNER JOIN  proveedor p ON p.codproveedor= r.codproveedor WHERE r.Estado='A' and + $where");
 						$result = mysqli_num_rows($query);
 						if ($result > 0) {
 							while ($data = mysqli_fetch_assoc($query)) { ?>

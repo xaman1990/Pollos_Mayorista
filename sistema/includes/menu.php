@@ -42,13 +42,11 @@
 	<li class="nav-item">
 		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePedido" aria-expanded="true" aria-controls="collapseUtilities">
 			<i class="fas fa-fw fa-wrench"></i>
-			<span>Registro de Pedido</span>
+			<span>Registro Pedido</span>
 		</a>
 		<div id="collapsePedido" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
-			
-				<a class="collapse-item" href="registro_pedido.php">Nuevo Pedido</a>
-				<a class="collapse-item" href="lista_pedido.php">Pedidos</a>
+							<a class="collapse-item" href="lista_pedido.php">Lista Pedido</a>
 			</div>
 		</div>
 	</li>

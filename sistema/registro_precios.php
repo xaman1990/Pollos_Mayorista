@@ -71,7 +71,7 @@ if (!empty($_POST)) {
 
         <div class="box-body">
           <div class="card-header bg-primary text-white">
-            Modificar precio
+            Agregar Precio diario
           </div>
           <div class="card-body">
             <form action="" method="post">

@@ -3,9 +3,18 @@ include "../conexion.php";
 if (!empty($_POST)) {
   $alert = "";
   if (empty($_POST['cliente']) || empty($_POST['proveedor']) || empty($_POST['preciodiario']) || empty($_POST['cjabamacho']) || empty($_POST['cjabamixto']) || empty($_POST['cjabahembra'])) {
-    $alert = '<div class="alert alert-danger" role="alert">
-                Todo los campos son obligatorios
-              </div>';
+    echo '<script>
+    Swal.fire({
+          type: "error",
+          title: "¡Todos los campos son obligatorios!",
+          showConfirmButton: true,
+          confirmButtonText: "Cerrar"
+          }).then(function(result){
+            if (result.value) {
+            window.location = "lista_pedido.php";
+            }
+        })
+  </script>';
   } else {
 
     $idcliente = $_POST['cliente'];
@@ -17,32 +26,52 @@ if (!empty($_POST)) {
     $cjabahembra = $_POST['cjabahembra'];
 
     $query_insert = mysqli_query($conexion, "INSERT INTO pedidos(idcliente,codproveedor,fechapedido,preciodiario,cjabamacho,cjabamixto,cjabahembra) values ('$idcliente', '$codproveedor','$fechapedido', '$preciodiario', '$cjabamacho','$cjabamixto','$cjabahembra')");
-    if ($query_insert) {
-      $alert = '<div class="alert alert-primary" role="alert">
-                Precio Registrado
-              </div>';
-    } else {
-      $alert = '<div class="alert alert-danger" role="alert">
-                Error al registrar los Precios
-              </div>';
-    }
-  }
+    if ($query_insert) { 
+      echo '<script>
+      Swal.fire({
+        type: "success",
+        title: "¡El precio fue creado!",
+        showConfirmButton: true,
+        confirmButtonText: "Cerrar"
+        }).then(function(result){
+          if (result.value) {
+          window.location = "lista_pedido.php";
+          }
+      })
+</script>';
+} else {
+echo '<script>
+      Swal.fire({
+        type: "error",
+        title: "¡Error al crear al precio!",
+        showConfirmButton: true,
+        confirmButtonText: "Cerrar"
+        }).then(function(result){
+          if (result.value) {
+          window.location = "lista_pedido.php";
+          }
+      })
+</script>';
+ }
+}
 }
 
 ?>
-
 <!-- Begin Page Content -->
-<div class="container-fluid">
+<div id="modalAgregarpedido" class="modal fade" role="dialog">
+
+  <div class="modal-dialog">
+
+    <div class="modal-content" class="align-items-center">
+
 
   <!-- Page Heading -->
-  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Registro de pedido</h1>
-    <a href="lista_pedido.php" class="btn btn-primary">Regresar</a>
-  </div>
-
-  <!-- Content Row -->
-  <div class="row">
-    <div class="col-lg-6 m-auto">
+  <div class="modal-body">
+  <div class="box-body">
+          <div class="card-header bg-primary text-white">
+            Registro pedido
+          </div>
+          <div class="card-body">
       <form action="" method="post" autocomplete="off">
         <?php echo isset($alert) ? $alert : ''; ?>
         <div class="form-group">
@@ -96,24 +125,24 @@ if (!empty($_POST)) {
          
           </div>
         <div class="form-group">
-          <label for="preciocompra">Precio Diario</label>
+          <label for="Precio Diario">Precio Diario</label>
 
           <input type="number" placeholder="Ingrese el precio diario" name="preciodiario" id="precioDiario" class="form-control" data-field="Amount" min="0.1" step="0.1" required>
 
         </div>
         <div class="form-group">
-          <label for="precioVenta">Jabas de Macho</label>
+          <label for="Jabas de Macho">Jabas de Macho</label>
           <input type="number" placeholder="Ingrese Las jabas de Macho" class="form-control" name="cjabamacho" id="cjabamacho">
         </div>
 
 
         <div class="form-group">
-          <label for="SubidaInterna">Jabas de Mixto</label>
+          <label for="Jabas de Mixto">Jabas de Mixto</label>
           <input type="number" placeholder="Ingrese Las bajas de Mixto" class="form-control" name="cjabamixto" id="cjabamixto">
         </div>
 
         <div class="form-group">
-          <label for="PrecioVentaF">Jabas de Hembra </label>
+          <label for="Jabas de Hembra">Jabas de Hembra </label>
           <input type="number" placeholder="Ingrese las Jabas de hembra" class="form-control" name="cjabahembra" id="cjabahembra">
         </div>
 

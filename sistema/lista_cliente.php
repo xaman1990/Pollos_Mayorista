@@ -6,8 +6,10 @@
 	<!-- Page Heading -->
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
 		<h1 class="h3 mb-0 text-gray-800">Clientes</h1>
-		<a href="registro_cliente.php" class="btn btn-primary">Nuevo Cliente</a>
-	</div>
+		<button class="btn btn-info" data-toggle="modal" data-target="#modalagregarcliente" style="float:right">
+			Nuevo Cliente 
+		</button>
+		</div>
 
 	<div class="row">
 		<div class="col-lg-12">
@@ -74,3 +76,4 @@
 
 
 <?php include_once "includes/footer.php"; ?>
+<?php include_once "registro_cliente.php"; ?>
