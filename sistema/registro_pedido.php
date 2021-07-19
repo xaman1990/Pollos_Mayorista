@@ -24,8 +24,9 @@ if (!empty($_POST)) {
     $cjabamacho = $_POST['cjabamacho'];
     $cjabamixto = $_POST['cjabamixto'];
     $cjabahembra = $_POST['cjabahembra'];
+    $totaldejabas = $cjabamacho+$cjabamixto+$cjabahembra;
 
-    $query_insert = mysqli_query($conexion, "INSERT INTO pedidos(idcliente,codproveedor,fechapedido,preciodiario,cjabamacho,cjabamixto,cjabahembra) values ('$idcliente', '$codproveedor','$fechapedido', '$preciodiario', '$cjabamacho','$cjabamixto','$cjabahembra')");
+    $query_insert = mysqli_query($conexion, "INSERT INTO pedidos(idcliente,codproveedor,fechapedido,preciodiario,cjabamacho,cjabamixto,cjabahembra,totaldejabas) values ('$idcliente', '$codproveedor','$fechapedido', '$preciodiario', '$cjabamacho','$cjabamixto','$cjabahembra','$totaldejabas')");
     if ($query_insert) { 
       echo '<script>
       Swal.fire({

@@ -40,6 +40,11 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 			<label> A </label>
 			<input type="date" name="fecha_a" id="fecha_a" value="<?php echo $fecha_a; ?>" required>
 			<button type="submit" class="btn_view"><i class="fas fa-search"></i></button>
+			<a href="lista_reporte.php" class="btn btn-primary">Reporte de pedidos</a>
+			<input>
+			<input>
+			
+	
 		</form>
 	</div>
 	<div class="row">
@@ -50,6 +55,8 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 						<tr>
 						    <th>id</th>
 						    <th>NombreCliente</th> 
+							<th>
+							</th> 
 							<th>NombreProveedor</th>
 							<th>Precio Diario</th>
 							<th>C.JabaMacho</th>
@@ -66,7 +73,7 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 						<?php
 						include "../conexion.php";
 
-						$query = mysqli_query($conexion, "SELECT idpedido,c.idcliente ,p.codproveedor, p.proveedor, c.nombre ,r.codproveedor, r.PrecioDiario , r.CJabaMacho , r.CJabaMixto , r.CJabahembra , r.Fechapedido , r.Estado  FROM 
+						$query = mysqli_query($conexion, "SELECT idpedido,c.idcliente ,p.codproveedor, p.proveedor, c.nombre ,r.codproveedor, r.PrecioDiario , r.CJabaMacho , r.CJabaMixto , r.CJabahembra , r.Fechapedido ,r.totaldejabas, r.Estado   FROM 
 						cliente c  INNER JOIN pedidos r ON c.idcliente= r.idcliente INNER JOIN proveedor p ON p.codproveedor=r.codproveedor AND $where
 						");
 						$result = mysqli_num_rows($query);
@@ -103,6 +110,8 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 
 
 </div>
+
+
 <!-- /.container-fluid -->
 
 </div>
