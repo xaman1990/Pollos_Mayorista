@@ -17,7 +17,7 @@
 				<table class="table table-striped table-bordered" id="table">
 					<thead class="thead-dark">
 						<tr>
-						    <th>id</th>
+
 						    <th>NombreCliente</th> 
 							<th>NombreProveedor</th>
 							<th>Precio Diario</th>
@@ -35,18 +35,18 @@
 						<?php
 						include "../conexion.php";
 
-						$query = mysqli_query($conexion, "SELECT idregistro,c.idcliente ,p.codproveedor, p.proveedor, c.nombre ,r.codproveedor, r.preciodiario , r.totaljaba ,r.pesototal,r.montoacobrar, r.fechapedido , r.estado  FROM 
-						cliente c  INNER JOIN registrocuentas r ON c.idcliente= r.idcliente INNER JOIN proveedor p ON p.codproveedor=r.codproveedor
+						$query = mysqli_query($conexion, "SELECT c.nombre , p.proveedor,rc.fechapedido,rc.estado, SUM(r.totaldejabas) AS totaldejabas , r.preciodiario, ifnull(rc.pesototal,'') pesototal,ifnull(rc.montoacobrar,'') montoacobrar FROM pedidos r LEFT JOIN registrocuentas rc ON  r.idpedido=rc.idpedido
+						LEFT JOIN  cliente c ON c.idcliente=r.idcliente
+						LEFT JOIN proveedor p ON p.codproveedor=r.codproveedor GROUP BY p.proveedor
 						");
 						$result = mysqli_num_rows($query);
 						if ($result > 0) {
 							while ($data = mysqli_fetch_assoc($query)) { ?>
 								<tr>
-								<td><?php echo $data['idregistro']; ?></td>
 									<td><?php echo $data['nombre']; ?></td>
 									<td><?php echo $data['proveedor']; ?></td>
 									<td><?php echo $data['preciodiario']; ?></td>
-									<td><?php echo $data['totaljaba']; ?></td>
+									<td><?php echo $data['totaldejabas']; ?></td>
 									<td><?php echo $data['pesototal']; ?></td>
 									<td><?php echo $data['montoacobrar']; ?></td>
 									<td><?php echo $data['fechapedido']; ?></td>

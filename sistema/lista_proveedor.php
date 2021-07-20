@@ -49,7 +49,7 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 							<th>ID</th>
 							<th>Tipo de proveedor</th>
 							<th>Nombre de proveedor</th>
-							<th>preciojaba</th>
+							<th>Peso de jaba	</th>
 							<th>Fecha creacion</th>
 							<th>Estado</th>
 							<?php if ($_SESSION['rol'] == 1) { ?>

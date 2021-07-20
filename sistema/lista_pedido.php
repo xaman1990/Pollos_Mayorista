@@ -9,21 +9,43 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 	$fecha_a = $_REQUEST['fecha_a'];
 	if ($fecha_de > $fecha_a) {
 	} else if ($fecha_de == $fecha_a) {
-		$where = " r.Fechapedido LIKE '%$fecha_de%' and r.Estado='A'";
+		$where = " ped.Fechapedido=DATE_FORMAT('$fecha_de', '%m/%d/%Y') and ped.Estado='A'";
 	} else {
 		$f_de = date("Y-m-d", strtotime($fecha_de . "0 days"));
 		$f_a =  date("Y-m-d", strtotime($fecha_a . "+ 1 days"));
 
-		$where = " r.Fechapedido BETWEEN '$f_de' AND '$f_a' and r.Estado='A'";
+		$where = " ped.Fechapedido BETWEEN DATE_FORMAT('$f_de', '%m/%d/%Y') AND DATE_FORMAT('$f_a', '%m/%d/%Y') and ped.Estado='A'";
 		$buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a";
 	}
 } else if (empty($_REQUEST['fecha_de']) || empty($_REQUEST['fecha_a'])) {
-	$where = "r.Estado='A'";
+	$where = "ped.Estado='A'";
 }
 
 ?>
+
+<?php
+   $busqueda= '';
+   $search_proveedor='';
+   if(empty($_REQUEST['busqueda']) &&  empty($_REQUEST['proveedor']))
+   {
+	   header("location: lista_pedido.php");
+   }
+   if(!empty($_REQUEST['busqueda'])){
+	   $busqueda = strtolower($_REQUEST['busqueda']);
+	   $where1 ="(pro.codproducto LIKE '%$busqueda%') AND pro.Estado=A";
+   }
+   if(!empty($_REQUEST['proveedor'])){
+	$search_proveedor = $_REQUEST['proveedor'];
+	$where1 = "pro.proveedor LIKE $search_proveedor AND pro.Estado =A";
+}
+
+?>
+
 <!-- Begin Page Content -->
-<div class="container-fluid">
+ <div class="container-fluid">
+
+
+
 
 	<!-- Page Heading -->
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -39,12 +61,59 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 			<input type="date" name="fecha_de" id="fecha_de" value="<?php echo $fecha_de; ?>" required>
 			<label> A </label>
 			<input type="date" name="fecha_a" id="fecha_a" value="<?php echo $fecha_a; ?>" required>
-			<button type="submit" class="btn_view"><i class="fas fa-search"></i></button>
-			<a href="lista_reporte.php" class="btn btn-primary">Reporte de pedidos</a>
-			<input>
-			<input>
+		
 			
-	
+                <label for="nombre">Proveedor</label>
+                <?php
+				include "../conexion.php";
+				$query_proveedor = mysqli_query($conexion, "SELECT * FROM proveedor where estado='A' ORDER BY proveedor ASC");
+                $resultado_proveedor = mysqli_num_rows($query_proveedor);
+                ?>
+                <select id="search_proveedor" name="search_proveedor">
+                  
+                  <?php
+                  if ($resultado_proveedor > 0) 
+				  {
+                    while ($proveedor = mysqli_fetch_array($query_proveedor)) {
+                      // code...
+                      if($pro == $proveedor["codproveedor"])
+                                       {
+                  ?>
+                      <option value="<?php echo $proveedor["codproveedor"]; ?>"selected><?php echo $proveedor["proveedor"]; ?></option>
+                  <?php
+                    }else{
+					?>
+					<option value="<?php echo $proveedor["codproveedor"]; ?>"><?php echo $proveedor["proveedor"]; ?></option>
+					<?php	
+					}
+                  }
+				}
+                  ?>
+                </select>
+
+				<label for="nombre">Cliente</label>
+          <?php
+		  				include "../conexion.php";
+          $query_cliente = mysqli_query($conexion, "SELECT idcliente, nombre FROM cliente where estado='A' ORDER BY nombre ASC");
+          $resultado_cliente = mysqli_num_rows($query_cliente);
+          mysqli_close($conexion);
+          ?>
+          <select id="cliente" name="cliente">
+            <?php
+            if ($resultado_cliente > 0) {
+              while ($cliente = mysqli_fetch_array($query_cliente)) {
+                // code...
+            ?>
+                <option value="<?php echo $cliente['idcliente']; ?>"><?php echo $cliente['nombre']; ?></option>
+            <?php
+              }
+            }
+            ?>
+          </select>
+
+
+				<button type="submit" class="btn btn-info"><i class="fas fa-search"></i>Listar</button>
+			<a href="lista_reporte.php" class="btn btn-primary">Reporte de pedidos</a>
 		</form>
 	</div>
 	<div class="row">
@@ -55,8 +124,6 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 						<tr>
 						    <th>id</th>
 						    <th>NombreCliente</th> 
-							<th>
-							</th> 
 							<th>NombreProveedor</th>
 							<th>Precio Diario</th>
 							<th>C.JabaMacho</th>
@@ -72,10 +139,16 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 					<tbody>
 						<?php
 						include "../conexion.php";
-
-						$query = mysqli_query($conexion, "SELECT idpedido,c.idcliente ,p.codproveedor, p.proveedor, c.nombre ,r.codproveedor, r.PrecioDiario , r.CJabaMacho , r.CJabaMixto , r.CJabahembra , r.Fechapedido ,r.totaldejabas, r.Estado   FROM 
-						cliente c  INNER JOIN pedidos r ON c.idcliente= r.idcliente INNER JOIN proveedor p ON p.codproveedor=r.codproveedor AND $where
-						");
+						$pro = 0 ;
+						 if(!empty($_REQUEST['proveedor'])){
+							 $pro = $_REQUEST['proveedor'];
+						 }
+						
+						$query = mysqli_query($conexion, "SELECT ped.idpedido,cli.nombre,pro.proveedor,ped.PrecioDiario,ped.CJabaMacho,ped.CJabaMixto,ped.CJabaHembra,ped.Fechapedido,ped.Estado
+						FROM pedidos ped
+						LEFT JOIN cliente cli ON ped.idcliente= cli.idcliente
+						LEFT JOIN proveedor pro ON ped.codproveedor=pro.codproveedor
+						WHERE ped.Estado='A' and +	 $where");
 						$result = mysqli_num_rows($query);
 						if ($result > 0) {
 							while ($data = mysqli_fetch_assoc($query)) { ?>
@@ -86,7 +159,7 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 									<td><?php echo $data['PrecioDiario']; ?></td>
 									<td><?php echo $data['CJabaMacho']; ?></td>
 									<td><?php echo $data['CJabaMixto']; ?></td>
-									<td><?php echo $data['CJabahembra']; ?></td>
+									<td><?php echo $data['CJabaHembra']; ?></td>
 									<td><?php echo $data['Fechapedido']; ?></td>
 									<td><?php echo $data['Estado'];  ?></td>
 									<?php if ($_SESSION['rol'] == 1) { ?>

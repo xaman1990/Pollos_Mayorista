@@ -20,7 +20,6 @@
 				<table class="table table-striped table-bordered" id="table">
 					<thead class="thead-dark">
 						<tr>
-						    <th>id</th>
 							<th>NombreProveedor</th>
 							<th>C.JabaMacho</th>
 							<th>C.JabaMixto</th>
@@ -34,14 +33,13 @@
 						<?php
 						include "../conexion.php";
 
-						$query = mysqli_query($conexion, "SELECT idpedido,p.codproveedor, p.proveedor,r.codproveedor, r.CJabaMacho , r.CJabaMixto , r.CJabahembra,r.totaldejabas FROM 
-						 pedidos r INNER JOIN proveedor p ON p.codproveedor=r.codproveedor
-						");
+						$query = mysqli_query($conexion, "SELECT  p.proveedor,SUM(r.CJabaMacho) AS CJabaMacho,SUM(r.CJabaMixto) AS CJabaMixto, SUM(r.CJabahembra) as CJabahembra, SUM(r.totaldejabas) AS totaldejabas FROM 
+						pedidos r INNER JOIN proveedor p ON p.codproveedor=r.codproveedor
+						GROUP BY p.proveedor");
 						$result = mysqli_num_rows($query);
 						if ($result > 0) {
 							while ($data = mysqli_fetch_assoc($query)) { ?>
 								<tr>
-								<td><?php echo $data['idpedido']; ?></td>
 									<td><?php echo $data['proveedor']; ?></td>
 									<td><?php echo $data['CJabaMacho']; ?></td>
 									<td><?php echo $data['CJabaMixto']; ?></td>

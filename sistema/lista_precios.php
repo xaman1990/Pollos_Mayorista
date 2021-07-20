@@ -11,12 +11,12 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 	$fecha_a = $_REQUEST['fecha_a'];
 	if ($fecha_de > $fecha_a) {
 	} else if ($fecha_de == $fecha_a) {
-		$where = " r.FechaCreacion LIKE '%$fecha_de%' and r.Estado='A'";
+		$where = " r.fechavalidacion=DATE_FORMAT('$fecha_de', '%m/%d/%Y') and r.Estado='A'";
 	} else {
 		$f_de = date("Y-m-d", strtotime($fecha_de . "0 days"));
 		$f_a =  date("Y-m-d", strtotime($fecha_a . "+ 1 days"));
 
-		$where = " r.FechaCreacion BETWEEN '$f_de' AND '$f_a' and r.Estado='A'";
+		$where = " r.fechavalidacion BETWEEN DATE_FORMAT('$f_de', '%m/%d/%Y') AND DATE_FORMAT('$f_a', '%m/%d/%Y') and r.Estado='A'";
 		$buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a";
 	}
 } else if (empty($_REQUEST['fecha_de']) || empty($_REQUEST['fecha_a'])) {
