@@ -3,7 +3,7 @@ include_once "includes/header.php";
 include "../conexion.php";
 if (!empty($_POST)) {
     $alert = "";
-    if (empty($_POST['proveedor']) || empty($_POST['tipoproveedor']) || empty($_POST['preciojaba'])) {
+    if (empty($_POST['proveedor']) || empty($_POST['tipoproveedor']) || empty($_POST['pesojaba'])) {
         echo '<script>
         Swal.fire({
               type: "error",
@@ -19,7 +19,7 @@ if (!empty($_POST)) {
     } else {
         $proveedor = $_POST['proveedor'];
         $tipoproveedor = $_POST['tipoproveedor'];
-        $preciojaba = $_POST['preciojaba'];
+        $pesojaba = $_POST['pesojaba'];
         $usuario_id = $_SESSION['idUser'];
         $query = mysqli_query($conexion, "SELECT * FROM proveedor where proveedor = '$proveedor'");
         $result = mysqli_fetch_array($query);
@@ -32,7 +32,7 @@ if (!empty($_POST)) {
         //}else{
 
 
-        $query_insert = mysqli_query($conexion, "INSERT INTO proveedor(proveedor,tipoproveedor,preciojaba,usuario_id) values ('$proveedor', '$tipoproveedor','$preciojaba','$usuario_id')");
+        $query_insert = mysqli_query($conexion, "INSERT INTO proveedor(proveedor,tipoproveedor,pesojaba,usuario_id) values ('$proveedor', '$tipoproveedor','$pesojaba','$usuario_id')");
         if ($query_insert) {
             echo '<script>
             Swal.fire({
@@ -108,8 +108,8 @@ if (!empty($_POST)) {
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="preciojaba">Peso de Jaba</label>
-                                    <input type="number" placeholder="Ingrese peso de jaba" name="preciojaba" id="preciojaba" class="form-control" data-field="Amount" min="0.01" step="0.01" required>
+                                    <label for="pesojaba">Peso de Jaba</label>
+                                    <input type="number" placeholder="Ingrese peso de jaba" name="pesojaba" id="pesojaba" class="form-control" data-field="Amount" min="0.01" step="0.01" required>
                                 </div>
 
                                 <div class="modal-footer col-lg-12" >

@@ -3,15 +3,15 @@ include "includes/header.php";
 include "../conexion.php";
 if (!empty($_POST)) {
   $alert = "";
-  if (empty($_POST['proveedor']) || empty($_POST['tipoproveedor'])|| empty($_POST['preciojaba']))  {
+  if (empty($_POST['proveedor']) || empty($_POST['tipoproveedor'])|| empty($_POST['pesojaba']))  {
     $alert = '<p class"msg_error">Todo los campos son requeridos</p>';
   } else {
     $idproveedor = $_GET['id'];
     $proveedor = $_POST['proveedor'];
     $tipoproveedor = $_POST['tipoproveedor'];
-    $preciojaba = $_POST['preciojaba'];
+    $pesojaba = $_POST['pesojaba'];
 
-    $sql_update = mysqli_query($conexion, "UPDATE proveedor SET proveedor = '$proveedor', tipoproveedor = '$tipoproveedor', preciojaba='$preciojaba' WHERE codproveedor = $idproveedor");
+    $sql_update = mysqli_query($conexion, "UPDATE proveedor SET proveedor = '$proveedor', tipoproveedor = '$tipoproveedor', pesojaba='$pesojaba' WHERE codproveedor = $idproveedor");
 
     if ($sql_update) {
       $alert = '<p class"msg_save">Proveedor Actualizado correctamente</p>';
@@ -37,7 +37,7 @@ if ($result_sql == 0) {
     $idproveedor = $data['codproveedor'];
     $proveedor = $data['proveedor'];
     $idtipoproveedor = $data['tipoproveedor'];
-    $preciojaba = $data['preciojaba'];
+    $pesojaba = $data['pesojaba'];
   }
 }
 ?>
@@ -77,8 +77,8 @@ if ($result_sql == 0) {
                         ?>
                     </select></div>
         <div class="form-group">
-          <label for="preciojaba">Peso de la Jaba</label>
-          <input type="text" placeholder="Ingrese Peso de jaba" name="preciojaba" class="form-control" id="preciojaba" value="<?php echo $preciojaba; ?>">
+          <label for="pesojaba">Peso de la Jaba</label>
+          <input type="number" placeholder="Ingrese Peso de jaba" name="pesojaba" class="form-control" id="pesojaba" value="<?php echo $pesojaba; ?>">
         </div>
         <input type="submit" value="Editar Proveedor" class="btn btn-primary">
       </form>
