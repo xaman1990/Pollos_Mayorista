@@ -1,42 +1,24 @@
 <?php include_once "includes/header.php"; 
 
 $where = "r.Estado='A'";
-$fecha_de = "";
-$fecha_a = "";
 
-if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
+
+if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])||!empty($_REQUEST['cb_proveedor'])) {
 	$fecha_de = $_REQUEST['fecha_de'];
 	$fecha_a = $_REQUEST['fecha_a'];
+	$cb_Proveedor=$_REQUEST['cb_proveedor'];
 	if ($fecha_de > $fecha_a) {
 	} else if ($fecha_de == $fecha_a) {
-		$where = " ped.Fechapedido=DATE_FORMAT('$fecha_de', '%m/%d/%Y') and ped.Estado='A'";
+		$where = " ped.Fechapedido=DATE_FORMAT('$fecha_de', '%m/%d/%Y') and ped.Estado='A' and ped.codproveedor='$cb_Proveedor' ";
 	} else {
 		$f_de = date("Y-m-d", strtotime($fecha_de . "0 days"));
 		$f_a =  date("Y-m-d", strtotime($fecha_a . "+ 1 days"));
 
-		$where = " ped.Fechapedido BETWEEN DATE_FORMAT('$f_de', '%m/%d/%Y') AND DATE_FORMAT('$f_a', '%m/%d/%Y') and ped.Estado='A'";
-		$buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a";
+		$where = " ped.Fechapedido BETWEEN DATE_FORMAT('$f_de', '%m/%d/%Y') AND DATE_FORMAT('$f_a', '%m/%d/%Y') and ped.Estado='A' and (ped.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='')";
+		$buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a  ";
 	}
-} else if (empty($_REQUEST['fecha_de']) || empty($_REQUEST['fecha_a'])) {
-	$where = "ped.Estado='A'";
-}
-
-?>
-
-<?php
-   $busqueda= '';
-   $search_proveedor='';
-   if(empty($_REQUEST['busqueda']) &&  empty($_REQUEST['proveedor']))
-   {
-	   header("location: lista_pedido.php");
-   }
-   if(!empty($_REQUEST['busqueda'])){
-	   $busqueda = strtolower($_REQUEST['busqueda']);
-	   $where1 ="(pro.codproducto LIKE '%$busqueda%') AND pro.Estado=A";
-   }
-   if(!empty($_REQUEST['proveedor'])){
-	$search_proveedor = $_REQUEST['proveedor'];
-	$where1 = "pro.proveedor LIKE $search_proveedor AND pro.Estado =A";
+} else if (empty($_REQUEST['fecha_de']) || empty($_REQUEST['fecha_a']) || empty($_REQUEST['cb_proveedor'])) {
+	$where = "ped.Estado='A'  ";
 }
 
 ?>
@@ -69,17 +51,18 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 				$query_proveedor = mysqli_query($conexion, "SELECT * FROM proveedor where estado='A' ORDER BY proveedor ASC");
                 $resultado_proveedor = mysqli_num_rows($query_proveedor);
                 ?>
-                <select id="search_proveedor" name="search_proveedor">
-                  
+				<form action="lista_pedido.php" method="get" class="form_search_date">
+                <select id="cb_proveedor" name="cb_proveedor">
+                  <option value="" selected>Ninguno</option>
                   <?php
                   if ($resultado_proveedor > 0) 
 				  {
                     while ($proveedor = mysqli_fetch_array($query_proveedor)) {
                       // code...
-                      if($pro == $proveedor["codproveedor"])
+                      if ($resultado_tipoproveedor > 0) 
                                        {
                   ?>
-                      <option value="<?php echo $proveedor["codproveedor"]; ?>"selected><?php echo $proveedor["proveedor"]; ?></option>
+                      <option value="<?php echo $proveedor["codproveedor"]; ?>"><?php echo $proveedor["proveedor"]; ?></option>
                   <?php
                     }else{
 					?>
@@ -139,10 +122,7 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 					<tbody>
 						<?php
 						include "../conexion.php";
-						$pro = 0 ;
-						 if(!empty($_REQUEST['proveedor'])){
-							 $pro = $_REQUEST['proveedor'];
-						 }
+						
 						
 						$query = mysqli_query($conexion, "SELECT ped.idpedido,cli.nombre,pro.proveedor,ped.PrecioDiario,ped.CJabaMacho,ped.CJabaMixto,ped.CJabaHembra,ped.Fechapedido,ped.Estado
 						FROM pedidos ped

@@ -4,7 +4,7 @@ include "../conexion.php";
 if (!empty($_POST)) {
   $alert = "";
 
-  if (empty($_POST['cliente']) ||empty($_POST['proveedor']) || empty($_POST['preciodiario']) || empty($_POST['totaljaba'])|| empty($_POST['pesototal'])|| empty($_POST['montoacobrar'])) {
+  if (empty($_POST['cliente']) ||empty($_POST['proveedor']) || empty($_POST['preciodiario']) || empty($_POST['totaldejabas'])|| empty($_POST['pesototal'])|| empty($_POST['montoacobrar'])) {
     $alert = '<div class="alert alert-danger" role="alert">
               Todo los campos son obligatorios
             </div>';
@@ -13,11 +13,11 @@ if (!empty($_POST)) {
     $idcliente = $_POST['cliente'];
     $codproveedor = $_POST['proveedor'];
     $preciodiario = $_POST['preciodiario'];
-    $totaljaba = $_POST['totaljaba'];
+    $totaldejabas = $_POST['totaldejabas'];
     $pesototal = $_POST['pesototal'];
     $montoacobrar = $_POST['montoacobrar'];
     
-    $query_update = mysqli_query($conexion, "UPDATE registrocuentas SET idcliente=$idcliente ,codproveedor=$codproveedor,preciodiario=$preciodiario,totaljaba=$totaljaba, pesototal=$pesototal , montoacobrar=$montoacobrar WHERE idregistro=$idregistro");
+    $query_update = mysqli_query($conexion, "INSERT  registrocuentas(idregistro,idpedido,idcliente,codproveedor,preciodiario,totaldejabas,pesototal,montoacobrar)values('$idregistro', '$idpedido','$idcliente','$codproveedor,'$preciodiario','$totaldejabas','$pesototal','$montoacobrar')");
     if ($query_update) {
       $alert = '<div class="alert alert-primary" role="alert">
               Modificado
@@ -40,8 +40,12 @@ if (empty($_REQUEST['id'])) {
   if (!is_numeric($idregistro)) {
     header("Location: lista_registrocuenta.php");
   }
-  $query_registro = mysqli_query($conexion, "SELECT idregistro ,c.idcliente ,p.codproveedor, p.proveedor, c.nombre ,r.codproveedor, r.preciodiario , r.totaljaba , r.pesototal, r.montoacobrar, r.estado  FROM 
-  cliente c  INNER JOIN registrocuentas r ON c.idcliente= r.idcliente INNER JOIN proveedor p ON p.codproveedor=r.codproveedor WHERE idregistro = $idregistro");
+  $query_registro = mysqli_query($conexion, "SELECT   rc.idcliente,rc.codproveedor, c.nombre , p.proveedor,r.totaldejabas,r.totaldejabas*p.pesojaba AS TotalDestare , r.preciodiario, ifnull(rc.pesototal,'') pesototal,ifnull(rc.montoacobrar,'') montoacobrar , p.Estado, p.fechadecreacion 
+  FROM pedidos r 
+  LEFT JOIN registrocuentas rc ON  r.idpedido=rc.idpedido
+              LEFT JOIN  cliente c ON c.idcliente=r.idcliente
+              LEFT JOIN proveedor p ON p.codproveedor=r.codproveedor 
+    ");
   $result_registro  = mysqli_num_rows($query_registro );
 
   if ($result_registro > 0) {
@@ -109,7 +113,7 @@ if (empty($_REQUEST['id'])) {
          </div>
             <div class="form-group">
               <label for="preciodiario">Precio Diario</label>                                                                                 
-              <input type="Decimal" placeholder="Ingrese el precio diario" name="preciodiario" id="precioDiario" class="form-control" value="<?php echo $data_registro['preciodiario']; ?>">
+              <input type="number" placeholder="Ingrese el precio diario" name="preciodiario" id="preciodiario" class="form-control" value="<?php echo $data_registro['preciodiario']; ?>">
             </div>
             <div class="form-group">
               <label for="totaljaba">Total de jabas</label>
@@ -117,7 +121,7 @@ if (empty($_REQUEST['id'])) {
             </div>
             <div class="form-group">
               <label for="pesototal">Peso Total</label>
-              <input type="texto" placeholder="Ingrese el peso total" class="form-control" name="pesototal" id="pesototal" value="<?php echo $data_registro['pesototal']; ?>">
+              <input type="number" placeholder="Ingrese el peso total" class="form-control" name="pesototal" id="pesototal" value="<?php echo $data_registro['pesototal']; ?>">
             </div>
             <div class="form-group">
               <label for="montoacobrar">Monto a cobrar </label>

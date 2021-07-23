@@ -17,7 +17,6 @@
 				<table class="table table-striped table-bordered" id="table">
 					<thead class="thead-dark">
 						<tr>
-
 						    <th>NombreCliente</th> 
 							<th>NombreProveedor</th>
 							<th>Precio Diario</th>
@@ -35,9 +34,12 @@
 						<?php
 						include "../conexion.php";
 
-						$query = mysqli_query($conexion, "SELECT c.nombre , p.proveedor,rc.fechapedido,rc.estado, SUM(r.totaldejabas) AS totaldejabas , r.preciodiario, ifnull(rc.pesototal,'') pesototal,ifnull(rc.montoacobrar,'') montoacobrar FROM pedidos r LEFT JOIN registrocuentas rc ON  r.idpedido=rc.idpedido
-						LEFT JOIN  cliente c ON c.idcliente=r.idcliente
-						LEFT JOIN proveedor p ON p.codproveedor=r.codproveedor GROUP BY p.proveedor
+						$query = mysqli_query($conexion, "SELECT rc.idregistro, rc.idpedido, c.nombre , p.proveedor,r.totaldejabas,r.totaldejabas*p.pesojaba AS TotalDestare , r.preciodiario, ifnull(rc.pesototal,'') pesototal,ifnull(rc.montoacobrar,'') montoacobrar , p.Estado, p.fechadecreacion 
+						FROM pedidos r 
+						LEFT JOIN registrocuentas rc ON  r.idpedido=rc.idpedido
+												LEFT JOIN  cliente c ON c.idcliente=r.idcliente
+												LEFT JOIN proveedor p ON p.codproveedor=r.codproveedor 
+							
 						");
 						$result = mysqli_num_rows($query);
 						if ($result > 0) {
@@ -49,11 +51,11 @@
 									<td><?php echo $data['totaldejabas']; ?></td>
 									<td><?php echo $data['pesototal']; ?></td>
 									<td><?php echo $data['montoacobrar']; ?></td>
-									<td><?php echo $data['fechapedido']; ?></td>
-									<td><?php echo $data['estado'];  ?></td>
+									<td><?php echo $data['fechadecreacion']; ?></td>
+									<td><?php echo $data['Estado'];  ?></td>
 									<?php if ($_SESSION['rol'] == 1) { ?>
 									<td>
-										<a href="editar_registrocuenta.php?id=<?php echo $data['idregistro']; ?>" class="btn btn-success"><i class='fas fa-edit'></i> Editar</a>
+										<a href="editar_registrocuenta.php?id=<?php echo $data['nombre']; ?>" class="btn btn-success"><i class='fas fa-edit'></i> Editar</a>
 										<form action="eliminar_registrocuenta.php?id=<?php echo $data['idregistro']; ?>" method="post" class="confirmar d-inline">
 											<button class="btn btn-danger" type="submit"><i class='fas fa-trash-alt'></i> </button>
 										</form>

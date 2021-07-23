@@ -176,8 +176,7 @@ echo '<script>
         },
         success: function(response) {
           //var info = JSON.parse(response);
-          //console.log(info);
-          console.log("HERE : ", response)
+          //console.log(info); console.log("HERE : ", response)
           $('#precioDiario').val(response.PrecioVentaF);
         },
         error: function(error) {
