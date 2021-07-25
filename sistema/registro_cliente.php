@@ -87,7 +87,8 @@ if (!empty($_POST)) {
                 <?php echo isset($alert) ? $alert : ''; ?>
                 <div class="form-group">
                     <label for="nombre">Nombre del Cliente</label>
-                    <input type="text" placeholder="Ingrese nombre de cliente" name="nombre" id="nombre" class="form-control" required>
+
+                    <input type="text" placeholder="Ingrese nombre de cliente" name="nombre" id="nombre" class="form-control"  required>
                 </div>
                 <div class="form-group">
                     <label for="direccion">Direccion</label>
@@ -105,7 +106,9 @@ if (!empty($_POST)) {
                     <label for="preciodejaba">Precio de la jaba</label>
                     <input type="number" placeholder="Ingrese precio de jaba" name="preciodejaba" id="preciodejaba" class="form-control"  data-field="Amount" min="0.0" step="0.1" >
                 </div>
-                <input type="submit" value="Guardar Cliente" class="btn btn-primary">
+                <input type="submit" value="Guardar " class="btn col-lg-5 btn-primary ">
+                <a href="lista_cliente.php" class="btn col-lg-5 btn-danger" align="center">Regresar</a>
+
             </form>
         </div>
     </div>

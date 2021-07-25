@@ -121,9 +121,7 @@ echo '<script>
         <div class="form-group">
           
             <label for="fechapedido">Fecha de Pedido</label>
-            <input type="text" placeholder="Ingrese la fecha  de pedido  " class="form-control datepicker" name="fechapedido" id="fechapedido" required>
-            <input type="button" name="Validar" id="Validar" value="Validar" class="btn btn-info active" />
-         
+            <input type="text" placeholder="Ingrese la fecha  de pedido  " class="form-control datepicker" name="fechapedido" id="fechapedido" required>         
           </div>
         <div class="form-group">
           <label for="Precio Diario">Precio Diario</label>
@@ -147,7 +145,9 @@ echo '<script>
           <input type="number" placeholder="Ingrese las Jabas de hembra" class="form-control" name="cjabahembra" id="cjabahembra">
         </div>
 
-        <input type="submit" value="Guardar Precios" class="btn btn-primary">
+        <input type="submit" value="Guardar" class="btn col-lg-5 btn-primary">
+        <a href="lista_pedido.php" class="btn col-lg-5 btn-danger" align="center">Regresar</a>
+
       </form>
     </div>
   </div>

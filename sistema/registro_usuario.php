@@ -115,7 +115,10 @@ if (!empty($_POST)) {
 
                         ?>
                     </select></div>
-                <input type="submit" value="Guardar Usuario" class="btn btn-primary">
+                <input type="submit" value="Guardar" class="btn col-lg-5 btn-primary">
+                <a href="lista_usuarios.php" class="btn col-lg-5 btn-danger" align="center">Regresar</a>
+
+
             </form>
         </div>
     </div>

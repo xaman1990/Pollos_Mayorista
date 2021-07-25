@@ -7,7 +7,6 @@
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
 		<h1 class="h3 mb-0 text-gray-800">Lista de Registro de Pagos</h1>
 		<?php if ($_SESSION['rol'] == 1) { ?>
-		<a href="registro_registropagos.php" class="btn btn-primary">Nuevo Registro de Pago</a>
 		<?php } ?>
 	</div>
 
@@ -35,8 +34,11 @@
 						<?php
 						include "../conexion.php";
 
-						$query = mysqli_query($conexion, "SELECT idpagos,c.idcliente ,p.codproveedor, p.proveedor, c.nombre ,r.codproveedor, r.preciodiario , r.totaljaba ,r.montototal,r.saldopendiente, r.fechapedido , r.estado  FROM 
-						cliente c  INNER JOIN registropagos r ON c.idcliente= r.idcliente INNER JOIN proveedor p ON p.codproveedor=r.codproveedor
+						$query = mysqli_query($conexion, "SELECT rc.montototal,rc.saldopendiente,rc.idpagos, c.nombre , p.proveedor,r.totaldejabas, r.preciodiario, p.Estado, p.fechadecreacion 
+						FROM pedidos r 
+						LEFT JOIN registropagos rc ON  r.idpedido=rc.idpagos
+												LEFT JOIN  cliente c ON c.idcliente=r.idcliente
+												LEFT JOIN proveedor p ON p.codproveedor=r.codproveedor
 						");
 						$result = mysqli_num_rows($query);
 						if ($result > 0) {
@@ -46,11 +48,11 @@
 									<td><?php echo $data['nombre']; ?></td>
 									<td><?php echo $data['proveedor']; ?></td>
 									<td><?php echo $data['preciodiario']; ?></td>
-									<td><?php echo $data['totaljaba']; ?></td>
+									<td><?php echo $data['totaldejabas']; ?></td>
                                     <td><?php echo $data['montototal']; ?></td>
                                     <td><?php echo $data['saldopendiente']; ?></td>
-									<td><?php echo $data['fechapedido']; ?></td>
-									<td><?php echo $data['estado'];  ?></td>
+									<td><?php echo $data['fechadecreacion']; ?></td>
+									<td><?php echo $data['Estado'];  ?></td>
 									<?php if ($_SESSION['rol'] == 1) { ?>
 									<td>
 										<a href="editar_registropagos.php?id=<?php echo $data['idpagos']; ?>" class="btn btn-success"><i class='fas fa-edit'></i> Editar</a>

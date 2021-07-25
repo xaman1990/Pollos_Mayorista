@@ -117,7 +117,9 @@ if (!empty($_POST)) {
                 <label for="SubidaInterna">Subida Interna</label>
                 <input type="decimal" placeholder="Ingrese el precio de Subida Interna" class="form-control" name="subidaInterna" id="subidaInterna">
               </div>
-              <input type="submit" value="Guardar Precio" class="btn btn-primary">
+              <input type="submit" value="Guardar" class="btn col-lg-5 btn-primary">
+              <a href="lista_precios.php" class="btn col-lg-5 btn-danger" align="center">Regresar</a>
+
             </form>
           </div>
         </div>

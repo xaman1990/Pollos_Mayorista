@@ -42,15 +42,54 @@
 	<li class="nav-item">
 		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePedido" aria-expanded="true" aria-controls="collapseUtilities">
 			<i class="fas fa-fw fa-wrench"></i>
-			<span>Registro Pedido</span>
+			<span>Registro de Pedido</span>
 		</a>
 		<div id="collapsePedido" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
-							<a class="collapse-item" href="lista_pedido.php">Lista Pedido</a>
+							<a class="collapse-item" href="lista_pedido.php">Lista de Pedidos</a>
 			</div>
 		</div>
 	</li>
 	<!-- Nav Item - Pages Collapse Menu -->
+	<li class="nav-item">
+		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCuentas" aria-expanded="true" aria-controls="collapseUtilities">
+			<i class="fas fa-fw fa-wrench"></i>
+			<span>Registro de Cuentas</span>
+		</a>
+		<div id="collapseCuentas" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+			
+				<a class="collapse-item" href="lista_registrocuenta.php">Lista de Cuentas</a>
+			</div>
+		</div>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagos" aria-expanded="true" aria-controls="collapseUtilities">
+			<i class="fas fa-fw fa-wrench"></i>
+			<span>Registro de  pagos</span>
+		</a>
+		<div id="collapsePagos" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+			
+				<a class="collapse-item" href="registro_registropagos.php">Nuevo Registro de Pago</a>
+				<a class="collapse-item" href="lista_registropagos.php">Lista  de pagos</a>
+			</div>
+		</div>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsepagoproveedor" aria-expanded="true" aria-controls="collapseUtilities">
+			<i class="fas fa-fw fa-wrench"></i>
+			<span> Pagos de proveedores</span>
+		</a>
+		<div id="collapsepagoproveedor" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+			
+				<a class="collapse-item" href="registro_registropagoproveedor.php">Nuevo Registro de pago </a>
+				<a class="collapse-item" href="lista_registropagoproveedor.php">Lista de  pagos </a>
+			</div>
+		</div>
+	</li>
+
 	<li class="nav-item">
 		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
 			<i class="fas fa-fw fa-cog"></i>
@@ -78,46 +117,10 @@
 		</div>
 	</li>
 <!-- Nav Item - Productos Collapse Menu -->
-	<li class="nav-item">
-		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCuentas" aria-expanded="true" aria-controls="collapseUtilities">
-			<i class="fas fa-fw fa-wrench"></i>
-			<span>Lista de Cuentas</span>
-		</a>
-		<div id="collapseCuentas" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-			<div class="bg-white py-2 collapse-inner rounded">
-			
-				<a class="collapse-item" href="registro_registrocuenta.php">Nuevo Registro de Cuenta</a>
-				<a class="collapse-item" href="lista_registrocuenta.php">Lista de Cuentas</a>
-			</div>
-		</div>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsepagoproveedor" aria-expanded="true" aria-controls="collapseUtilities">
-			<i class="fas fa-fw fa-wrench"></i>
-			<span>Lista de Pagos de proveedores</span>
-		</a>
-		<div id="collapsepagoproveedor" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-			<div class="bg-white py-2 collapse-inner rounded">
-			
-				<a class="collapse-item" href="registro_registropagoproveedor.php">Nuevo Registro de pago </a>
-				<a class="collapse-item" href="lista_registropagoproveedor.php">Lista de  pagos </a>
-			</div>
-		</div>
-	</li>
+	
+	
 
-	<li class="nav-item">
-		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagos" aria-expanded="true" aria-controls="collapseUtilities">
-			<i class="fas fa-fw fa-wrench"></i>
-			<span>Lista de pagos</span>
-		</a>
-		<div id="collapsePagos" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-			<div class="bg-white py-2 collapse-inner rounded">
-			
-				<a class="collapse-item" href="registro_registropagos.php">Nuevo Registro de Pago</a>
-				<a class="collapse-item" href="lista_registropagos.php">Lista  de pagos</a>
-			</div>
-		</div>
-	</li>
+	
 <!-- Nav Item - Productos Collapse Menu -->
 	<!-- Nav Item - Utilities Collapse Menu -->
 	<?php if ($_SESSION['rol'] == 1) { ?>
