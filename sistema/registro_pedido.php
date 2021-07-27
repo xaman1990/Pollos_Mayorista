@@ -165,12 +165,14 @@ echo '<script>
     $("#precioDiario").click(function(e) {
       var fechavalidacionfil = $('#fechapedido').val();
       var codproveedorfil = $('#proveedor').val();
+      var action="obtenerprecio"
       $.ajax({
         url: 'controller/pedidoController.php',
         type: "POST",
         dataType: 'json',
         async: true,
         data: {
+          action:action,
           fechavalidacionfil: fechavalidacionfil,
           codproveedorfil: codproveedorfil
         },

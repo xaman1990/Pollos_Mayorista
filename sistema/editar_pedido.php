@@ -72,6 +72,7 @@ if (empty($_REQUEST['id'])) {
 
             ?>
            <select id="proveedor" name="proveedor" class="form-control">
+           <option value="<?php echo $data_pedido['codproveedor']; ?>" selected><?php echo $data_pedido['proveedor']; ?></option>
              <?php
               if ($resultado_proveedor > 0) {
                 while ($proveedor = mysqli_fetch_array($query_proveedor)) {
@@ -92,7 +93,9 @@ if (empty($_REQUEST['id'])) {
             $query_cliente = mysqli_query($conexion, "SELECT idcliente, nombre FROM cliente ORDER BY nombre ASC");
             $resultado_cliente = mysqli_num_rows($query_cliente);
             ?>
-           <select id="cliente" name="cliente" class="form-control">
+           <select id="cliente" name="cliente" class="form-control"> 
+             <option value="<?php echo $data_pedido['idcliente']; ?>" selected><?php echo $data_pedido['nombre']; ?></option>
+           
              <?php
               if ($resultado_cliente > 0) {
                 while ($cliente = mysqli_fetch_array($query_cliente)) {
