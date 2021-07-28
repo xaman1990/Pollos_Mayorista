@@ -2,10 +2,19 @@
   include "../conexion.php";
   if (!empty($_POST)) {
     $alert = "";
-    if (empty($_POST['cliente']) ||empty($_POST['proveedor']) || empty($_POST['preciodiario']) || empty($_POST['totaljaba'])|| empty($_POST['pesototal'])|| empty($_POST['montoacobrar']) ) {
-      $alert = '<div class="alert alert-danger" role="alert">
-                Todo los campos son obligatorios
-              </div>';
+    if (empty($_POST['cliente']) ||empty($_POST['proveedor']) || empty($_POST['preciodiario']) || empty($_POST['totaldejabas'])|| empty($_POST['pesototal'])|| empty($_POST['montoacobrar']) ) {
+      echo '<script>
+      Swal.fire({
+            type: "error",
+            title: "¡Todos los campos son obligatorios!",
+            showConfirmButton: true,
+            confirmButtonText: "Cerrar"
+            }).then(function(result){
+              if (result.value) {
+              window.location = "lista_registrocuenta.php";
+              }
+          })
+    </script>';
 
 
     } else {
@@ -14,23 +23,42 @@
       $codproveedor = $_POST['proveedor'];
       $preciodiario = $_POST['preciodiario'];
       $fechapedido = $_POST['fechapedido'];
-      $totaljaba = $_POST['totaljaba'];
+      $totaldejabas = $_POST['totaldejabas'];
       $pesototal = $_POST['pesototal'];
       $montoacobrar = $_POST['montoacobrar'];
       $TotalDestare = $_POST['TotalDestare'];
 
-      $query_insert = mysqli_query($conexion, "INSERT INTO registrocuentas(idcliente,codproveedor,fechapedido,preciodiario,totaljaba,pesototal,montoacobrar,TotalDestare) values ('$idcliente', '$codproveedor','$fechapedido','$preciodiario', '$totaljaba','$pesototal','$montoacobrar','$TotalDestare')");
+      $query_insert = mysqli_query($conexion, "INSERT INTO registrocuentas(idcliente,codproveedor,fechapedido,preciodiario,totaldejabas,pesototal,montoacobrar,TotalDestare) values ('$idcliente', '$codproveedor','$fechapedido','$preciodiario', '$totaldejabas','$pesototal','$montoacobrar','$TotalDestare')");
       if ($query_insert) {
-        $alert = '<div class="alert alert-primary" role="alert">
-                Precio Registrado
-              </div>';
-      } else {
-        $alert = '<div class="alert alert-danger" role="alert">
-                Error al registrar los Precios
-              </div>';
-      }
-    }
-}
+        echo '<script>
+        Swal.fire({
+          type: "success",
+          title: "¡El precio fue creado!",
+          showConfirmButton: true,
+          confirmButtonText: "Cerrar"
+          }).then(function(result){
+            if (result.value) {
+            window.location = "lista_registrocuenta.php";
+            }
+        })
+  </script>';
+  } else {
+  echo '<script>
+        Swal.fire({
+          type: "error",
+          title: "¡Error al crear al precio!",
+          showConfirmButton: true,
+          confirmButtonText: "Cerrar"
+          }).then(function(result){
+            if (result.value) {
+            window.location = "lista_registrocuenta.php";
+            }
+        })
+  </script>';
+   }
+  }
+  }
+  
 ?>
 
  <!-- Begin Page Content -->
@@ -103,12 +131,12 @@
          
          </div>
          <div class="form-group">
-           <label for="totaljaba">Total de jabas</label>
-           <input type="number" placeholder="Ingrese el total de las jabas" class="form-control" name="totaljaba" id="totaljaba">
+           <label for="totaldejabas">Total de jabas</label>
+           <input type="number" placeholder="Ingrese el total de las jabas" class="form-control" name="totaldejabas" id="totaldejabas">
          </div>
          <div class="form-group">
            <label for="pesototal">Peso Total</label>
-           <input type="texto" placeholder="Ingrese el peso total" class="form-control" name="pesototal" id="pesototal">
+           <input type="number" placeholder="Ingrese el peso total" class="form-control" name="pesototal" id="pesototal">
          </div>
          <div class="form-group">
            <label for="TotalDestare">Total Destare</label>

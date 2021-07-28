@@ -9,7 +9,7 @@ if (!empty($_POST)) {
               Todo los campos son obligatorios
             </div>';
   } else {
-    $idregistro = $_GET['id'];  
+    $idregistro = $_GET['idregistro'];  
     $idcliente = $_POST['cliente'];
     $codproveedor = $_POST['proveedor'];
     $preciodiario = $_POST['preciodiario'];
@@ -40,16 +40,21 @@ if (empty($_REQUEST['id'])) {
   if (!is_numeric($idregistro)) {
     header("Location: lista_registrocuenta.php");
   }
-  $query_registro = mysqli_query($conexion, "SELECT   rc.idcliente,rc.codproveedor, c.nombre , p.proveedor,r.totaldejabas,r.totaldejabas*p.pesojaba AS TotalDestare , r.preciodiario, ifnull(rc.pesototal,'') pesototal,ifnull(rc.montoacobrar,'') montoacobrar , p.Estado, p.fechadecreacion 
-  FROM pedidos r 
-  LEFT JOIN registrocuentas rc ON  r.idpedido=rc.idpedido
-              LEFT JOIN  cliente c ON c.idcliente=r.idcliente
-              LEFT JOIN proveedor p ON p.codproveedor=r.codproveedor 
+  $query_registro = mysqli_query($conexion, "SELECT rc.idregistro, rc.idpedido, cli.nombre , pro.proveedor,rc.totaldejabas,rc.TotalDestare AS TotalDestare , rc.preciodiario,rc.PesoNeto, ifnull(rc.pesototal,'') pesototal,ifnull(rc.montoacobrar,'') montoacobrar ,pro.Estado, rc.fechapedido
+  FROM registrocuentas  rc  LEFT JOIN pedidos ped ON  rc.idpedido=ped.idpedido
+LEFT JOIN cliente cli ON cli.idcliente=rc.idcliente
+LEFT JOIN proveedor pro ON pro.codproveedor=rc.codproveedor
+UNION 
+SELECT rc.idregistro, rc.idpedido, cli.nombre , pro.proveedor,ped.totaldejabas,ped.totaldejabas*pro.pesojaba AS TotalDestare , ped.preciodiario,rc.PesoNeto, ifnull(rc.pesototal,'') pesototal,ifnull(rc.montoacobrar,'') montoacobrar ,pro.Estado, ped.fechapedido 
+ FROM pedidos ped 
+ LEFT JOIN registrocuentas rc ON  ped.idpedido=rc.idpedido
+                         LEFT JOIN  cliente cli ON cli.idcliente=ped.idcliente
+                         LEFT JOIN proveedor pro ON pro.codproveedor=ped.codproveedor
     ");
   $result_registro  = mysqli_num_rows($query_registro );
 
   if ($result_registro > 0) {
-    $data_registro = mysqli_fetch_assoc($query_registro);
+    $data_cuenta = mysqli_fetch_assoc($query_registro);
   } else {
     header("Location: lista_registrocuenta.php");
   }
@@ -76,6 +81,7 @@ if (empty($_REQUEST['id'])) {
             $resultado_cliente = mysqli_num_rows($query_cliente);
             ?>
            <select id="cliente" name="cliente" class="form-control">
+           <option value="<?php echo $data_cuenta['idcliente']; ?>" selected><?php echo $data_cuenta['nombre']; ?></option>
              <?php
               if ($resultado_cliente > 0) {
                 while ($cliente = mysqli_fetch_array($query_cliente)) {
@@ -97,6 +103,8 @@ if (empty($_REQUEST['id'])) {
 
             ?>
            <select id="proveedor" name="proveedor" class="form-control">
+           <option value="<?php echo $data_cuenta['codproveedor']; ?>" selected><?php echo $data_cuenta['proveedor']; ?></option>
+
              <?php
               if ($resultado_proveedor > 0) {
                 while ($proveedor = mysqli_fetch_array($query_proveedor)) {

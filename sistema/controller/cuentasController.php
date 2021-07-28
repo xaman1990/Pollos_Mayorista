@@ -1,0 +1,90 @@
+<?php
+session_start();
+
+if ($_POST['action'] == 'obtenercuenta') {
+
+  function obtenercuenta()
+  {
+    if (!empty($_POST['fechavalidacionfil']) || !empty($_POST['codproveedorfil'])) {
+      include "../../conexion.php";
+      $fechavalidacionfil = $_POST['fechavalidacionfil'];
+      $codproveedorfil = $_POST['codproveedorfil'];
+      $query_precio = mysqli_query($conexion, "SELECT * FROM registrocuentas where estado='A' and fechapedido='$fechavalidacionfil' and codproveedor='$codproveedorfil'");
+
+      $result = mysqli_num_rows($query_cuenta);
+      if ($result > 0) {
+        $data = mysqli_fetch_assoc($query_cuenta);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        exit;
+      }
+    } else {
+      $data = ['error' => 'err'];
+      echo json_encode($data);
+    }
+  }
+
+  obtenercuenta();
+  exit;
+}
+if ($_POST['action'] == 'ListarCuenta') {
+
+  function ListarCuenta()
+  {
+    $where = "p.estado='A'";
+
+
+    if (!empty($_POST['fecha_de']) || !empty($_POST['fecha_a']) || !empty($_POST['cb_proveedor']) || !empty($_POST['cb_cliente'])) {
+      $fecha_de = $_POST['fecha_de'];
+      $fecha_a = $_POST['fecha_a'];
+      $cb_Proveedor = $_POST['cb_proveedor'];
+      $cb_cliente = $_POST['cb_cliente'];
+      if ($fecha_de > $fecha_a) {
+      } else if ($fecha_de == $fecha_a) {
+        $where = " p.fechadecreacion=DATE_FORMAT('$fecha_de', '%m/%d/%Y') and (r.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (r.idcliente='$cb_cliente' or '$cb_cliente'='') ";
+      } else {
+        $f_de = date("Y-m-d", strtotime($fecha_de . "0 days"));
+        $f_a =  date("Y-m-d", strtotime($fecha_a . "+ 1 days"));
+
+        $where = " p.fechadecreacion BETWEEN DATE_FORMAT('$f_de', '%m/%d/%Y') AND DATE_FORMAT('$f_a', '%m/%d/%Y') and rc.estado='A' and (r.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (r.idcliente='$cb_cliente' or '$cb_cliente'='')";
+        $buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a  ";
+      }
+    } else if (empty($_POST['fecha_de']) && empty($_POST['fecha_a']) && empty($_POST['cb_proveedor']) && empty($_POST['cb_cliente'])) {
+      $where = "p.estado='A'  ";
+    }
+
+    include "../../conexion.php";
+    $query = mysqli_query($conexion, " SELECT rc.idregistro, rc.idpedido, cli.nombre , pro.proveedor,rc.totaldejabas,rc.TotalDestare AS TotalDestare , rc.preciodiario,rc.PesoNeto, ifnull(rc.pesototal,'') pesototal,ifnull(rc.montoacobrar,'') montoacobrar ,pro.Estado, rc.fechapedido
+    FROM registrocuentas  rc  LEFT JOIN pedidos ped ON  rc.idpedido=ped.idpedido
+LEFT JOIN cliente cli ON cli.idcliente=rc.idcliente
+LEFT JOIN proveedor pro ON pro.codproveedor=rc.codproveedor
+UNION 
+SELECT rc.idregistro, rc.idpedido, cli.nombre , pro.proveedor,ped.totaldejabas,ped.totaldejabas*pro.pesojaba AS TotalDestare , ped.preciodiario,rc.PesoNeto, ifnull(rc.pesototal,'') pesototal,ifnull(rc.montoacobrar,'') montoacobrar ,pro.Estado, ped.fechapedido 
+   FROM pedidos ped 
+   LEFT JOIN registrocuentas rc ON  ped.idpedido=rc.idpedido
+                           LEFT JOIN  cliente cli ON cli.idcliente=ped.idcliente
+                           LEFT JOIN proveedor pro ON pro.codproveedor=ped.codproveedor");
+
+    $result = mysqli_num_rows($query);
+    if ($result > 0) {
+      while($row = mysqli_fetch_assoc($query)) {
+        $array[] = $row;
+      }
+      $dataset = array(
+        "echo" => 1,
+        "totalrecords" => count($array),
+        "totaldisplayrecords" => count($array),
+        "data" => $array
+    );
+    
+      
+      
+      echo json_encode($dataset, JSON_UNESCAPED_UNICODE);
+      exit;
+    } else {
+      $data = ['error' => 'err'];
+      echo json_encode($data);
+    }
+  }
+  ListarCuenta();
+  exit;
+}
