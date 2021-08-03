@@ -94,7 +94,7 @@ SELECT IFNULL(rc.idregistro,0) as idregistro , ped.idpedido, cli.nombre,ped.idcl
 
               ?>
               <select id="proveedor" name="proveedor" class="form-control" disabled="disabled">
-                <option value="<?php echo $data_cuenta['codproveedor']; ?>" selected><?php echo $data_cuenta['proveedor']; ?></option>
+              <option value="<?php echo $data_cuenta['codproveedor']; ?>" selected><?php echo $data_cuenta['proveedor']; ?></option>
 
                 <?php
                 if ($resultado_proveedor > 0) {
