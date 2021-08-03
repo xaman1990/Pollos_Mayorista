@@ -58,7 +58,12 @@ if ($_POST['action'] == 'Listarpagos') {
     }
 
     include "../../conexion.php";
-    $query = mysqli_query($conexion, "SELECT rc.idregistro,IFNULL(rp.idpagos,0) as idpagos,c.nombre , p.proveedor,rc.preciodiario,rc.totaldejabas,rc.montoacobrar,'' as Pendiente, rc.fechapedido, rc.Estado FROM registrocuentas rc LEFT JOIN registropagos rp ON rc.idregistro=rp.idpagos LEFT JOIN cliente c ON c.idcliente=rc.idcliente LEFT JOIN proveedor p ON p.codproveedor=rc.codproveedor");
+    $query = mysqli_query($conexion, "SELECT rc.idregistro,rc.codproveedor,rc.idcliente,c.nombre as cliente , p.proveedor,rc.preciodiario,rc.totaldejabas,rc.montoacobrar,rc.montoacobrar-sum(ifnull(PagoaCuenta,0)) as Pendiente, rc.fechapedido, rc.Estado 
+    FROM registrocuentas rc 
+    LEFT JOIN registropagos rp ON rc.idregistro=rp.Id_RegistroCuentas 
+    LEFT JOIN cliente c ON c.idcliente=rc.idcliente LEFT JOIN proveedor p ON p.codproveedor=rc.codproveedor  
+    GROUP BY rc.idregistro,rc.codproveedor,rc.idcliente,c.nombre  , p.proveedor,rc.preciodiario,rc.totaldejabas,rc.montoacobrar, rc.fechapedido, rc.Estado
+    ");
 
     $result = mysqli_num_rows($query);
 

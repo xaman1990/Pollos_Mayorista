@@ -83,16 +83,16 @@
 					<table id="tb-Listarpagos" class="table table-striped table-bordered" cellspacing="0" width="100%">
 						<thead class="thead-dark">
 							<tr>
-							<th>idpagos</th>
-						    <th>NombreCliente</th> 
-							<th>NombreProveedor</th>
+							<th>ID</th>
+						    <th>Nombre Cliente</th> 
+							<th>Nombre Proveedor</th>
 							<th>Precio Diario</th>
 							<th>Total jaba</th>
                             <th>Monto Total</th>
+							<th>Saldo Pendiente</th>
                             <th>Fecha de pedido</th>
-							<th>Estado</th>
-							<th>Saldo  Pendiente</th>
-								<th></th>								
+							<th>Estado</th>							
+							<th></th>								
 							</tr>
 						</thead>
 
@@ -120,7 +120,6 @@
 
 
 <?php include_once "includes/footer.php"; ?>
-<?php include_once "registro_registropagos.php"; ?>
 <script>
 	$(document).ready(function() {
 
@@ -192,23 +191,26 @@
 				rowCallback: function(row, data, index) {
 					
 					
-						$('td', row).eq(8).html('<a href="editar_registropagos.php?id='+ data.idpagos+'" class="btn btn-success"><i class="fas fa-edit"></i> Editar</a><form action="eliminar_registropagos.php?id='+data.idpagos+'" method="post" class="confirmar d-inline"><button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i> </button></form>');
+						$('td', row).eq(9).html('<a href="editar_registropagos.php?id='+ data.idregistro+'" class="btn btn-success"><i class="fas fa-edit"></i> Editar</a><form action="eliminar_registropagos.php?id='+data.idregistro+'" method="post" class="confirmar d-inline"><button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i> </button></form>');
 
 					
 
 				},
 				order: [[ 0, "desc" ]],
 				columns: [{
-						data: 'idpagos'
+						data: 'idregistro'
 					},
 					{
-						data: 'nombre'
+						data: 'cliente'
 					},
 					{
 						data: 'proveedor'
 					},
 					{
 						data: 'preciodiario'
+					},
+					{
+						data: 'totaldejabas'
 					},
 					{
 						data: 'montoacobrar'

@@ -19,12 +19,11 @@
 						<tr>
 						    <th>id</th>
 							<th>NombreProveedor</th>
-							<th>Precio Diario</th>
-							<th>Total jaba</th>
+							<th>Precio Compra Diario</th>
+							<th>Total Jabas</th>
                             <th>Monto Total</th>
                             <th>Monto depositado</th>
 							<th>Fecha de pedido</th>
-							<th>Estado</th>
 							<?php if ($_SESSION['rol'] == 1) { ?>
 							<th>ACCIONES</th>
 							<?php }?>
@@ -34,20 +33,25 @@
 						<?php
 						include "../conexion.php";
 
-						$query = mysqli_query($conexion, "SELECT idpagoproveedor,p.codproveedor, p.proveedor,r.codproveedor, r.preciodiario , r.totaljaba ,r.montototal,r.montodepositado, r.fechapedido , r.estado FROM registropagoproveedor r  INNER JOIN proveedor p ON p.codproveedor=r.codproveedor
-						");
+						$query = mysqli_query($conexion, "select pre.idprecio ,pro.proveedor,pre.preciocompra,sum(rc.totaldejabas) as totaldejabas,sum(rc.PesoNeto*pre.preciocompra) as MontoTotal,'' as Monto_Depositado,rc.fechapedido 
+						from registrocuentas rc
+						left join precio pre on rc.codproveedor=pre.codproveedor and rc.fechapedido=pre.fechavalidacion and pre.Estado='A'
+						left join proveedor pro on pro.codproveedor=rc.codproveedor
+						left join cliente cli on rc.idcliente=cli.idcliente
+						where pre.idprecio IS not null 
+						group by pro.proveedor,pre.preciocompra,rc.fechapedido
+						order by fechapedido DESC");
 						$result = mysqli_num_rows($query);
 						if ($result > 0) {
 							while ($data = mysqli_fetch_assoc($query)) { ?>
 								<tr>
-								<td><?php echo $data['idpagoproveedor']; ?></td>
+								<td><?php echo $data['idprecio']; ?></td>
 									<td><?php echo $data['proveedor']; ?></td>
-									<td><?php echo $data['preciodiario']; ?></td>
-									<td><?php echo $data['totaljaba']; ?></td>
-                                    <td><?php echo $data['montototal']; ?></td>
-                                    <td><?php echo $data['montodepositado']; ?></td>
+									<td><?php echo $data['preciocompra']; ?></td>
+									<td><?php echo $data['totaldejabas']; ?></td>
+                                    <td><?php echo $data['MontoTotal']; ?></td>
+                                    <td><?php echo $data['Monto_Depositado']; ?></td>
 									<td><?php echo $data['fechapedido']; ?></td>
-									<td><?php echo $data['estado'];  ?></td>
 									<?php if ($_SESSION['rol'] == 1) { ?>
 									<td>
 										<a href="editar_registropagoproveedor.php?id=<?php echo $data['idpagoproveedor']; ?>" class="btn btn-success"><i class='fas fa-edit'></i> Editar</a>
