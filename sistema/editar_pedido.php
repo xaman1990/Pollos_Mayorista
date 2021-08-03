@@ -41,7 +41,7 @@ if (empty($_REQUEST['id'])) {
     header("Location: lista_pedido.php");
   }
   $query_pedido = mysqli_query($conexion, "SELECT idpedido,c.idcliente ,p.codproveedor, p.proveedor, c.nombre ,r.codproveedor, r.preciodiario , r.cjabamacho , r.cjabamixto , r.cjabahembra , r.fechapedido , r.estado  FROM 
-  cliente c  INNER JOIN pedidos r ON c.idcliente= r.idcliente INNER JOIN proveedor p ON p.codproveedor=r.codproveedor WHERE idpedido = $idpedido");
+  cliente c  INNER JOIN pedidos r ON c.idcliente= r.idcliente INNER JOIN proveedor p ON p.codproveedor=r.codproveedor WHERE r.idpedido = '$idpedido'");
   $result_pedido = mysqli_num_rows($query_pedido);
 
   if ($result_pedido > 0) {

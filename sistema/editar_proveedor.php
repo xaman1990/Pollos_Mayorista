@@ -78,7 +78,7 @@ if ($result_sql == 0) {
                     </select></div>
         <div class="form-group">
           <label for="pesojaba">Peso de la Jaba</label>
-          <input type="number" placeholder="Ingrese Peso de jaba" name="pesojaba" class="form-control" id="pesojaba" value="<?php echo $pesojaba; ?>">
+          <input type="decimal" placeholder="Ingrese Peso de jaba" name="pesojaba" class="form-control" id="pesojaba" min="0.0" step="0.1"  value="<?php echo $pesojaba; ?>">
         </div>
         <input type="submit" value="Editar Proveedor" class="btn btn-primary">
       </form>

@@ -195,11 +195,12 @@
 				rowCallback: function(row, data, index) {
 					
 					
-						$('td', row).eq(9).html('<a href="editar_pedido.php?id='+ data.idpedido+'" class="btn btn-success"><i class="fas fa-edit"></i> Editar</a><form action="eliminar_precios.php?id='+data.idpedido+'" method="post" class="confirmar d-inline"><button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i> </button></form>');
+						$('td', row).eq(9).html('<a href="editar_pedido.php?id='+ data.idpedido+'" class="btn btn-success"><i class="fas fa-edit"></i> Editar</a><form action="eliminar_pedido.php?id='+data.idpedido+'" method="post" class="confirmar d-inline"><button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i> </button></form>');
 					
 					
 
 				},
+				order: [[ 0, "desc" ]],
 				columns: [{
 						data: 'idpedido'
 					},

@@ -40,16 +40,16 @@ if ($_POST['action'] == 'ListarPedidos') {
       $cb_cliente = $_POST['cb_cliente'];
       if ($fecha_de > $fecha_a) {
       } else if ($fecha_de == $fecha_a) {
-        $where = " ped.Fechapedido=DATE_FORMAT('$fecha_de', '%m/%d/%Y') and (ped.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (ped.idcliente='$cb_cliente' or '$cb_cliente'='') ";
+        $where = " ped.Fechapedido=DATE_FORMAT('$fecha_de', '%m/%d/%Y') and (ped.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (ped.idcliente='$cb_cliente' or '$cb_cliente'='') order by ped.idpedido desc";
       } else {
         $f_de = date("Y-m-d", strtotime($fecha_de . "0 days"));
         $f_a =  date("Y-m-d", strtotime($fecha_a . "+ 1 days"));
 
-        $where = " ped.Fechapedido BETWEEN DATE_FORMAT('$f_de', '%m/%d/%Y') AND DATE_FORMAT('$f_a', '%m/%d/%Y') and ped.Estado='A' and (ped.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (ped.idcliente='$cb_cliente' or '$cb_cliente'='')";
+        $where = " ped.Fechapedido BETWEEN DATE_FORMAT('$f_de', '%m/%d/%Y') AND DATE_FORMAT('$f_a', '%m/%d/%Y') and ped.Estado='A' and (ped.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (ped.idcliente='$cb_cliente' or '$cb_cliente'='') order by ped.idpedido desc";
         $buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a  ";
       }
     } else if (empty($_POST['fecha_de']) && empty($_POST['fecha_a']) && empty($_POST['cb_proveedor']) && empty($_POST['cb_cliente'])) {
-      $where = "ped.Estado='A'  ";
+      $where = "ped.Estado='A' order by ped.idpedido desc";
     }
 
     include "../../conexion.php";

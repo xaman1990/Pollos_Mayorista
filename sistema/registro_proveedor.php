@@ -109,7 +109,7 @@ if (!empty($_POST)) {
                                 </div>
                                 <div class="form-group">
                                     <label for="pesojaba">Peso de Jaba</label>
-                                    <input type="number" placeholder="Ingrese peso de jaba" name="pesojaba" id="pesojaba" class="form-control" data-field="Amount" min="0.01" step="0.01" required>
+                                    <input type="decimal" placeholder="Ingrese peso de jaba" name="pesojaba" id="pesojaba" class="form-control" data-field="Amount" min="0.0" step="0.1" required>
                                 </div>
 
                                 <div class="modal-footer col-lg-12" >

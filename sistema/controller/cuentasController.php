@@ -30,8 +30,8 @@ if ($_POST['action'] == 'ListarCuenta') {
 
   function ListarCuenta()
   {
-    $where = "p.estado='A'";
-
+    $whereRC = "";
+    $whereP = "";
 
     if (!empty($_POST['fecha_de']) || !empty($_POST['fecha_a']) || !empty($_POST['cb_proveedor']) || !empty($_POST['cb_cliente'])) {
       $fecha_de = $_POST['fecha_de'];
@@ -40,31 +40,39 @@ if ($_POST['action'] == 'ListarCuenta') {
       $cb_cliente = $_POST['cb_cliente'];
       if ($fecha_de > $fecha_a) {
       } else if ($fecha_de == $fecha_a) {
-        $where = " p.fechadecreacion=DATE_FORMAT('$fecha_de', '%m/%d/%Y') and (r.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (r.idcliente='$cb_cliente' or '$cb_cliente'='') ";
+        $whereRC = "  VRC.fechapedido=DATE_FORMAT('$fecha_de', '%m/%d/%Y') and (VRC.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (VRC.idcliente='$cb_cliente' or '$cb_cliente'='') ";
+        $whereP = "  ped.fechapedido=DATE_FORMAT('$fecha_de', '%m/%d/%Y') and (ped.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (ped.idcliente='$cb_cliente' or '$cb_cliente'='') ";
+  
       } else {
         $f_de = date("Y-m-d", strtotime($fecha_de . "0 days"));
         $f_a =  date("Y-m-d", strtotime($fecha_a . "+ 1 days"));
 
-        $where = " p.fechadecreacion BETWEEN DATE_FORMAT('$f_de', '%m/%d/%Y') AND DATE_FORMAT('$f_a', '%m/%d/%Y') and rc.estado='A' and (r.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (r.idcliente='$cb_cliente' or '$cb_cliente'='')";
+        $whereRC = "   VRC.fechapedido BETWEEN DATE_FORMAT('$f_de', '%m/%d/%Y') AND DATE_FORMAT('$f_a', '%m/%d/%Y')  and (VRC.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (VRC.idcliente='$cb_cliente' or '$cb_cliente'='')";
+        $whereP = "   ped.fechapedido BETWEEN DATE_FORMAT('$f_de', '%m/%d/%Y') AND DATE_FORMAT('$f_a', '%m/%d/%Y')  and (ped.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (ped.idcliente='$cb_cliente' or '$cb_cliente'='')";
+      
         $buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a  ";
       }
     } else if (empty($_POST['fecha_de']) && empty($_POST['fecha_a']) && empty($_POST['cb_proveedor']) && empty($_POST['cb_cliente'])) {
-      $where = "p.estado='A'  ";
+      $whereRC = "VRC.estado='A'";
+      $whereP = "";
     }
 
     include "../../conexion.php";
-    $query = mysqli_query($conexion, " SELECT rc.idregistro, rc.idpedido, cli.nombre , pro.proveedor,rc.totaldejabas,rc.TotalDestare AS TotalDestare , rc.preciodiario,rc.PesoNeto, ifnull(rc.pesototal,'') pesototal,ifnull(rc.montoacobrar,'') montoacobrar ,pro.Estado, rc.fechapedido
+    $query = mysqli_query($conexion, "select  *  from (SELECT rc.idregistro, rc.idpedido, cli.nombre ,rc.idcliente, pro.proveedor,rc.codproveedor,rc.totaldejabas,rc.TotalDestare AS TotalDestare , rc.preciodiario,rc.PesoNeto, ifnull(rc.pesototal,'') pesototal,ifnull(rc.montoacobrar,'') montoacobrar ,case when RC.idregistro is not null then 'Entregado' END as EstadoFlujo,rc.estado, rc.fechapedido
     FROM registrocuentas  rc  LEFT JOIN pedidos ped ON  rc.idpedido=ped.idpedido
-LEFT JOIN cliente cli ON cli.idcliente=rc.idcliente
-LEFT JOIN proveedor pro ON pro.codproveedor=rc.codproveedor
-UNION 
-SELECT rc.idregistro, rc.idpedido, cli.nombre , pro.proveedor,ped.totaldejabas,ped.totaldejabas*pro.pesojaba AS TotalDestare , ped.preciodiario,rc.PesoNeto, ifnull(rc.pesototal,'') pesototal,ifnull(rc.montoacobrar,'') montoacobrar ,pro.Estado, ped.fechapedido 
+  LEFT JOIN cliente cli ON cli.idcliente=rc.idcliente
+  LEFT JOIN proveedor pro ON pro.codproveedor=rc.codproveedor 
+  where ped.idpedido is null and rc.estado='A'
+  UNION 
+  SELECT IFNULL(rc.idregistro,0) as idregistro , ped.idpedido, cli.nombre,ped.idcliente , pro.proveedor,ped.codproveedor,ped.totaldejabas,ped.totaldejabas*pro.pesojaba AS TotalDestare , ped.preciodiario,IFNULL(rc.PesoNeto,0), IFNULL(rc.pesototal,'') pesototal,ifnull(rc.montoacobrar,'') montoacobrar ,case when rc.idregistro is null then 'Pendiente de Entrega' ELSE 'Entregado' end as EstadoFlujo,ped.estado, ped.fechapedido 
    FROM pedidos ped 
    LEFT JOIN registrocuentas rc ON  ped.idpedido=rc.idpedido
                            LEFT JOIN  cliente cli ON cli.idcliente=ped.idcliente
-                           LEFT JOIN proveedor pro ON pro.codproveedor=ped.codproveedor");
+                           LEFT JOIN proveedor pro ON pro.codproveedor=ped.codproveedor
+                where ped.estado='A' ) as VRC where estado='A' and +$whereRC");
 
     $result = mysqli_num_rows($query);
+
     if ($result > 0) {
       while($row = mysqli_fetch_assoc($query)) {
         $array[] = $row;
