@@ -40,7 +40,7 @@ if (empty($_REQUEST['id'])) {
   if (!is_numeric($idregistro)) {
     header("Location: lista_registropagos.php");
   }
-  $query_registro = mysqli_query($conexion, "SELECT rc.idregistro,rc.codproveedor,rc.idcliente,IFNULL(rp.idpagos,0) as idpagos,c.nombre , p.proveedor,rc.preciodiario,rc.totaldejabas,rc.montoacobrar,'' as Pendiente, rc.fechapedido, rc.Estado 
+  $query_registro = mysqli_query($conexion, " SELECT rc.idregistro,rc.codproveedor,rc.idcliente,IFNULL(rp.idpagos,0) as idpagos,c.nombre , p.proveedor,rc.preciodiario,rc.totaldejabas,rc.montoacobrar,'' as Pendiente, rc.fechapedido, rc.Estado 
   FROM registrocuentas rc 
   LEFT JOIN registropagos rp ON rc.idregistro=rp.Id_RegistroCuentas 
   LEFT JOIN cliente c ON c.idcliente=rc.idcliente LEFT JOIN proveedor p ON p.codproveedor=rc.codproveedor 
@@ -110,21 +110,17 @@ if (empty($_REQUEST['id'])) {
               ?>
            </select>
          </div>
-            <div class="form-group">
-              <label for="preciodiario">Precio Diario</label>                                                                                 
-              <input type="number" placeholder="Ingrese el precio diario" name="preciodiario" id="preciodiario" class="form-control" value="<?php echo $data_registro['preciodiario']; ?>">
+         <div class="form-group">
+              <label for="fechapedido">Fecha pedido</label>
+              <input type="text" placeholder="Ingrese la fecha del pedido" class="form-control datepicker" name="fechapedido" id="fechapedido" value="<?php echo $data_registro['fechapedido']; ?>">
+            </div>
+         <div class="form-group">
+              <label for="montototal">Monto total</label>                                                                                 
+              <input type="number" placeholder="Ingrese monto total" name="montototal" id="montototal" class="form-control" value="<?php echo $data_registro['montototal']; ?>">
             </div>
             <div class="form-group">
-              <label for="totaljaba">Total de jabas</label>
-              <input type="number" placeholder="Ingrese el total de jaba" class="form-control" name="totaljaba" id="totaljaba" value="<?php echo $data_registro['totaljaba']; ?>">
-            </div>
-            <div class="form-group">
-              <label for="pesototal">Peso Total</label>
-              <input type="number" placeholder="Ingrese el peso total" class="form-control" name="pesototal" id="pesototal" value="<?php echo $data_registro['pesototal']; ?>">
-            </div>
-            <div class="form-group">
-              <label for="montoacobrar">Monto a cobrar </label>
-              <input type="number" placeholder="Ingrese el monto a cobrar " class="form-control" name="montoacobrar" id="montoacobrar" value="<?php echo $data_registro['montoacobrar']; ?>">
+              <label for="PagoCuenta">Pago cuenta  </label>
+              <input type="number" placeholder="Ingrese el pago de la cuenta  " class="form-control" name="PagoCuenta" id="PagoCuenta" value="<?php echo $data_registro['PagoCuenta']; ?>">
             </div>
 
             <input type="submit" value="Actualizar registro de cuenta" class="btn btn-primary">
