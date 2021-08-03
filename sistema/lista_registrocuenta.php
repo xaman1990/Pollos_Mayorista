@@ -86,9 +86,9 @@
 					<table id="tb-ListaCuentas" class="table table-striped table-bordered" cellspacing="0" width="100%">
 						<thead class="thead-dark">
 							<tr>
-								
-								<th>NombreCliente</th>
-								<th>NombreProveedor</th>
+
+								<th>Cliente</th>
+								<th>Proveedor</th>
 								<th>Precio Diario</th>
 								<th>Total Jaba</th>
 								<th>Peso Total</th>
@@ -97,7 +97,7 @@
 								<th>Monto a cobrar</th>
 								<th>Fecha de pedido</th>
 								<th>Estado</th>
-								<th></th>								
+								<th></th>
 							</tr>
 						</thead>
 
@@ -195,35 +195,37 @@
 
 				},
 				rowCallback: function(row, data, index) {
+
 					
-					
-						$('td', row).eq(10).html('<a href="editar_registrocuenta.php?id='+ data.idregistro+'" class="btn btn-success"><i class="fas fa-edit"></i> Editar</a><form action="eliminar_registrocuenta.php?id='+data.idregistro+'" method="post" class="confirmar d-inline"><button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i> </button></form>');
-					
-					
+					$('td', row).eq(10).html('<a href="editar_registrocuenta.php?idcuenta=' + data.idregistro + '&idpedido=' + data.idpedido + '" class="btn btn-success"><i class="fas fa-edit"></i> Editar</a><form action="eliminar_registrocuenta.php?id=' + data.idregistro + '" method="post" class="confirmar d-inline"><button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i> </button></form>');
+
+
 
 				},
 				columns: [{
-					    data: 'nombre'
-					},
-					{
 
+						data: 'nombre'
+					},
+					{
 						data: 'proveedor'
-					},
-					{
-						data: 'totaldejabas'
-					},
-					{
-						data: 'TotalDestare'
 					},
 					{
 						data: 'preciodiario'
 					},
 					{
-						data: 'PesoNeto'
+						data: 'totaldejabas'
 					},
 					{
 						data: 'pesototal'
 					},
+					{
+						data: 'TotalDestare'
+					},
+
+					{
+						data: 'PesoNeto'
+					},
+
 					{
 						data: 'montoacobrar'
 					},
@@ -231,7 +233,7 @@
 						data: 'fechapedido'
 					},
 					{
-						data: 'Estado'
+						data: 'EstadoFlujo'
 					},
 					{
 						data: null
@@ -240,7 +242,7 @@
 
 			});
 
-			
+
 
 		}
 
