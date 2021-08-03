@@ -40,12 +40,11 @@ if (empty($_REQUEST['id'])) {
   if (!is_numeric($idregistro)) {
     header("Location: lista_registropagos.php");
   }
-  $query_registro = mysqli_query($conexion, "SELECT rc.montototal,rc.saldopendiente,rc.idpagos, c.nombre , p.proveedor,r.totaldejabas, r.preciodiario, p.Estado, p.fechadecreacion 
-  FROM pedidos r 
-  LEFT JOIN registropagos rc ON  r.idpedido=rc.idpagos
-                          LEFT JOIN  cliente c ON c.idcliente=r.idcliente
-                          LEFT JOIN proveedor p ON p.codproveedor=r.codproveedor
-    ");
+  $query_registro = mysqli_query($conexion, "SELECT rc.idregistro,rc.codproveedor,rc.idcliente,IFNULL(rp.idpagos,0) as idpagos,c.nombre , p.proveedor,rc.preciodiario,rc.totaldejabas,rc.montoacobrar,'' as Pendiente, rc.fechapedido, rc.Estado 
+  FROM registrocuentas rc 
+  LEFT JOIN registropagos rp ON rc.idregistro=rp.Id_RegistroCuentas 
+  LEFT JOIN cliente c ON c.idcliente=rc.idcliente LEFT JOIN proveedor p ON p.codproveedor=rc.codproveedor 
+  where rc.idregistro=$idregistro");
   $result_registro  = mysqli_num_rows($query_registro );
 
   if ($result_registro > 0) {

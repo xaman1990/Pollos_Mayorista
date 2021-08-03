@@ -16,50 +16,49 @@
 				<table class="table table-striped table-bordered" id="table">
 					<thead class="thead-dark">
 						<tr>
-						    <th>id</th>
-						    <th>NombreCliente</th> 
-							<th>NombreProveedor</th>
+							<th>id</th>
+							<th>Nombre Cliente</th>
+							<th>Nombre Proveedor</th>
 							<th>Precio Diario</th>
 							<th>Total jaba</th>
-                            <th>Monto Total</th>
-                            <th>Saldo  Pendiente</th>
+							<th>Monto Total</th>
+							<th>Saldo Pendiente</th>
 							<th>Fecha de pedido</th>
 							<th>Estado</th>
 							<?php if ($_SESSION['rol'] == 1) { ?>
-							<th>ACCIONES</th>
-							<?php }?>
+								<th>ACCIONES</th>
+							<?php } ?>
 						</tr>
 					</thead>
 					<tbody>
 						<?php
 						include "../conexion.php";
 
-						$query = mysqli_query($conexion, "SELECT rc.montototal,rc.saldopendiente,rc.idpagos, c.nombre , p.proveedor,r.totaldejabas, r.preciodiario, p.Estado, p.fechadecreacion 
-						FROM pedidos r 
-						LEFT JOIN registropagos rc ON  r.idpedido=rc.idpagos
-												LEFT JOIN  cliente c ON c.idcliente=r.idcliente
-												LEFT JOIN proveedor p ON p.codproveedor=r.codproveedor
+						$query = mysqli_query($conexion, "SELECT rc.idregistro,IFNULL(rp.idpagos,0) as idpagos,c.nombre , p.proveedor,rc.preciodiario,rc.totaldejabas,rc.montoacobrar,'' as pendiente, rc.fechapedido, rc.Estado 
+						FROM registrocuentas rc 
+						LEFT JOIN registropagos rp ON rc.idregistro=rp.Id_RegistroCuentas 
+						LEFT JOIN cliente c ON c.idcliente=rc.idcliente LEFT JOIN proveedor p ON p.codproveedor=rc.codproveedor
 						");
 						$result = mysqli_num_rows($query);
 						if ($result > 0) {
 							while ($data = mysqli_fetch_assoc($query)) { ?>
 								<tr>
-								<td><?php echo $data['idpagos']; ?></td>
+									<td><?php echo $data['idregistro']; ?></td>
 									<td><?php echo $data['nombre']; ?></td>
 									<td><?php echo $data['proveedor']; ?></td>
 									<td><?php echo $data['preciodiario']; ?></td>
 									<td><?php echo $data['totaldejabas']; ?></td>
-                                    <td><?php echo $data['montototal']; ?></td>
-                                    <td><?php echo $data['saldopendiente']; ?></td>
-									<td><?php echo $data['fechadecreacion']; ?></td>
+									<td><?php echo $data['montoacobrar']; ?></td>
+									<td><?php echo $data['pendiente']; ?></td>
+									<td><?php echo $data['fechapedido']; ?></td>
 									<td><?php echo $data['Estado'];  ?></td>
 									<?php if ($_SESSION['rol'] == 1) { ?>
-									<td>
-										<a href="editar_registropagos.php?id=<?php echo $data['idpagos']; ?>" class="btn btn-success"><i class='fas fa-edit'></i> Editar</a>
-										<form action="eliminar_registropagos.php?id=<?php echo $data['idpagos']; ?>" method="post" class="confirmar d-inline">
-											<button class="btn btn-danger" type="submit"><i class='fas fa-trash-alt'></i> </button>
-										</form>
-									</td>
+										<td>
+											<a href="editar_registropagos.php?id=<?php echo $data['idregistro']; ?>" class="btn btn-success"><i class='fas fa-edit'></i> Registrar Pago</a>
+											<form action="eliminar_registropagos.php?id=<?php echo $data['idregistro']; ?>" method="post" class="confirmar d-inline">
+												<button class="btn btn-danger" type="submit"><i class='fas fa-trash-alt'></i> </button>
+											</form>
+										</td>
 									<?php } ?>
 								</tr>
 						<?php }
