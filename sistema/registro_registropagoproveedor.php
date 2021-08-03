@@ -35,14 +35,20 @@
 	
   
    <!-- Page Heading -->
-   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-     <h1 class="h3 mb-0 text-gray-800">Ingresar Nuevo pago de proveedor</h1>
-     <a href="lista_registropagoproveedor.php" class="btn btn-primary">Regresar</a>
-   </div>
-   
-   <!-- Content Row -->
-   <div class="row">
-     <div class="col-lg-6 m-auto">
+   <div id="modalAgregarpagoproveedor" class="modal fade" role="dialog">
+
+  <div class="modal-dialog">
+
+    <div class="modal-content" class="align-items-center">
+
+
+  <!-- Page Heading -->
+  <div class="modal-body">
+  <div class="box-body">
+          <div class="card-header bg-primary text-white">
+            Registro pago proveedor
+          </div>
+          <div class="card-body">
        <form action="" method="post" autocomplete="off">
          <?php echo isset($alert) ? $alert : ''; ?>
          <div class="form-group">

@@ -71,7 +71,6 @@
 		<div id="collapsePagos" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
 			
-				<a class="collapse-item" href="registro_registropagos.php">Nuevo Registro de Pago</a>
 				<a class="collapse-item" href="lista_registropagos.php">Lista  de pagos</a>
 			</div>
 		</div>
@@ -84,7 +83,6 @@
 		<div id="collapsepagoproveedor" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
 			
-				<a class="collapse-item" href="registro_registropagoproveedor.php">Nuevo Registro de pago </a>
 				<a class="collapse-item" href="lista_registropagoproveedor.php">Lista de  pagos </a>
 			</div>
 		</div>
