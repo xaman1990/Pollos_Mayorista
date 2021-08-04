@@ -20,7 +20,7 @@
 						<tr>
 							<th>ID</th>
 							<th>NOMBRE</th>
-							<th>PrecioJaba</th>
+							<th>Peso de jaba</th>
 							<th>Puntos</th>
 							<th>TELEFONO</th>
 							<th>DIRECCIÓN</th>
@@ -35,14 +35,14 @@
 						<?php
 						include "../conexion.php";
 
-						$query = mysqli_query($conexion, "SELECT * FROM cliente WHERE ESTADO='A'");
+						$query = mysqli_query($conexion, "SELECT * FROM cliente WHERE Estado='A'");
 						$result = mysqli_num_rows($query);
 						if ($result > 0) {
 							while ($data = mysqli_fetch_assoc($query)) { ?>
 								<tr>
 									<td><?php echo $data['idcliente']; ?></td>
 									<td><?php echo $data['nombre']; ?></td>
-									<td><?php echo $data['preciodejaba']; ?></td>
+									<td><?php echo $data['pesodejaba']; ?></td>
 									<td><?php echo $data['puntos']; ?></td>
 									<td><?php echo $data['telefono']; ?></td>
 									<td><?php echo $data['direccion']; ?></td>

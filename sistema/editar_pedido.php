@@ -129,7 +129,7 @@ if (empty($_REQUEST['id'])) {
               <label for="cjabahembra">Jabas de Hembra</label>
               <input type="number" placeholder="Ingrese Jabas de Hembra" class="form-control" name="cjabahembra" id="cjabahembra" value="<?php echo $data_pedido['cjabahembra']; ?>">
             </div>
-            <input type="submit" value="Actualizar Precio" class="btn btn-primary">
+            <input type="submit" value="Actualizar Pedido" class="btn btn-primary">
           </form>
         </div>
       </div>

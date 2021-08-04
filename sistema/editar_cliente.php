@@ -2,7 +2,7 @@
 include "../conexion.php";
 if (!empty($_POST)) {
   $alert = "";
-  if (empty($_POST['nombre']) ||empty($_POST['puntos']) ||empty($_POST['preciodejaba']) || empty($_POST['telefono']) || empty($_POST['direccion'])) {
+  if (empty($_POST['nombre']) ||empty($_POST['puntos']) || empty($_POST['telefono']) || empty($_POST['direccion'])) {
     $alert = '<p class"error">Todo los campos son requeridos</p>';
   } else {
     $idcliente = $_POST['id'];
@@ -10,23 +10,9 @@ if (!empty($_POST)) {
     $nombre = $_POST['nombre'];
     $telefono = $_POST['telefono'];
     $direccion = $_POST['direccion'];
-    $preciodejaba = $_POST['preciodejaba'];
+    $pesodejaba = $_POST['pesodejaba'];
 
-    $result = 0;
-    if (is_numeric($puntos) and $puntos != 0) {
-
-      $query = mysqli_query($conexion, "SELECT * FROM cliente where (puntos = '$puntos' AND idcliente != $idcliente)");
-      $result = mysqli_fetch_array($query);
-      $resul = mysqli_num_rows($query);
-    }
-
-    //if ($resul >= 1) {
-      //$alert = '<p class"error">El dni ya existe</p>';
-    //} else {
-      //if ($dni == '') {
-        //$dni = 0;
-     // }
-      $sql_update = mysqli_query($conexion, "UPDATE cliente SET puntos = $puntos, nombre = '$nombre' , telefono = '$telefono', direccion = '$direccion',preciodejaba='$preciodejaba' WHERE idcliente = $idcliente");
+      $sql_update = mysqli_query($conexion, "UPDATE cliente SET puntos = $puntos, nombre = '$nombre' , telefono = '$telefono', direccion = '$direccion',pesodejaba='$pesodejaba' WHERE idcliente = $idcliente");
 
       if ($sql_update) {
         $alert = '<p class"exito">Cliente Actualizado correctamente</p>';
@@ -53,7 +39,7 @@ if ($result_sql == 0) {
     $nombre = $data['nombre'];
     $telefono = $data['telefono'];
     $direccion = $data['direccion'];
-    $preciodejaba = $data['preciodejaba'];
+    $pesodejaba = $data['pesodejaba'];
   }
 }
 ?>
@@ -81,11 +67,11 @@ if ($result_sql == 0) {
                 </div>
                 <div class="form-group">
                   <label for="puntos">Puntos</label>
-                  <input type="number" placeholder="Ingrese puntos del cliente " name="puntos" class="form-control"  id="puntos" value="<?php echo $puntos; ?>">
+                  <input type="number" placeholder="Ingrese puntos del cliente " name="puntos" class="form-control" data-field="Amount" min="0.1" step="0.1"  id="puntos" value="<?php echo $puntos; ?>">
                 </div>
                 <div class="form-group">
-                  <label for="preciodejaba">Precio de Jaba </label>
-                  <input type="number" placeholder="Ingrese el Precio de Jaba " name="preciodejaba" class="form-control" id="preciodejaba" value="<?php echo $preciodejaba; ?>">
+                  <label for="pesodejaba">Peso de Jaba </label>
+                  <input type="number" placeholder="Ingrese el Peso de Jaba " name="pesodejaba" class="form-control" data-field="Amount" min="0.1" step="0.1"  id="pesodejaba" value="<?php echo $pesodejaba; ?>">
                 </div>
 
                 <button type="submit" class="btn btn-primary"><i class="fas fa-user-edit"></i> Editar Cliente</button>

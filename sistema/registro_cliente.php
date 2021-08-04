@@ -33,7 +33,7 @@ if (!empty($_POST)) {
                                    El Nombre ya existe
                               </div>';
         } else {
-            $query_insert = mysqli_query($conexion, "INSERT INTO cliente(puntos,nombre,telefono,direccion,preciodejaba, usuario_id) values ('$puntos', '$nombre', '$telefono', '$direccion','$preciodejaba', '$usuario_id')");
+            $query_insert = mysqli_query($conexion, "INSERT INTO cliente(puntos,nombre,telefono,direccion,pesodejaba, usuario_id) values ('$puntos', '$nombre', '$telefono', '$direccion','$pesodejaba', '$usuario_id')");
             if ($query_insert) {
                  echo '<script>
                 Swal.fire({
@@ -103,7 +103,7 @@ if (!empty($_POST)) {
                     <input type="number" placeholder="Ingrese puntos de cliente" name="puntos" id="puntos" class="form-control" data-field="Amount" min="0.0" step="0.1" >
                 </div>
                 <div class="form-group">
-                    <label for="preciodejaba">Precio de la jaba</label>
+                    <label for="preciodejaba">Peso de la jaba</label>
                     <input type="number" placeholder="Ingrese precio de jaba" name="preciodejaba" id="preciodejaba" class="form-control"  data-field="Amount" min="0.0" step="0.1" >
                 </div>
                 <input type="submit" value="Guardar " class="btn col-lg-5 btn-primary ">
