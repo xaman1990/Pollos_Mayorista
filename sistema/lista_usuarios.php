@@ -9,9 +9,9 @@
 		<button class="btn btn-info" data-toggle="modal" data-target="#modalAgregarusuario" style="float:right">
 			Nuevo Usuario
 		</button>
-
 	</div>
 	<div>
+	<button id="Listar_usuarios" class="btn btn-info"><i class="fas fa-search"></i>Listar</button>
 	</div>
 	<div class="row">
 		<div class="col-lg-12">
@@ -38,16 +38,11 @@
 			</div>
 
 		</div>
-
-
 </div>
-
 <!-- /.container-fluid -->
 
 </div>
 <!-- End of Main Content -->
-
-
 <?php include_once "includes/footer.php"; ?>
 <?php include_once "registro_usuario.php"; ?>
 <script>
@@ -62,11 +57,9 @@
 			Listarusuarios();
 
 		}
-
 		function InitButtons() {
 
 			$('#Listar_usuarios').click(Listarusuarios);
-
 
 		}
 		function Listarusuarios() {
@@ -81,7 +74,6 @@
 				ConstruirTablaListarRegistros();
 			}
 		}
-
 		function ConstruirTablaListarRegistros() {
 			var action = "Listarusuarios";
 			var fecha_de = $('#fecha_de').val();
