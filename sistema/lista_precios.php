@@ -15,13 +15,13 @@
 	</div>
 	<div>
 		<h5> buscar por fecha </h5>
-		<form action="lista_precios.php" method="get" class="form_search_date">
+		
 			<label>DE: </label>
-			<input type="text" name="fecha_de"  class="datepicker"  id="fecha_de" value="<?php echo $fecha_de; ?>" required>
+			<input type="text" name="fecha_de"  class="datepicker"  id="fecha_de" required>
 			<label> A </label>
-			<input type="text" name="fecha_a" class="datepicker"  id="fecha_a" value="<?php echo $fecha_a; ?>" required>
-			<button type="submit" class="btn_view"><i class="fas fa-search"></i></button>
-		</form>
+			<input type="text" name="fecha_a" class="datepicker"  id="fecha_a"  >
+			<button id="Listar_precios" class="btn btn-info"><i class="fas fa-search"></i>Listar</button>
+
 	</div>
 	<div class="row">
 		<div class="col-lg-12">

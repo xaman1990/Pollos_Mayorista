@@ -11,7 +11,8 @@
 		</button>
 	</div>
 	<div>
-		<button id="Listar_usuarios" class="btn btn-info"><i class="fas fa-search"></i>Listar</button>
+		<h5> Listar </h5>
+		<button id="Listar_Usuarios" class="btn btn-info"><i class="fas fa-search"></i>Listar</button>
 	</div>
 	<div class="row">
 		<div class="col-lg-12">
@@ -25,9 +26,7 @@
 								<th>CORREO</th>
 								<th>USUARIO</th>
 								<th>Rol</th>
-								<?php if ($_SESSION['rol'] == 1) { ?>
-									<th>ACCIONES</th>
-								<?php } ?>
+								<th>ACCIONES</th>
 							</tr>
 						</thead>
 
@@ -59,7 +58,7 @@
 		}
 
 		function InitButtons() {
-			
+
 			$('#Listar_Usuarios').click(ListarUsuarios);
 
 		}
