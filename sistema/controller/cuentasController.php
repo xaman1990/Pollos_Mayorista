@@ -26,9 +26,9 @@ if ($_POST['action'] == 'obtenercuenta') {
   obtenercuenta();
   exit;
 }
-if ($_POST['action'] == 'ListarCuenta') {
+if ($_POST['action'] == 'ListarCuentas') {
 
-  function ListarCuenta()
+  function ListarCuentas()
   {
     $whereRC = "";
     $whereP = "";
@@ -85,6 +85,6 @@ if ($_POST['action'] == 'ListarCuenta') {
       echo json_encode($data);
     }
   }
-  ListarCuenta();
+  ListarCuentas();
   exit;
 }

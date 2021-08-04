@@ -81,9 +81,9 @@
 	</div>
 	<div class="row">
 		<div class="col-lg-12">
-			<div id="table-ListaCuentas" style="display: none;" class="table-responsive">
-				<div id="list-ListaCuentas" style="width: 100%;">
-					<table id="tb-ListaCuentas" class="table table-striped table-bordered" cellspacing="0" width="100%">
+			<div id="table-ListarCuentas" style="display: none;" class="table-responsive">
+				<div id="list-ListarCuentas" style="width: 100%;">
+					<table id="tb-ListarCuentas" class="table table-striped table-bordered" cellspacing="0" width="100%">
 						<thead class="thead-dark">
 							<tr>
 								<th>Cliente</th>
@@ -150,23 +150,23 @@
 
 			if (typeof oListarCuentas === 'undefined') {
 				ConstruirTablaListarRegistros();
-				$('#table-ListaCuentas').removeAttr('style');
+				$('#table-ListarCuentas').removeAttr('style');
 			} else {
 				oListarCuentas.draw();
-				$('#table-ListaCuentas').removeAttr('style');
-				$("#tb-ListaCuentas").dataTable().fnDestroy();
+				$('#table-ListarCuentas').removeAttr('style');
+				$("#tb-ListarCuentas").dataTable().fnDestroy();
 				ConstruirTablaListarRegistros();
 			}
 		}
 
 		function ConstruirTablaListarRegistros() {
-			var action = "ListarCuenta";
+			var action = "ListarCuentas";
 			var fecha_de = $('#fecha_de').val();
 			var fecha_a = $('#fecha_a').val();
 			var cb_proveedor = $('#cb_proveedor').val();
 			var cb_cliente = $('#cb_cliente').val();
 			var errorAjax = '';
-			oListarCuentas = $('#tb-ListaCuentas').DataTable({
+			oListarCuentas = $('#tb-ListarCuentas').DataTable({
 				ajax: {
 					url: 'controller/cuentasController.php',
 					type: "POST",

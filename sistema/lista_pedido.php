@@ -81,9 +81,9 @@
 	</div>
 	<div class="row">
 		<div class="col-lg-12">
-			<div id="table-ListaPedidos" style="display: none;" class="table-responsive">
-				<div id="list-ListaPedidos" style="width: 100%;">
-					<table id="tb-ListaPedidos" class="table table-striped table-bordered" cellspacing="0" width="100%">
+			<div id="table-ListarPedidos" style="display: none;" class="table-responsive">
+				<div id="list-ListarPedidos" style="width: 100%;">
+					<table id="tb-ListarPedidos" class="table table-striped table-bordered" cellspacing="0" width="100%">
 						<thead class="thead-dark">
 							<tr>
 								<th>id</th>
@@ -149,11 +149,11 @@
 
 			if (typeof oListarPedidos === 'undefined') {
 				ConstruirTablaListarRegistros();
-				$('#table-ListaPedidos').removeAttr('style');
+				$('#table-ListarPedidos').removeAttr('style');
 			} else {
 				oListarPedidos.draw();
-				$('#table-ListaPedidos').removeAttr('style');
-				$("#tb-ListaPedidos").dataTable().fnDestroy();
+				$('#table-ListarPedidos').removeAttr('style');
+				$("#tb-ListarPedidos").dataTable().fnDestroy();
 				ConstruirTablaListarRegistros();
 			}
 		}
@@ -165,7 +165,7 @@
 			var cb_proveedor = $('#cb_proveedor').val();
 			var cb_cliente = $('#cb_cliente').val();
 			var errorAjax = '';
-			oListarPedidos = $('#tb-ListaPedidos').DataTable({
+			oListarPedidos = $('#tb-ListarPedidos').DataTable({
 				ajax: {
 					url: 'controller/pedidoController.php',
 					type: "POST",

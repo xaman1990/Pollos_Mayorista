@@ -58,7 +58,7 @@ if (!empty($_POST)) {
 ?>
 
 <!-- Begin Page Content -->
-<div id="modalAgregarPrecio" class="modal fade" role="dialog">
+<div id="modalAgregarprecio" class="modal fade" role="dialog">
 
   <div class="modal-dialog">
 

@@ -1,40 +1,19 @@
 <?php include_once "includes/header.php";
 
 
-
-$where = "r.Estado='A'";
-$fecha_de = "";
-$fecha_a = "";
-
-if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
-	$fecha_de = $_REQUEST['fecha_de'];
-	$fecha_a = $_REQUEST['fecha_a'];
-	if ($fecha_de > $fecha_a) {
-		$where = " r.fechavalidacion >='$fecha_de' and r.Estado='A'";
-	} else if ($fecha_de == $fecha_a) {
-		$where = " r.fechavalidacion='$fecha_de' and r.Estado='A'";
-	} else {
-		$f_de = date("dd-mm-YY", strtotime($fecha_de . "0 days"));
-		$f_a =  date("dd-mm-YY", strtotime($fecha_a . "+ 1 days"));
-
-		$where = " r.fechavalidacion BETWEEN '$f_de' AND '$f_a' and r.Estado='A'";
-		$buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a";
-	}
-} else if (empty($_REQUEST['fecha_de']) || empty($_REQUEST['fecha_a'])) {
-	$where = "r.Estado='A'";
-}
-
 ?>
 
 <!-- Begin Page Content -->
-
 <div class="container-fluid">
+
+
+
 
 	<!-- Page Heading -->
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
 		<h1 class="h3 mb-0 text-gray-800">Precio diario</h1>
-		<button class="btn btn-info" data-toggle="modal" data-target="#modalAgregarPrecio" style="float:right">
-			Nuevo Precio diario
+		<button class="btn btn-info" data-toggle="modal" data-target="#modalAgregarprecio" style="float:right">
+			Nuevo Precio Diario
 		</button>
 
 	</div>
@@ -48,13 +27,13 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 			<button type="submit" class="btn_view"><i class="fas fa-search"></i></button>
 		</form>
 	</div>
-	<br />
 	<div class="row">
 		<div class="col-lg-12">
-			<div class="table-responsive">
-				<table class="table table-striped table-bordered" id="table">
-					<thead class="thead-dark">
-						<tr>
+			<div id="table-Listarprecios" style="display: none;" class="table-responsive">
+				<div id="list-Listarprecios" style="width: 100%;">
+					<table id="tb-Listarprecios" class="table table-striped table-bordered" cellspacing="0" width="100%">
+						<thead class="thead-dark">
+							<tr>
 							<th>id</th>
 							<th>NombreProveedor</th>
 							<th>Precio Compra</th>
@@ -66,48 +45,27 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 							<th>Fecha validacion</th>
 							<?php if ($_SESSION['rol'] == 1) { ?>
 							<th>ACCIONES</th>
-							<?php }?>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-						include "../conexion.php";
+							<?php }?>							
+							</tr>
+						</thead>
 
-						$query = mysqli_query($conexion, "SELECT r.idprecio,  p.codproveedor , p.proveedor , r.preciocompra , r.precioVenta , r.SubidaInterna , r.PrecioVentaF , r.FechaCreacion , r.Estado,r.fechavalidacion FROM  precio r  INNER JOIN  proveedor p ON p.codproveedor= r.codproveedor WHERE r.Estado='A' and + $where");
-						$result = mysqli_num_rows($query);
-						if ($result > 0) {
-							while ($data = mysqli_fetch_assoc($query)) { ?>
-								<tr>
-									<td><?php echo $data['idprecio']; ?></td>
-									<td><?php echo $data['proveedor']; ?></td>
-									<td><?php echo $data['preciocompra']; ?></td>
-									<td><?php echo $data['precioVenta']; ?></td>
-									<td><?php echo $data['SubidaInterna']; ?></td>
-									<td><?php echo $data['PrecioVentaF']; ?></td>
-									<td><?php echo $data['FechaCreacion']; ?></td>
-									<td><?php echo $data['Estado'];  ?></td>
-									<td><?php echo $data['fechavalidacion']; ?></td>
-									<?php if ($_SESSION['rol'] == 1) { ?>
-									<td>
-										<a href="editar_precios.php?id=<?php echo $data['idprecio']; ?>" class="btn btn-success"><i class='fas fa-edit'></i> Editar</a>
-										<form action="eliminar_precios.php?id=<?php echo $data['idprecio']; ?>" method="post" class="confirmar d-inline">
-											<button class="btn btn-danger" type="submit"><i class='fas fa-trash-alt'></i> </button>
-										</form>
-									</td>
-									<?php } ?>
-								</tr>
-						<?php }
-						} ?>
-					</tbody>
-
-				</table>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
 			</div>
+
+
+
+
 
 		</div>
 	</div>
 
 
 </div>
+
+
 <!-- /.container-fluid -->
 
 </div>
@@ -116,3 +74,117 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 
 <?php include_once "includes/footer.php"; ?>
 <?php include_once "registro_precios.php"; ?>
+<script>
+	$(document).ready(function() {
+
+		var oListarprecios;
+		var oListaRegistros;
+		$(Load);
+
+		function Load() {
+			InitButtons();
+			Listarprecios();
+
+		}
+
+		function InitButtons() {
+
+			$('#Listar_precios').click(Listarprecios);
+
+
+		}
+
+
+		function Listarprecios() {
+
+			if (typeof oListarprecios === 'undefined') {
+				ConstruirTablaListarRegistros();
+				$('#table-Listarprecios').removeAttr('style');
+			} else {
+				oListarprecios.draw();
+				$('#table-Listarprecios').removeAttr('style');
+				$("#tb-Listarprecios").dataTable().fnDestroy();
+				ConstruirTablaListarRegistros();
+			}
+		}
+
+		function ConstruirTablaListarRegistros() {
+			var action = "Listarprecios";
+			var fecha_de = $('#fecha_de').val();
+			var fecha_a = $('#fecha_a').val();
+			var errorAjax = '';
+			oListarprecios = $('#tb-Listarprecios').DataTable({
+				ajax: {
+					url: 'controller/preciosController.php',
+					type: "POST",
+					dataType: "json",
+					destroy: true,
+					error: errorAjax,
+					data: {
+						//parametrosaaa
+						action: action,
+						fecha_de: fecha_de,
+						fecha_a: fecha_a,
+					},
+
+				},
+				success: function(response) {
+					if (response == 0) {
+
+					} else {
+						var data = JSON.parse(response);
+					}
+					
+
+				},
+				rowCallback: function(row, data, index) {
+					
+					
+						$('td', row).eq(9).html('<a href="editar_precios.php?id='+ data.idprecio+'" class="btn btn-success"><i class="fas fa-edit"></i> Editar</a><form action="eliminar_precios.php?id='+data.idprecio+'" method="post" class="confirmar d-inline"><button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i> </button></form>');
+					
+					
+
+				},
+				order: [[ 0, "desc" ]],
+				columns: [{
+						data: 'idprecio'
+					},
+					{
+						data: 'proveedor'
+					},
+					{
+						data: 'preciocompra'
+					},
+					{
+						data: 'precioVenta'
+					},
+					{
+						data: 'SubidaInterna'
+					},
+					{
+						data: 'PrecioVentaF'
+					},
+					{
+						data: 'FechaCreacion'
+					},
+					{
+						data: 'fechavalidacion'
+					},
+					{
+						data: 'Estado'
+					},
+					{
+						data: null
+					}
+				]
+
+			});
+
+
+
+		}
+
+
+
+	});
+</script>
