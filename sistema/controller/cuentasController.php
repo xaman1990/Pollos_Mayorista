@@ -32,7 +32,6 @@ if ($_POST['action'] == 'ListarCuenta') {
   {
     $whereRC = "";
     $whereP = "";
-
     if (!empty($_POST['fecha_de']) || !empty($_POST['fecha_a']) || !empty($_POST['cb_proveedor']) || !empty($_POST['cb_cliente'])) {
       $fecha_de = $_POST['fecha_de'];
       $fecha_a = $_POST['fecha_a'];
@@ -41,15 +40,12 @@ if ($_POST['action'] == 'ListarCuenta') {
       if ($fecha_de > $fecha_a) {
       } else if ($fecha_de == $fecha_a) {
         $whereRC = "  VRC.fechapedido=DATE_FORMAT('$fecha_de', '%m/%d/%Y') and (VRC.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (VRC.idcliente='$cb_cliente' or '$cb_cliente'='') ";
-        $whereP = "  ped.fechapedido=DATE_FORMAT('$fecha_de', '%m/%d/%Y') and (ped.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (ped.idcliente='$cb_cliente' or '$cb_cliente'='') ";
-  
+        $whereP = "  ped.fechapedido=DATE_FORMAT('$fecha_de', '%m/%d/%Y') and (ped.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (ped.idcliente='$cb_cliente' or '$cb_cliente'='') ";  
       } else {
         $f_de = date("Y-m-d", strtotime($fecha_de . "0 days"));
         $f_a =  date("Y-m-d", strtotime($fecha_a . "+ 1 days"));
-
         $whereRC = "   VRC.fechapedido BETWEEN DATE_FORMAT('$f_de', '%m/%d/%Y') AND DATE_FORMAT('$f_a', '%m/%d/%Y')  and (VRC.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (VRC.idcliente='$cb_cliente' or '$cb_cliente'='')";
         $whereP = "   ped.fechapedido BETWEEN DATE_FORMAT('$f_de', '%m/%d/%Y') AND DATE_FORMAT('$f_a', '%m/%d/%Y')  and (ped.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (ped.idcliente='$cb_cliente' or '$cb_cliente'='')";
-      
         $buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a  ";
       }
     } else if (empty($_POST['fecha_de']) && empty($_POST['fecha_a']) && empty($_POST['cb_proveedor']) && empty($_POST['cb_cliente'])) {
@@ -70,7 +66,6 @@ if ($_POST['action'] == 'ListarCuenta') {
                            LEFT JOIN  cliente cli ON cli.idcliente=ped.idcliente
                            LEFT JOIN proveedor pro ON pro.codproveedor=ped.codproveedor
                 where ped.estado='A' ) as VRC where estado='A' and +$whereRC");
-
     $result = mysqli_num_rows($query);
 
     if ($result > 0) {
@@ -83,9 +78,6 @@ if ($_POST['action'] == 'ListarCuenta') {
         "totaldisplayrecords" => count($array),
         "data" => $array
     );
-    
-      
-      
       echo json_encode($dataset, JSON_UNESCAPED_UNICODE);
       exit;
     } else {
