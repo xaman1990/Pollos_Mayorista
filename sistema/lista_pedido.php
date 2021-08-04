@@ -21,9 +21,9 @@
 
 
 		<label>DE: </label>
-		<input type="date" name="fecha_de" id="fecha_de" value="<?php echo $fecha_de; ?>">
+		<input type="text" name="fecha_de" id="fecha_de" class="datepicker" >
 		<label> A </label>
-		<input type="date" name="fecha_a" id="fecha_a" value="<?php echo $fecha_a; ?>">
+		<input type="text" name="fecha_a" id="fecha_a" class="datepicker" >
 
 
 		<label for="nombre">Proveedor</label>

@@ -10,13 +10,14 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 	$fecha_de = $_REQUEST['fecha_de'];
 	$fecha_a = $_REQUEST['fecha_a'];
 	if ($fecha_de > $fecha_a) {
+		$where = " r.fechavalidacion >='$fecha_de' and r.Estado='A'";
 	} else if ($fecha_de == $fecha_a) {
-		$where = " r.fechavalidacion=DATE_FORMAT('$fecha_de', '%m/%d/%Y') and r.Estado='A'";
+		$where = " r.fechavalidacion='$fecha_de' and r.Estado='A'";
 	} else {
-		$f_de = date("Y-m-d", strtotime($fecha_de . "0 days"));
-		$f_a =  date("Y-m-d", strtotime($fecha_a . "+ 1 days"));
+		$f_de = date("dd-mm-YY", strtotime($fecha_de . "0 days"));
+		$f_a =  date("dd-mm-YY", strtotime($fecha_a . "+ 1 days"));
 
-		$where = " r.fechavalidacion BETWEEN DATE_FORMAT('$f_de', '%m/%d/%Y') AND DATE_FORMAT('$f_a', '%m/%d/%Y') and r.Estado='A'";
+		$where = " r.fechavalidacion BETWEEN '$f_de' AND '$f_a' and r.Estado='A'";
 		$buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a";
 	}
 } else if (empty($_REQUEST['fecha_de']) || empty($_REQUEST['fecha_a'])) {
@@ -41,9 +42,9 @@ if (!empty($_REQUEST['fecha_de']) || !empty($_REQUEST['fecha_a'])) {
 		<h5> buscar por fecha </h5>
 		<form action="lista_precios.php" method="get" class="form_search_date">
 			<label>DE: </label>
-			<input type="date" name="fecha_de" id="fecha_de" value="<?php echo $fecha_de; ?>" required>
+			<input type="text" name="fecha_de"  class="datepicker"  id="fecha_de" value="<?php echo $fecha_de; ?>" required>
 			<label> A </label>
-			<input type="date" name="fecha_a" id="fecha_a" value="<?php echo $fecha_a; ?>" required>
+			<input type="text" name="fecha_a" class="datepicker"  id="fecha_a" value="<?php echo $fecha_a; ?>" required>
 			<button type="submit" class="btn_view"><i class="fas fa-search"></i></button>
 		</form>
 	</div>

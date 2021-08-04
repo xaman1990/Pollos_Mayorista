@@ -6,7 +6,7 @@ $(document).ready(function () {
 
   $(function () {
     $(".datepicker").datepicker({
-      altFormat: "yy-mm-dd",
+      dateFormat: "dd-mm-yy",
     });
   });
 

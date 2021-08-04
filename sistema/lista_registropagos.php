@@ -78,9 +78,9 @@
 	</div>
 	<div class="row">
 		<div class="col-lg-12">
-			<div id="table-Listarpagos" style="display: none;" class="table-responsive">
-				<div id="list-Listarpagos" style="width: 100%;">
-					<table id="tb-Listarpagos" class="table table-striped table-bordered" cellspacing="0" width="100%">
+			<div id="table-ListarPagos" style="display: none;" class="table-responsive">
+				<div id="list-ListarPagos" style="width: 100%;">
+					<table id="tb-ListarPagos" class="table table-striped table-bordered" cellspacing="0" width="100%">
 						<thead class="thead-dark">
 							<tr>
 							<th>ID</th>
@@ -123,33 +123,33 @@
 <script>
 	$(document).ready(function() {
 
-		var oListarpagos;
-		var oListapagos;
+		var oListarPagos;
+		var oListaPagos;
 		$(Load);
 
 		function Load() {
 			InitButtons();
-			Listarpagos();
+			ListarPagos();
 
 		}
 
 		function InitButtons() {
 
-			$('#Listar_pagos').click(Listarpagos);
+			$('#Listar_pagos').click(ListarPagos);
 
 
 		}
 
 
-		function Listarpagos() {
+		function ListarPagos() {
 
-			if (typeof oListarpagos === 'undefined') {
+			if (typeof oListarPagos === 'undefined') {
 				ConstruirTablaListarRegistros();
-				$('#table-Listarpagos').removeAttr('style');
+				$('#table-ListarPagos').removeAttr('style');
 			} else {
-				oListarpagos.draw();
-				$('#table-Listarpagos').removeAttr('style');
-				$("#tb-Listarpagos").dataTable().fnDestroy();
+				oListarPagos.draw();
+				$('#table-ListarPagos').removeAttr('style');
+				$('#tb-ListarPagos').dataTable().fnDestroy();
 				ConstruirTablaListarRegistros();
 			}
 		}
@@ -161,7 +161,7 @@
 			var cb_proveedor = $('#cb_proveedor').val();
 			var cb_cliente = $('#cb_cliente').val();
 			var errorAjax = '';
-			oListarPedidos = $('#tb-Listarpagos').DataTable({
+			oListarPagos = $('#tb-ListarPagos').DataTable({
 				ajax: {
 					url: 'controller/pagosController.php',
 					type: "POST",
@@ -196,7 +196,7 @@
 					
 
 				},
-				order: [[ 0, "desc" ]],
+				order: [[ 7, "desc" ]],
 				columns: [{
 						data: 'idregistro'
 					},
