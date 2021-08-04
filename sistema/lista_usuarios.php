@@ -53,13 +53,14 @@
 		$(Load);
 
 		function Load() {
+			console.log(3);
 			InitButtons();
 			Listarusuarios();
 
 		}
 
 		function InitButtons() {
-
+			console.log(2);
 			$('#Listar_usuarios').click(Listarusuarios);
 
 		}
@@ -67,10 +68,12 @@
 		function Listarusuarios() {
 
 			if (typeof oListarusuarios === 'undefined') {
+				console.log(1);
 				ConstruirTablaListarRegistros();
 				$('#table-Listarusuarios').removeAttr('style');
 			} else {
 				oListarusuarios.draw();
+				console.log(1);
 				$('#table-Listarusuarios').removeAttr('style');
 				$("#tb-Listarusuarios").dataTable().fnDestroy();
 				ConstruirTablaListarRegistros();
@@ -80,6 +83,7 @@
 		function ConstruirTablaListarRegistros() {
 			var action = "Listarusuarios";
 			var errorAjax = '';
+			
 			oListarusuarios = $('#tb-Listarusuarios').DataTable({
 				ajax: {
 					url: 'controller/usuariosController.php',
