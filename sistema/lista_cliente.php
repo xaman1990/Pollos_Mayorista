@@ -35,7 +35,7 @@
 						<?php
 						include "../conexion.php";
 
-						$query = mysqli_query($conexion, "SELECT * FROM cliente WHERE ESTADO='A'");
+						$query = mysqli_query($conexion, "SELECT * FROM cliente WHERE Estado='A'");
 						$result = mysqli_num_rows($query);
 						if ($result > 0) {
 							while ($data = mysqli_fetch_assoc($query)) { ?>
