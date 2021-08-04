@@ -76,7 +76,7 @@
 
 
 		<button id="Listar_Cuentas" class="btn btn-info"><i class="fas fa-search"></i>Listar</button>
-		<a href="lista_reportecuenta.php" class="btn btn-primary">Reporte de Cuentas</a>
+		<button id="btn_Reporte" class="btn btn-primary"><i class="fas fa-search"></i>Reporte cuentas</button>
 
 	</div>
 	<div class="row">
@@ -115,7 +115,26 @@
 
 
 </div>
+<div id="dialog-form-Reporte" title="Reporte" class="temporal_hide" style="display: none;">
+	<div id="Contenedor-Reporte"></div>
+	
+		<table id="tb-Reportecuenta" class="table table-striped table-bordered" cellspacing="0" width="100%">
+			<thead class="thead-dark">
+				<tr>
+					<th></th>
+					<th>Proveedor</th>
+					<th>Total K Bruto</th>
+					<th>Total Tara</th>
+					<th>Total Kilo Neto</th>
+					<th>Total importe vendido</th>
+				</tr>
+			</thead>
 
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+</div>
 
 <!-- /.container-fluid -->
 
@@ -129,18 +148,19 @@
 
 		var oListarCuentas;
 		var oListaRegistros;
+		var oReporte;
 		$(Load);
 
 		function Load() {
 			InitButtons();
 			ListarCuentas();
-
+            load_MostrarReporte();
 		}
 
 		function InitButtons() {
 
 			$('#Listar_Cuentas').click(ListarCuentas);
-
+            $('#btn_Reporte').click(MostrarRegistrosReporte);
 
 		}
 
@@ -239,7 +259,104 @@
 
 		}
 
+		function load_MostrarReporte() {
+			LoadPoputReporte();
+			CargarReporte();
+			
+		}
+
+		function LoadPoputReporte() {
+			$("#dialog-form-Reporte").dialog({
+				autoOpen: false,
+				height: 'auto',
+				width: 'auto',
+				modal: false,
+				resizable: false,
+				position: 'right top'
+
+			});
+		}
+
+		function Estado_Reporte() {
+			$("#load_Reporte").hide();
+			$("#dialog-form-Reporte").dialog("open");
+		}
+
+		function MostrarRegistrosReporte() {
+			if (typeof oReporte === 'undefined') {
+				CargarReporte();
+				$('#Contenedor-Reporte').removeAttr('style');
+			} else {
+				oReporte.draw();
+				$('#Contenedor-Reporte').removeAttr('style');
+				$("#tb-Reportecuenta").dataTable().fnDestroy();
+				CargarReporte();
+			}
+
+			$("#Contenedor-Reporte").show();
+
+			Estado_Reporte();
+		}
+
+		function CargarReporte() {
+
+			var action = "Reportecuenta";
+			var fecha_de = $('#fecha_de').val();
+			var fecha_a = $('#fecha_a').val();
+			var cb_proveedor = $('#cb_proveedor').val();
+			var cb_cliente = $('#cb_cliente').val();
+			var errorAjax = '';
+			oReporte = $('#tb-Reportecuenta').DataTable({
+				ajax: {
+					url: 'controller/cuentasController.php',
+					type: "POST",
+					dataType: "json",
+					destroy: true,
+					error: errorAjax,
+					data: {
+						//parametros
+						action: action,
+						fecha_de: fecha_de,
+						fecha_a: fecha_a,
+						cb_proveedor: cb_proveedor,
+						cb_cliente: cb_cliente
+					},
+
+				},
+				success: function(response) {
+					if (response == 0) {
+
+					} else {
+						var data = JSON.parse(response);
+					}
+				},
+
+				order: [
+					[0, "desc"]
+				],
+				columns: [{
+						data: 'proveedor'
+					},
+					{
+						data: 'pesototal'
+					},
+					{
+						data: 'TotalDestare'
+					},
+					{
+						data: 'PesoNeto'
+					},
+					{
+						data: 'Totalimportevendido'
+					}
+					
+				]
+
+			});
+			
 
 
+
+		}
 	});
 </script>
