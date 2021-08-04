@@ -134,8 +134,7 @@
 					} else {
 						var data = JSON.parse(response);
 					}
-					//var info = JSON.parse(response);
-					//console.log(info); console.log("HERE : ", response)
+					
 
 				},
 				rowCallback: function(row, data, index) {
