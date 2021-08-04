@@ -92,7 +92,7 @@
 					error: errorAjax,
 					data: {
 						//parametros
-						action: action,
+						action: action
 					},
 
 				},
