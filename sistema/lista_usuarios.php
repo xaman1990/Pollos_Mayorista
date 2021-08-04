@@ -82,6 +82,8 @@
 			var action = "ListarUsuarios";
 			var errorAjax = '';
 
+			console.log("HERE")
+
 			oListarUsuarios = $('#tb-ListarUsuarios').DataTable({
 				ajax: {
 					url: 'controller/usuariosController.php',
@@ -95,6 +97,11 @@
 					},
 
 				},
+				error: function (xhr, error, code)
+            {
+                console.log(xhr);
+                console.log(code);
+            },
 				success: function(response) {
 					if (response == 0) {
 
