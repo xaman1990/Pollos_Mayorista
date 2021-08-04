@@ -91,7 +91,6 @@ echo '<script>
                 <option value="<?php echo $proveedor['codproveedor']; ?>"><?php echo $proveedor['proveedor']; ?></option>
             <?php
 
-
               }
             }
             ?>
@@ -151,8 +150,6 @@ echo '<script>
       </form>
     </div>
   </div>
-
-
 </div>
 <!-- /.container-fluid -->
 

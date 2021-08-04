@@ -16,7 +16,6 @@ if (!empty($_POST)) {
             })
       </script>';
     } else {
-
         $nombre = $_POST['nombre'];
         $email = $_POST['correo'];
         $user = $_POST['usuario'];
@@ -122,8 +121,6 @@ if (!empty($_POST)) {
             </form>
         </div>
     </div>
-
-
 </div>
 <!-- /.container-fluid -->
 
