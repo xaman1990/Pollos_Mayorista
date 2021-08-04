@@ -86,7 +86,6 @@
 					<table id="tb-ListaCuentas" class="table table-striped table-bordered" cellspacing="0" width="100%">
 						<thead class="thead-dark">
 							<tr>
-
 								<th>Cliente</th>
 								<th>Proveedor</th>
 								<th>Precio Diario</th>
@@ -203,7 +202,6 @@
 
 				},
 				columns: [{
-
 						data: 'nombre'
 					},
 					{
@@ -221,11 +219,9 @@
 					{
 						data: 'TotalDestare'
 					},
-
 					{
 						data: 'PesoNeto'
 					},
-
 					{
 						data: 'montoacobrar'
 					},

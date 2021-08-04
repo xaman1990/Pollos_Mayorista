@@ -36,7 +36,7 @@ if (!empty($_POST)) {
                 echo '<script>
                 Swal.fire({
                   type: "success",
-                  title: "¡El precio fue creado!",
+                  title: "¡El usuario fue creado!",
                   showConfirmButton: true,
                   confirmButtonText: "Cerrar"
                   }).then(function(result){
@@ -49,7 +49,7 @@ if (!empty($_POST)) {
           echo '<script>
                 Swal.fire({
                   type: "error",
-                  title: "¡Error al crear al precio!",
+                  title: "¡Error al crear al usuario!",
                   showConfirmButton: true,
                   confirmButtonText: "Cerrar"
                   }).then(function(result){
