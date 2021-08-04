@@ -1,9 +1,8 @@
 <?php
 session_start();
-if ($_POST['action'] == 'Listarusuarios') {
-  function Listarusuarios()
+if ($_POST['action'] == 'ListarUsuarios') {
+  function ListarUsuarios()
   {
-   
     include "../../conexion.php";
     $query = mysqli_query($conexion, "SELECT u.idusuario, u.nombre, u.correo,u.usuario, r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol");
 
@@ -25,6 +24,6 @@ if ($_POST['action'] == 'Listarusuarios') {
       echo json_encode($data);
     }
   }
-  Listarusuarios();
+  ListarUsuarios();
   exit;
 }

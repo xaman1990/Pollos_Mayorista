@@ -15,9 +15,9 @@
 	</div>
 	<div class="row">
 		<div class="col-lg-12">
-			<div id="table-Listarusuarios" style="display: none;" class="table-responsive">
-				<div id="list-Listarusuarios" style="width: 100%;">
-					<table id="tb-Listarusuarios" class="table table-striped table-bordered" cellspacing="0" width="100%">
+			<div id="table-ListarUsuarios" style="display: none;" class="table-responsive">
+				<div id="list-ListarUsuarios" style="width: 100%;">
+					<table id="tb-ListarUsuarios" class="table table-striped table-bordered" cellspacing="0" width="100%">
 						<thead class="thead-dark">
 							<tr>
 								<th>ID</th>
@@ -48,43 +48,42 @@
 <script>
 	$(document).ready(function() {
 
-		var oListarusuarios;
-		var oListaRegistros;
+		var oListarUsuarios;
 		$(Load);
 
 		function Load() {
 
 			InitButtons();
-			Listarusuarios();
+			ListarUsuarios();
 
 		}
 
 		function InitButtons() {
 			
-			$('#Listar_usuarios').click(Listarusuarios);
+			$('#Listar_Usuarios').click(ListarUsuarios);
 
 		}
 
-		function Listarusuarios() {
+		function ListarUsuarios() {
 
-			if (typeof oListarusuarios === 'undefined') {
+			if (typeof oListarUsuarios === 'undefined') {
 
 				ConstruirTablaListarRegistros();
-				$('#table-Listarusuarios').removeAttr('style');
+				$('#table-ListarUsuarios').removeAttr('style');
 			} else {
-				oListarusuarios.draw();
+				oListarUsuarios.draw();
 
-				$('#table-Listarusuarios').removeAttr('style');
-				$("#tb-Listarusuarios").dataTable().fnDestroy();
+				$('#table-ListarUsuarios').removeAttr('style');
+				$("#tb-ListarUsuarios").dataTable().fnDestroy();
 				ConstruirTablaListarRegistros();
 			}
 		}
 
 		function ConstruirTablaListarRegistros() {
-			var action = "Listarusuarios";
+			var action = "ListarUsuarios";
 			var errorAjax = '';
 
-			oListarusuarios = $('#tb-Listarusuarios').DataTable({
+			oListarUsuarios = $('#tb-ListarUsuarios').DataTable({
 				ajax: {
 					url: 'controller/usuariosController.php',
 					type: "POST",
