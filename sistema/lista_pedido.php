@@ -1,13 +1,8 @@
 <?php include_once "includes/header.php";
-
-
 ?>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
-
-
-
 
 	<!-- Page Heading -->
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -18,8 +13,6 @@
 
 	</div>
 	<div>
-
-
 		<label>DE: </label>
 		<input type="text" name="fecha_de" id="fecha_de" class="datepicker" >
 		<label> A </label>
@@ -74,7 +67,6 @@
 			?>
 		</select>
 
-
 		<button id="Listar_Pedidos" class="btn btn-info"><i class="fas fa-search"></i>Listar</button>
 		<a href="lista_reporte.php" class="btn btn-primary">Reporte de pedidos</a>
 
@@ -105,10 +97,6 @@
 				</div>
 			</div>
 
-
-
-
-
 		</div>
 	</div>
 
@@ -120,8 +108,6 @@
 
 </div>
 <!-- End of Main Content -->
-
-
 <?php include_once "includes/footer.php"; ?>
 <?php include_once "registro_pedido.php"; ?>
 <script>
@@ -140,8 +126,6 @@
 		function InitButtons() {
 
 			$('#Listar_Pedidos').click(ListarPedidos);
-
-
 		}
 
 
@@ -188,18 +172,10 @@
 					} else {
 						var data = JSON.parse(response);
 					}
-					//var info = JSON.parse(response);
-					//console.log(info); console.log("HERE : ", response)
-
 				},
 				rowCallback: function(row, data, index) {
-					
-					
 						$('td', row).eq(9).html('<a href="editar_pedido.php?id='+ data.idpedido+'" class="btn btn-success"><i class="fas fa-edit"></i> Editar</a><form action="eliminar_pedido.php?id='+data.idpedido+'" method="post" class="confirmar d-inline"><button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i> </button></form>');
-					
-					
-
-				},
+									},
 				order: [[ 0, "desc" ]],
 				columns: [{
 						data: 'idpedido'
@@ -234,12 +210,6 @@
 				]
 
 			});
-
-
-
 		}
-
-
-
 	});
 </script>
