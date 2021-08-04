@@ -1,8 +1,6 @@
 ﻿<?php include_once "includes/header.php";
 
-
 ?>
-
 <!-- Begin Page Content -->
 <div class="container-fluid">
 	<!-- Page Heading -->
@@ -71,8 +69,6 @@
 
 
 		}
-
-
 		function Listarusuarios() {
 
 			if (typeof oListarusuarios === 'undefined') {
@@ -112,17 +108,11 @@
 					} else {
 						var data = JSON.parse(response);
 					}
-					//var info = JSON.parse(response);
-					//console.log(info); console.log("HERE : ", response)
 
 				},
 				rowCallback: function(row, data, index) {
-					
-					
 						$('td', row).eq(5).html('<a href="editar_usuario.php?id='+ data.idusuario+'" class="btn btn-success"><i class="fas fa-edit"></i> Editar</a><form action="eliminar_usuario.php?id='+data.idusuario+'" method="post" class="confirmar d-inline"><button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i> </button></form>');
 					
-					
-
 				},
 				order: [[ 0, "desc" ]],
 				columns: [{
@@ -148,11 +138,6 @@
 
 			});
 
-
-
 		}
-
-
-
 	});
 </script>
