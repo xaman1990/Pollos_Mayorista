@@ -65,7 +65,7 @@ if (!empty($_POST)) {
 ?>
 
 <!-- Begin Page Content -->
-<div id="modalagregarusuario" class="modal fade" role="dialog">
+<div id="modalAgregarusuario" class="modal fade" role="dialog">
 
   <div class="modal-dialog">
 

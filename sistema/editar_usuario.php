@@ -41,6 +41,7 @@ if ($result_sql == 0) {
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
+<a href="lista_usuarios.php" class="btn btn-primary">Regresar</a>
 
   <div class="row">
     <div class="col-lg-6 m-auto">

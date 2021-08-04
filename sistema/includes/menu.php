@@ -94,7 +94,6 @@
 		</a>
 		<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
-				<a class="collapse-item" href="registro_producto.php">Nuevo Producto</a>
 				<a class="collapse-item" href="lista_cuadre.php">Cuadre</a>
 			</div>
 		</div>

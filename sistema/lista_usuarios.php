@@ -1,67 +1,59 @@
-﻿<?php include_once "includes/header.php"; ?>
+﻿<?php include_once "includes/header.php";
+
+
+?>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
+
+
+
 	<!-- Page Heading -->
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
-		<h1 class="h3 mb-0 text-gray-800">Usuarios</h1>
-		<button class="btn btn-info" data-toggle="modal" data-target="#modalagregarusuario" style="float:right">
-			Nuevo Usuario 
+		<h1 class="h3 mb-0 text-gray-800">Registro Usuario</h1>
+		<button class="btn btn-info" data-toggle="modal" data-target="#modalAgregarusuario" style="float:right">
+			Nuevo Usuario
 		</button>
-		</div>
 
+	</div>
+	<div>
+	</div>
 	<div class="row">
 		<div class="col-lg-12">
-			<div class="table-responsive">
-				<table class="table table-striped table-bordered" id="table">
-					<thead class="thead-dark">
-						<tr>
+			<div id="table-Listarusuarios" style="display: none;" class="table-responsive">
+				<div id="list-Listarusuarios" style="width: 100%;">
+					<table id="tb-Listarusuarios" class="table table-striped table-bordered" cellspacing="0" width="100%">
+						<thead class="thead-dark">
+							<tr>
 							<th>ID</th>
 							<th>NOMBRE</th>
 							<th>CORREO</th>
 							<th>USUARIO</th>
-							<th>DIRECCIÓN</th>
+							<th>Rol</th>
 							<?php if ($_SESSION['rol'] == 1) { ?>
 							<th>ACCIONES</th>
-							<?php }?>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-						include "../conexion.php";
+							<?php }?>						
+							</tr>
+						</thead>
 
-						$query = mysqli_query($conexion, "SELECT u.idusuario, u.nombre, u.correo, u.usuario, r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol");
-						$result = mysqli_num_rows($query);
-						if ($result > 0) {
-							while ($data = mysqli_fetch_assoc($query)) { ?>
-								<tr>
-									<td><?php echo $data['idusuario']; ?></td>
-									<td><?php echo $data['nombre']; ?></td>
-									<td><?php echo $data['correo']; ?></td>
-									<td><?php echo $data['usuario']; ?></td>
-									<td><?php echo $data['rol']; ?></td>
-									<?php if ($_SESSION['rol'] == 1) { ?>
-									<td>
-										<a href="editar_usuario.php?id=<?php echo $data['idusuario']; ?>" class="btn btn-success"><i class='fas fa-edit'></i> Editar</a>
-										<form action="eliminar_usuario.php?id=<?php echo $data['idusuario']; ?>" method="post" class="confirmar d-inline">
-											<button class="btn btn-danger" type="submit"><i class='fas fa-trash-alt'></i> </button>
-										</form>
-									</td>
-									<?php } ?>
-								</tr>
-						<?php }
-						} ?>
-					</tbody>
-
-				</table>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
 			</div>
+
+
+
+
 
 		</div>
 	</div>
 
 
 </div>
+
+
 <!-- /.container-fluid -->
 
 </div>
@@ -70,3 +62,107 @@
 
 <?php include_once "includes/footer.php"; ?>
 <?php include_once "registro_usuario.php"; ?>
+<script>
+	$(document).ready(function() {
+
+		var oListarusuarios;
+		var oListaRegistros;
+		$(Load);
+
+		function Load() {
+			InitButtons();
+			Listarusuarios();
+
+		}
+
+		function InitButtons() {
+
+			$('#Listar_usuarios').click(Listarusuarios);
+
+
+		}
+
+
+		function Listarusuarios() {
+
+			if (typeof oListarusuarios === 'undefined') {
+				ConstruirTablaListarRegistros();
+				$('#table-Listarusuarios').removeAttr('style');
+			} else {
+				oListarusuarios.draw();
+				$('#table-Listarusuarios').removeAttr('style');
+				$("#tb-Listarusuarios").dataTable().fnDestroy();
+				ConstruirTablaListarRegistros();
+			}
+		}
+
+		function ConstruirTablaListarRegistros() {
+			var action = "Listarusuarios";
+			var fecha_de = $('#fecha_de').val();
+			var fecha_a = $('#fecha_a').val();
+			var errorAjax = '';
+			oListarusuarios = $('#tb-Listarusuarios').DataTable({
+				ajax: {
+					url: 'controller/usuariosController.php',
+					type: "POST",
+					dataType: "json",
+					destroy: true,
+					error: errorAjax,
+					data: {
+						//parametros
+						action: action,
+						fecha_de: fecha_de,
+						fecha_a: fecha_a,
+					},
+
+				},
+				success: function(response) {
+					if (response == 0) {
+
+					} else {
+						var data = JSON.parse(response);
+					}
+					//var info = JSON.parse(response);
+					//console.log(info); console.log("HERE : ", response)
+
+				},
+				rowCallback: function(row, data, index) {
+					
+					
+						$('td', row).eq(5).html('<a href="editar_usuario.php?id='+ data.idusuario+'" class="btn btn-success"><i class="fas fa-edit"></i> Editar</a><form action="eliminar_usuario.php?id='+data.idusuario+'" method="post" class="confirmar d-inline"><button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i> </button></form>');
+					
+					
+
+				},
+				order: [[ 0, "desc" ]],
+				columns: [{
+						data: 'idusuario'
+					},
+					{
+						data: 'nombre'
+					},
+					{
+						data: 'correo'
+					},
+					{
+						data: 'usuario'
+					},
+					{
+						data: 'rol'
+					},
+					{
+						
+						data: null
+					}
+				]
+
+			});
+
+
+
+		}
+
+
+
+	});
+</script>
