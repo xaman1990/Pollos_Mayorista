@@ -27,7 +27,6 @@ if ($_POST['action'] == 'obtenerprecio') {
   exit;
 }
 if ($_POST['action'] == 'Listarusuarios') {
-
   function Listarusuarios()
   {
    
@@ -45,9 +44,6 @@ if ($_POST['action'] == 'Listarusuarios') {
         "totaldisplayrecords" => count($array),
         "data" => $array
     );
-    
-      
-      
       echo json_encode($dataset, JSON_UNESCAPED_UNICODE);
       exit;
     } else {

@@ -11,7 +11,7 @@
 		</button>
 	</div>
 	<div>
-	<button id="Listar_usuarios" class="btn btn-info"><i class="fas fa-search"></i>Listar</button>
+		<button id="Listar_usuarios" class="btn btn-info"><i class="fas fa-search"></i>Listar</button>
 	</div>
 	<div class="row">
 		<div class="col-lg-12">
@@ -20,14 +20,14 @@
 					<table id="tb-Listarusuarios" class="table table-striped table-bordered" cellspacing="0" width="100%">
 						<thead class="thead-dark">
 							<tr>
-							<th>ID</th>
-							<th>NOMBRE</th>
-							<th>CORREO</th>
-							<th>USUARIO</th>
-							<th>Rol</th>
-							<?php if ($_SESSION['rol'] == 1) { ?>
-							<th>ACCIONES</th>
-							<?php }?>						
+								<th>ID</th>
+								<th>NOMBRE</th>
+								<th>CORREO</th>
+								<th>USUARIO</th>
+								<th>Rol</th>
+								<?php if ($_SESSION['rol'] == 1) { ?>
+									<th>ACCIONES</th>
+								<?php } ?>
 							</tr>
 						</thead>
 
@@ -38,8 +38,8 @@
 			</div>
 
 		</div>
-</div>
-<!-- /.container-fluid -->
+	</div>
+	<!-- /.container-fluid -->
 
 </div>
 <!-- End of Main Content -->
@@ -57,11 +57,13 @@
 			Listarusuarios();
 
 		}
+
 		function InitButtons() {
 
 			$('#Listar_usuarios').click(Listarusuarios);
 
 		}
+
 		function Listarusuarios() {
 
 			if (typeof oListarusuarios === 'undefined') {
@@ -74,10 +76,9 @@
 				ConstruirTablaListarRegistros();
 			}
 		}
+
 		function ConstruirTablaListarRegistros() {
 			var action = "Listarusuarios";
-			var fecha_de = $('#fecha_de').val();
-			var fecha_a = $('#fecha_a').val();
 			var errorAjax = '';
 			oListarusuarios = $('#tb-Listarusuarios').DataTable({
 				ajax: {
@@ -89,8 +90,6 @@
 					data: {
 						//parametros
 						action: action,
-						fecha_de: fecha_de,
-						fecha_a: fecha_a,
 					},
 
 				},
@@ -103,10 +102,12 @@
 
 				},
 				rowCallback: function(row, data, index) {
-						$('td', row).eq(5).html('<a href="editar_usuario.php?id='+ data.idusuario+'" class="btn btn-success"><i class="fas fa-edit"></i> Editar</a><form action="eliminar_usuario.php?id='+data.idusuario+'" method="post" class="confirmar d-inline"><button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i> </button></form>');
-					
+					$('td', row).eq(5).html('<a href="editar_usuario.php?id=' + data.idusuario + '" class="btn btn-success"><i class="fas fa-edit"></i> Editar</a><form action="eliminar_usuario.php?id=' + data.idusuario + '" method="post" class="confirmar d-inline"><button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i> </button></form>');
+
 				},
-				order: [[ 0, "desc" ]],
+				order: [
+					[0, "desc"]
+				],
 				columns: [{
 						data: 'idusuario'
 					},
@@ -123,7 +124,7 @@
 						data: 'rol'
 					},
 					{
-						
+
 						data: null
 					}
 				]
