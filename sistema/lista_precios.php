@@ -5,10 +5,6 @@
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
-
-
-
-
 	<!-- Page Heading -->
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
 		<h1 class="h3 mb-0 text-gray-800">Precio diario</h1>
@@ -64,8 +60,6 @@
 
 
 </div>
-
-
 <!-- /.container-fluid -->
 
 </div>
@@ -138,12 +132,8 @@
 
 				},
 				rowCallback: function(row, data, index) {
-					
-					
 						$('td', row).eq(9).html('<a href="editar_precios.php?id='+ data.idprecio+'" class="btn btn-success"><i class="fas fa-edit"></i> Editar</a><form action="eliminar_precios.php?id='+data.idprecio+'" method="post" class="confirmar d-inline"><button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i> </button></form>');
 					
-					
-
 				},
 				order: [[ 0, "desc" ]],
 				columns: [{
