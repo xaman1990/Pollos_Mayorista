@@ -39,21 +39,21 @@ if ($_POST['action'] == 'Listarpagos') {
       $cb_Proveedor = $_POST['cb_proveedor'];
       $cb_cliente = $_POST['cb_cliente'];
       if ($fecha_de > $fecha_a) {
-        $whereRC = "  rc.fechapedido>= DATE_FORMAT('$fecha_de', '%m/%d/%Y')  and (rc.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (rc.idcliente='$cb_cliente' or '$cb_cliente'='') GROUP BY rc.idregistro,rc.codproveedor,rc.idcliente,c.nombre  , p.proveedor,rc.preciodiario,rc.totaldejabas,rc.montoacobrar, rc.fechapedido, rc.Estado";
+        $whereRC = "  rc.fechapedido>='$fecha_de'  and (rc.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (rc.idcliente='$cb_cliente' or '$cb_cliente'='') GROUP BY rc.idregistro,rc.codproveedor,rc.idcliente,c.nombre  , p.proveedor,rc.preciodiario,rc.totaldejabas,rc.montoacobrar, rc.fechapedido, rc.Estado";
         
       } else if ($fecha_de == $fecha_a ) {
-        $whereRC = "  rc.fechapedido=DATE_FORMAT('$fecha_de', '%m/%d/%Y') and (rc.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (rc.idcliente='$cb_cliente' or '$cb_cliente'='') GROUP BY rc.idregistro,rc.codproveedor,rc.idcliente,c.nombre  , p.proveedor,rc.preciodiario,rc.totaldejabas,rc.montoacobrar, rc.fechapedido, rc.Estado";
+        $whereRC = "  rc.fechapedido='$fecha_de' and (rc.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (rc.idcliente='$cb_cliente' or '$cb_cliente'='') GROUP BY rc.idregistro,rc.codproveedor,rc.idcliente,c.nombre  , p.proveedor,rc.preciodiario,rc.totaldejabas,rc.montoacobrar, rc.fechapedido, rc.Estado";
         $whereP = "  ped.fechapedido=DATE_FORMAT('$fecha_de', '%m/%d/%Y') and (ped.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (ped.idcliente='$cb_cliente' or '$cb_cliente'='') ";
   
       } else if (!empty($_POST['fecha_de']) && empty($_POST['fecha_a'])){
-        $whereRC = "  rc.fechapedido>= DATE_FORMAT('$fecha_de', '%m/%d/%Y')  and (rc.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (rc.idcliente='$cb_cliente' or '$cb_cliente'='') GROUP BY rc.idregistro,rc.codproveedor,rc.idcliente,c.nombre  , p.proveedor,rc.preciodiario,rc.totaldejabas,rc.montoacobrar, rc.fechapedido, rc.Estado";
+        $whereRC = "  rc.fechapedido>= '$fecha_de' and (rc.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (rc.idcliente='$cb_cliente' or '$cb_cliente'='') GROUP BY rc.idregistro,rc.codproveedor,rc.idcliente,c.nombre  , p.proveedor,rc.preciodiario,rc.totaldejabas,rc.montoacobrar, rc.fechapedido, rc.Estado";
         
 
       } else {
         $f_de = date("Y-m-d", strtotime($fecha_de . "0 days"));
         $f_a =  date("Y-m-d", strtotime($fecha_a . "+ 1 days"));
 
-        $whereRC = "   rc.fechapedido BETWEEN DATE_FORMAT('$f_de', '%m/%d/%Y') AND DATE_FORMAT('$f_a', '%m/%d/%Y')  and (rc.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (rc.idcliente='$cb_cliente' or '$cb_cliente'='' ) GROUP BY rc.idregistro,rc.codproveedor,rc.idcliente,c.nombre  , p.proveedor,rc.preciodiario,rc.totaldejabas,rc.montoacobrar, rc.fechapedido, rc.Estado";
+        $whereRC = "   rc.fechapedido BETWEEN '$fecha_de' AND '$fecha_a'  and (rc.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (rc.idcliente='$cb_cliente' or '$cb_cliente'='' ) GROUP BY rc.idregistro,rc.codproveedor,rc.idcliente,c.nombre  , p.proveedor,rc.preciodiario,rc.totaldejabas,rc.montoacobrar, rc.fechapedido, rc.Estado";
         $whereP = "   ped.fechapedido BETWEEN DATE_FORMAT('$f_de', '%m/%d/%Y') AND DATE_FORMAT('$f_a', '%m/%d/%Y')  and (ped.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (ped.idcliente='$cb_cliente' or '$cb_cliente'='')";
       
         $buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a  ";

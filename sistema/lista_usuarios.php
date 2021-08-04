@@ -1,4 +1,4 @@
-﻿<?php include_once "includes/header.php";
+﻿﻿<?php include_once "includes/header.php";
 
 ?>
 <!-- Begin Page Content -->
@@ -11,7 +11,6 @@
 		</button>
 	</div>
 	<div>
-		<h5> Listar </h5>
 		<button id="Listar_Usuarios" class="btn btn-info"><i class="fas fa-search"></i>Listar</button>
 	</div>
 	<div class="row">
@@ -27,6 +26,7 @@
 								<th>USUARIO</th>
 								<th>Rol</th>
 								<th>ACCIONES</th>
+									
 							</tr>
 						</thead>
 
@@ -58,7 +58,7 @@
 		}
 
 		function InitButtons() {
-
+			
 			$('#Listar_Usuarios').click(ListarUsuarios);
 
 		}
@@ -82,8 +82,6 @@
 			var action = "ListarUsuarios";
 			var errorAjax = '';
 
-			console.log("HERE")
-
 			oListarUsuarios = $('#tb-ListarUsuarios').DataTable({
 				ajax: {
 					url: 'controller/usuariosController.php',
@@ -97,11 +95,6 @@
 					},
 
 				},
-				error: function (xhr, error, code)
-            {
-                console.log(xhr);
-                console.log(code);
-            },
 				success: function(response) {
 					if (response == 0) {
 
