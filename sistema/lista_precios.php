@@ -121,7 +121,7 @@
 					destroy: true,
 					error: errorAjax,
 					data: {
-						//parametros
+						//parametrosaaa
 						action: action,
 						fecha_de: fecha_de,
 						fecha_a: fecha_a,
