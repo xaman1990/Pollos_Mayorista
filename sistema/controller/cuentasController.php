@@ -22,7 +22,6 @@ if ($_POST['action'] == 'obtenercuenta') {
       echo json_encode($data);
     }
   }
-
   obtenercuenta();
   exit;
 }
@@ -52,7 +51,6 @@ if ($_POST['action'] == 'ListarCuentas') {
       $whereRC = "VRC.estado='A'";
       $whereP = "";
     }
-
     include "../../conexion.php";
     $query = mysqli_query($conexion, "select  *  from (SELECT rc.idregistro, rc.idpedido, cli.nombre ,rc.idcliente, pro.proveedor,rc.codproveedor,rc.totaldejabas,rc.TotalDestare AS TotalDestare , rc.preciodiario,rc.PesoNeto, ifnull(rc.pesototal,'') pesototal,ifnull(rc.montoacobrar,'') montoacobrar ,case when rc.idregistro is not null then 'Entregado' END as EstadoFlujo,rc.estado, rc.fechapedido
     FROM registrocuentas  rc  LEFT JOIN pedidos ped ON  rc.idpedido=ped.idpedido
