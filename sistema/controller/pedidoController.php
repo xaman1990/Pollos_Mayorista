@@ -98,27 +98,27 @@ if ($_POST['action'] == 'ReportePedidos') {
       $cb_Proveedor = $_POST['cb_proveedor'];
       $cb_cliente = $_POST['cb_cliente'];
       if ($fecha_de > $fecha_a) {
-        $where = " ped.Fechapedido>='$fecha_de' and (ped.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (ped.idcliente='$cb_cliente' or '$cb_cliente'='') order by ped.idpedido desc";
+        $where = " ped.Estado='A' and ped.Fechapedido>='$fecha_de' and (ped.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (ped.idcliente='$cb_cliente' or '$cb_cliente'='') group by pro.proveedor,ped.fechapedido order by ped.fechapedido";
  
       } else if ($fecha_de == $fecha_a) {
-        $where = " ped.Fechapedido='$fecha_de' and (ped.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (ped.idcliente='$cb_cliente' or '$cb_cliente'='') order by ped.idpedido desc";
+        $where = " ped.Estado='A' and ped.Fechapedido='$fecha_de' and (ped.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (ped.idcliente='$cb_cliente' or '$cb_cliente'='') group by pro.proveedor,ped.fechapedido order by ped.fechapedido";
       } else {
         $f_de = date("Y-m-d", strtotime($fecha_de . "0 days"));
         $f_a =  date("Y-m-d", strtotime($fecha_a . "+ 1 days"));
 
-        $where = " ped.Fechapedido BETWEEN '$fecha_de' AND '$fecha_a' and ped.Estado='A' and (ped.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (ped.idcliente='$cb_cliente' or '$cb_cliente'='') order by ped.idpedido desc";
+        $where = " ped.Estado='A' and ped.Fechapedido BETWEEN '$fecha_de' AND '$fecha_a' and  and (ped.codproveedor='$cb_Proveedor' or '$cb_Proveedor'='') and (ped.idcliente='$cb_cliente' or '$cb_cliente'='') group by pro.proveedor,ped.fechapedido order by ped.fechapedido";
         $buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a  ";
       }
     } else if (empty($_POST['fecha_de']) && empty($_POST['fecha_a']) && empty($_POST['cb_proveedor']) && empty($_POST['cb_cliente'])) {
-      $where = "ped.Estado='A' order by ped.idpedido desc";
+      $where = " ped.Estado='A' group by pro.proveedor,ped.fechapedido order by ped.fechapedido";
     }
 
     include "../../conexion.php";
-    $query = mysqli_query($conexion, "SELECT pro.proveedor,ped.CJabaMacho as jabamacho,ped.CJabaMixto as jabamixto,ped.CJabaHembra as jabahembra
-						FROM pedidos ped
-						LEFT JOIN cliente cli ON ped.idcliente= cli.idcliente
-						LEFT JOIN proveedor pro ON ped.codproveedor=pro.codproveedor
-						WHERE ped.Estado='A' and +	 $where");
+    $query = mysqli_query($conexion, "SELECT pro.proveedor,sum(ped.CJabaMacho) as jabamacho,sum(ped.CJabaMixto) as jabamixto,sum(ped.CJabaHembra) as jabahembra,ped.fechapedido
+    FROM pedidos ped
+    LEFT JOIN cliente cli ON ped.idcliente= cli.idcliente
+    LEFT JOIN proveedor pro ON ped.codproveedor=pro.codproveedor
+    WHERE   + $where");
 
     $result = mysqli_num_rows($query);
     if ($result > 0) {

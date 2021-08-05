@@ -104,21 +104,22 @@
 </div>
 <div id="dialog-form-Reporte" title="Reporte" class="temporal_hide" style="display: none;">
 	<div id="Contenedor-Reporte"></div>
-	
-		<table id="tb-Reporte" class="table table-striped table-bordered" cellspacing="0" width="100%">
-			<thead class="thead-dark">
-				<tr>
-					<th></th>
-					<th>C. Jaba Macho</th>
-					<th>C. Jaba Mixto</th>
-					<th>C. Jaba Hembra</th>
-				</tr>
-			</thead>
 
-			<tbody>
-			</tbody>
-		</table>
-	</div>
+	<table id="tb-Reporte" class="table table-striped table-bordered"  >
+		<thead class="thead-dark">
+			<tr>
+				<th></th>
+				<th>C. Jaba Macho</th>
+				<th>C. Jaba Mixto</th>
+				<th>C. Jaba Hembra</th>
+				<th>Fecha Pedido</th>
+			</tr>
+		</thead>
+
+		<tbody>
+		</tbody>
+	</table>
+</div>
 </div>
 
 <!-- /.container-fluid -->
@@ -235,39 +236,36 @@
 		function load_MostrarReporte() {
 			LoadPoputReporte();
 			CargarReporte();
-			
+
 		}
 
 		function LoadPoputReporte() {
 			$("#dialog-form-Reporte").dialog({
 				autoOpen: false,
 				height: 'auto',
-				width: 'auto',
+				width: '760px',
 				modal: false,
 				resizable: false,
-				position: 'right top'
+				position: 'left top'
 
 			});
 		}
 
 		function Estado_Reporte() {
-			$("#load_Reporte").hide();
 			$("#dialog-form-Reporte").dialog("open");
 		}
 
 		function MostrarRegistrosReporte() {
 			if (typeof oReporte === 'undefined') {
+				oReporte.draw();
+				$("#tb-Reporte").dataTable().fnDestroy();
 				CargarReporte();
-				$('#Contenedor-Reporte').removeAttr('style');
+			
 			} else {
 				oReporte.draw();
-				$('#Contenedor-Reporte').removeAttr('style');
 				$("#tb-Reporte").dataTable().fnDestroy();
 				CargarReporte();
 			}
-
-			$("#Contenedor-Reporte").show();
-
 			Estado_Reporte();
 		}
 
@@ -286,6 +284,7 @@
 					dataType: "json",
 					destroy: true,
 					error: errorAjax,
+
 					data: {
 						//parametros
 						action: action,
@@ -296,6 +295,10 @@
 					},
 
 				},
+				paging: false,
+				info: false,
+				searching: false,
+
 				success: function(response) {
 					if (response == 0) {
 
@@ -303,6 +306,7 @@
 						var data = JSON.parse(response);
 					}
 				},
+
 
 				order: [
 					[0, "desc"]
@@ -318,12 +322,15 @@
 					},
 					{
 						data: 'jabahembra'
+					},
+					{
+						data: 'fechapedido'
 					}
-					
+
 				]
 
 			});
-			
+
 
 
 
