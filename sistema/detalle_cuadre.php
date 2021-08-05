@@ -35,22 +35,7 @@
 		</table>
 	</div>
 
-    </div>
-<div id="dialog-form-Reporte" title="Reporte" class="temporal_hide" style="display: none;">
-	<div id="Contenedor-Reporte"></div>
-	
-		<table id="tb-Reportecuadrerocio" class="table table-striped table-bordered" cellspacing="0" width="100%">
-			<thead class="thead-dark">
-				<tr>
-					<th></th>
-					<th>ID</th>
-				</tr>
-			</thead>
-
-			<tbody>
-			</tbody>
-		</table>
-	</div>
+    
 
     
 <!-- /.container-fluid -->
