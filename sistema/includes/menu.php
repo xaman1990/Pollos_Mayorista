@@ -97,6 +97,20 @@
 				<a class="collapse-item" href="lista_cuadre.php">Cuadre</a>
 			</div>
 		</div>
+		
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecuadre" aria-expanded="true" aria-controls="collapseUtilities">
+			<i class="fas fa-fw fa-wrench"></i>
+			<span>Detalle Cuadre</span>
+		</a>
+		<div id="collapsecuadre" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+				<a class="collapse-item" href="detalle_cuadre.php">Detalle Cuadre</a>
+			</div>
+		</div>
+		
 	</li>
 
 

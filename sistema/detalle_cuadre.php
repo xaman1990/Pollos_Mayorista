@@ -11,91 +11,18 @@
 
 	<!-- Page Heading -->
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
-		<h1 class="h3 mb-0 text-gray-800">Registro de cuadre</h1>
-		<button class="btn btn-info" data-toggle="modal" data-target="#modalAgregarcuadre" style="float:right">
-			Nuevo cuadre
-		</button>
-
+		<h1 class="h3 mb-0 text-gray-800">Detalle de cuadre</h1>
 	</div>
 	<div>
-
-
-		<label>DE: </label>
-		<input type="date" name="fecha_de" id="fecha_de" value="<?php echo $fecha_de; ?>">
-		<label> A </label>
-		<input type="date" name="fecha_a" id="fecha_a" value="<?php echo $fecha_a; ?>">
-
-
-		<label for="nombre">Proveedor</label>
-		<?php
-		include "../conexion.php";
-		$query_proveedor = mysqli_query($conexion, "SELECT * FROM proveedor where estado='A' ORDER BY proveedor ASC");
-		$resultado_proveedor = mysqli_num_rows($query_proveedor);
-		?>
-
-		<select id="cb_proveedor" name="cb_proveedor">
-			<option value="">Ninguno</option>
-			<?php
-			if ($resultado_proveedor > 0) {
-				while ($proveedor = mysqli_fetch_array($query_proveedor)) {
-					// code...
-					if ($resultado_tipoproveedor > 0) {
-			?>
-						<option value="<?php echo $proveedor["codproveedor"]; ?>"><?php echo $proveedor["proveedor"]; ?></option>
-					<?php
-					} else {
-					?>
-						<option value="<?php echo $proveedor["codproveedor"]; ?>"><?php echo $proveedor["proveedor"]; ?></option>
-			<?php
-					}
-				}
-			}
-			?>
 		</select>
-		<button id="Lista_cuadre" class="btn btn-info"><i class="fas fa-search"></i>Listar</button>
-		<button id="btn_Reportecuadre" class="btn btn-primary"><i class="fas fa-search"></i>Reporte cuadre</button>
-
-	</div>
-	<div class="row">
-		<div class="col-lg-12">
-			<div id="table-Listacuadre" style="display: none;" class="table-responsive">
-				<div id="list-Listacuadre" style="width: 100%;">
-					<table id="tb-Listarcuadre" class="table table-striped table-bordered" cellspacing="0" width="100%">
-						<thead class="thead-dark">
-							<tr>
-
-							<th>ID</th>
-							<th>Fechapedido</th>
-							<th>Dudas Historico</th>
-							<th>Dep AF Y</th>
-							<th>Monto depositado</th>
-							<th>Estado</th>
-							<?php if ($_SESSION['rol'] == 1) { ?>
-							<th>ACCIONES</th>
-							<?php } ?>
-							</tr>
-						</thead>
-
-						<tbody>
-						</tbody>
-					</table>
-				</div>
-			</div>
-
-
-
-
-
-		</div>
-	</div>
-
-
+		<button id="btn_Reportecuadreyugoslabia" class="btn btn-primary"><i class="fas fa-search"></i>Ver detalle de pago pendiente yugoslabia</button>
+        <button id="btn_Reportecuadrerocio" class="btn btn-primary"><i class="fas fa-search"></i>Ver detalle de pago pendiente Rocio</button>
 	</div>
 </div>
 <div id="dialog-form-Reporte" title="Reporte" class="temporal_hide" style="display: none;">
 	<div id="Contenedor-Reporte"></div>
 	
-		<table id="tb-Reportecuadre" class="table table-striped table-bordered" cellspacing="0" width="100%">
+		<table id="tb-Reportecuadreyugoslabia" class="table table-striped table-bordered" cellspacing="0" width="100%">
 			<thead class="thead-dark">
 				<tr>
 					<th></th>
@@ -107,6 +34,25 @@
 			</tbody>
 		</table>
 	</div>
+
+    </div>
+<div id="dialog-form-Reporte" title="Reporte" class="temporal_hide" style="display: none;">
+	<div id="Contenedor-Reporte"></div>
+	
+		<table id="tb-Reportecuadrerocio" class="table table-striped table-bordered" cellspacing="0" width="100%">
+			<thead class="thead-dark">
+				<tr>
+					<th></th>
+					<th>ID</th>
+				</tr>
+			</thead>
+
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+
+    
 <!-- /.container-fluid -->
 
 
@@ -135,7 +81,7 @@
 		function InitButtons() {
 
 			$('#Lista_cuadre').click(Listacuadre);
-            $('#btn_Reportecuadre').click(MostrarRegistrosReporte);
+            $('#btn_Reportecuadreyugoslabia').click(MostrarRegistrosReporte);
 
 
 		}
@@ -262,7 +208,7 @@
 			} else {
 				oReporte.draw();
 				$('#Contenedor-Reporte').removeAttr('style');
-				$("#tb-Reportecuadre").dataTable().fnDestroy();
+				$("#tb-Reportecuadreyugoslabia").dataTable().fnDestroy();
 				CargarReporte();
 			}
 
@@ -273,15 +219,15 @@
 
 		function CargarReporte() {
 
-			var action = "Reportecuadre";
+			var action = "Reportecuadreyugoslabia";
 			var fecha_de = $('#fecha_de').val();
 			var fecha_a = $('#fecha_a').val();
 			var cb_proveedor = $('#cb_proveedor').val();
 			var cb_cliente = $('#cb_cliente').val();
 			var errorAjax = '';
-			oReporte = $('#tb-Reportecuadre').DataTable({
+			oReporte = $('#tb-Reportecuadreyugoslabia').DataTable({
 				ajax: {
-					url: 'controller/cuadreController.php',
+					url: 'controller/ReportecuadreyugoslabiaController.php',
 					type: "POST",
 					dataType: "json",
 					destroy: true,
