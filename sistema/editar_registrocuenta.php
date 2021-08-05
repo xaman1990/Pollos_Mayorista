@@ -3,7 +3,7 @@ include_once "includes/header.php";
 include "../conexion.php";
 if (!empty($_POST)) {
   $alert = "";
-  if (empty($_POST['montoacobrar'])||empty($_POST['fechapedido'])||empty($_POST['idcliente'])||empty($_POST['idproveedor'])||empty($_POST['idproveedor'])) {
+  if (empty($_POST['montoacobrar']) || empty($_POST['fechapedido']) || empty($_POST['idcliente']) || empty($_POST['idproveedor']) || empty($_POST['idproveedor'])) {
     $alert = '<div class="alert alert-danger" role="alert">
               Todo los campos son obligatorios 
             </div>';
@@ -20,12 +20,10 @@ if (!empty($_POST)) {
     $totaldestare = $_POST['TotalDestare'];
     $montoacobrar = $_POST['montoacobrar'];
     $usuario_id = $_SESSION['idUser'];
-    if($idregistro!=0){
+    if ($idregistro != 0) {
       $query_insert = mysqli_query($conexion, "UPDATE registrocuentas SET idcliente = '$idcliente', codproveedor= '$codproveedor',preciodiario= '$preciodiario' ,totaldejabas='$totaldejabas',fechapedido='$fechapedido',pesototal='$pesototal',montoacobrar='$montoacobrar',TotalDestare='$totaldestare',PesoNeto='$pesoneto',Id_UserModify=$usuario_id,DateModify=NOW() WHERE idregistro = '$idregistro'");
-   
-    }else{
+    } else {
       $query_insert = mysqli_query($conexion, "INSERT INTO registrocuentas (idcliente,codproveedor,preciodiario,totaldejabas,fechapedido,pesototal,montoacobrar,estado,idpedido,TotalDestare,PesoNeto,Id_UserEntry,DateEntry) values ( '$idcliente','$codproveedor','$preciodiario','$totaldejabas','$fechapedido','$pesototal','$montoacobrar','A','$idpedido','$totaldestare','$pesoneto','$usuario_id',NOW())");
-
     }
 
     if ($query_insert) {
@@ -94,7 +92,7 @@ SELECT IFNULL(rc.idregistro,0) as idregistro , ped.idpedido, cli.nombre,ped.idcl
 
               ?>
               <select id="proveedor" name="proveedor" class="form-control" disabled="disabled">
-              <option value="<?php echo $data_cuenta['codproveedor']; ?>" selected><?php echo $data_cuenta['proveedor']; ?></option>
+                <option value="<?php echo $data_cuenta['codproveedor']; ?>" selected><?php echo $data_cuenta['proveedor']; ?></option>
 
                 <?php
                 if ($resultado_proveedor > 0) {
@@ -110,7 +108,7 @@ SELECT IFNULL(rc.idregistro,0) as idregistro , ped.idpedido, cli.nombre,ped.idcl
                 ?>
               </select>
             </div>
-            <div style="visibility:hidden;" >
+            <div style="visibility:hidden;">
               <input type="text" style="visibility:hidden;" class="form-control" name="idproveedor" id="idproveedor" value="<?php echo $data_cuenta['codproveedor']; ?>">
             </div>
             <div class="form-group">
@@ -135,16 +133,16 @@ SELECT IFNULL(rc.idregistro,0) as idregistro , ped.idpedido, cli.nombre,ped.idcl
                 ?>
               </select>
             </div>
-            <div style="visibility:hidden;" >
+            <div style="visibility:hidden;">
               <input type="text" class="form-control" name="idcliente" id="idcliente" value="<?php echo $data_cuenta['idcliente']; ?>">
             </div>
             <div class="form-group">
               <label for="fechapedido">Fecha de pedido</label>
-              <input type="text" placeholder="Ingrese la fecha valida del pedido" class="form-control datepicker" name="fechapedido" id="fechapedido" value="<?php echo $data_cuenta['fechapedido']; ?>" >
+              <input type="text" placeholder="Ingrese la fecha valida del pedido" class="form-control datepicker" name="fechapedido" id="fechapedido" value="<?php echo $data_cuenta['fechapedido']; ?>">
             </div>
             <div class="form-group">
               <label for="preciodiario">Precio Diario</label>
-              <input type="number" placeholder="Ingrese el precio diario" name="preciodiario" id="preciodiario" class="form-control" value="<?php echo $data_cuenta['preciodiario']; ?>">
+              <input type="decimal" placeholder="Ingrese el precio diario" name="preciodiario" id="preciodiario" class="form-control" value="<?php echo $data_cuenta['preciodiario']; ?>">
             </div>
             <div class="form-group">
               <label for="totaljaba">Total de jabas</label>
@@ -152,7 +150,7 @@ SELECT IFNULL(rc.idregistro,0) as idregistro , ped.idpedido, cli.nombre,ped.idcl
             </div>
             <div class="form-group">
               <label for="pesototal">Peso Total</label>
-              <input type="number" placeholder="Ingrese el peso total" class="form-control" name="pesototal" id="pesototal" value="<?php echo $data_cuenta['pesototal']; ?>">
+              <input type="decimal" placeholder="Ingrese el peso total" class="form-control" name="pesototal" id="pesototal" value="<?php echo $data_cuenta['pesototal']; ?>">
             </div>
             <div class="form-group">
               <label for="TotalDestare">Total Destare</label>
@@ -160,14 +158,14 @@ SELECT IFNULL(rc.idregistro,0) as idregistro , ped.idpedido, cli.nombre,ped.idcl
             </div>
             <div class="form-group">
               <label for="PesoNeto">Peso Neto</label>
-              <input type="number" placeholder="Ingrese el peso neto" class="form-control" name="PesoNeto" id="PesoNeto" value="<?php echo $data_cuenta['PesoNeto']; ?>">
+              <input type="decimal" placeholder="Ingrese el peso neto" class="form-control" name="PesoNeto" id="PesoNeto" value="<?php echo $data_cuenta['PesoNeto']; ?>">
             </div>
             <div class="form-group">
               <label for="montoacobrar">Monto a cobrar </label>
               <input type="decimal" placeholder="Ingrese el monto a cobrar " class="form-control" name="montoacobrar" id="montoacobrar" value="<?php echo $data_cuenta['montoacobrar']; ?>">
             </div>
 
-            <input type="submit" value="Actualizar registro de cuenta" class="btn btn-primary">
+            <input type="submit" value="Registrar peso y monto de pedido" class="btn btn-primary">
           </form>
         </div>
       </div>
@@ -193,6 +191,7 @@ SELECT IFNULL(rc.idregistro,0) as idregistro , ped.idpedido, cli.nombre,ped.idcl
 
     }
 
+
     function InitAutocalculos() {
       var montocobrar = 0;
       var pesoneto = 0;
@@ -207,9 +206,9 @@ SELECT IFNULL(rc.idregistro,0) as idregistro , ped.idpedido, cli.nombre,ped.idcl
           $("#montoacobrar").val(0);
           $("#PesoNeto").val(0);
         } else {
-          
-          $("#PesoNeto").val(pesoneto);
-          $("#montoacobrar").val(montocobrar);
+
+          $("#PesoNeto").val(Math.round10(pesoneto, -1));
+          $("#montoacobrar").val(Math.round10(montocobrar, -1));
         }
       });
 

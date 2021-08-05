@@ -9,7 +9,7 @@ if ($_POST['action'] == 'obtenercuenta') {
       include "../../conexion.php";
       $fechavalidacionfil = $_POST['fechavalidacionfil'];
       $codproveedorfil = $_POST['codproveedorfil'];
-      $query_precio = mysqli_query($conexion, "SELECT * FROM registrocuentas where estado='A' and fechapedido='$fechavalidacionfil' and codproveedor='$codproveedorfil'");
+      $query_cuenta = mysqli_query($conexion, "SELECT * FROM registrocuentas where estado='A' and fechapedido='$fechavalidacionfil' and codproveedor='$codproveedorfil'");
 
       $result = mysqli_num_rows($query_cuenta);
       if ($result > 0) {
@@ -23,6 +23,30 @@ if ($_POST['action'] == 'obtenercuenta') {
     }
   }
   obtenercuenta();
+  exit;
+}
+if ($_POST['action'] == 'obtenerdestare') {
+
+  function obtenerdestare()
+  {
+    if (!empty($_POST['codproveedor']) || !empty($_POST['idcliente'])) {
+      include "../../conexion.php";
+      $idcliente = $_POST['idcliente'];
+      $codproveedor = $_POST['codproveedor'];
+      $query_destare = mysqli_query($conexion, "SELECT CASE WHEN cli.pesodejaba=0 or cli.pesodejaba=NULL then pro.pesojaba else cli.pesodejaba END pesojaba from cliente cli join proveedor pro on pro.Estado='A' where cli.Estado='A' and cli.idcliente='$idcliente' and pro.codproveedor='$codproveedor'");
+
+      $result = mysqli_num_rows($query_destare);
+      if ($result > 0) {
+        $data = mysqli_fetch_assoc($query_destare);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        exit;
+      }
+    } else {
+      $data = ['error' => 'err'];
+      echo json_encode($data);
+    }
+  }
+  obtenerdestare();
   exit;
 }
 if ($_POST['action'] == 'ListarCuentas') {
