@@ -24,10 +24,10 @@ if (!empty($_POST)) {
     $cjabamacho = $_POST['cjabamacho'];
     $cjabamixto = $_POST['cjabamixto'];
     $cjabahembra = $_POST['cjabahembra'];
-    $totaldejabas = $cjabamacho+$cjabamixto+$cjabahembra;
+    $totaldejabas = $cjabamacho + $cjabamixto + $cjabahembra;
 
     $query_insert = mysqli_query($conexion, "INSERT INTO pedidos(idcliente,codproveedor,fechapedido,preciodiario,cjabamacho,cjabamixto,cjabahembra,totaldejabas) values ('$idcliente', '$codproveedor','$fechapedido', '$preciodiario', '$cjabamacho','$cjabamixto','$cjabahembra','$totaldejabas')");
-    if ($query_insert) { 
+    if ($query_insert) {
       echo '<script>
       Swal.fire({
         type: "success",
@@ -39,9 +39,9 @@ if (!empty($_POST)) {
           window.location = "lista_pedido.php";
           }
       })
-</script>';
-} else {
-echo '<script>
+      </script>';
+    } else {
+      echo '<script>
       Swal.fire({
         type: "error",
         title: "¡Error al crear al precio!",
@@ -52,9 +52,9 @@ echo '<script>
           window.location = "lista_pedido.php";
           }
       })
-</script>';
- }
-}
+        </script>';
+    }
+  }
 }
 
 ?>
@@ -66,94 +66,97 @@ echo '<script>
     <div class="modal-content" class="align-items-center">
 
 
-  <!-- Page Heading -->
-  <div class="modal-body">
-  <div class="box-body">
+      <!-- Page Heading -->
+      <div class="modal-body">
+        <div class="box-body">
           <div class="card-header bg-primary text-white">
             Registro pedido
           </div>
           <div class="card-body">
-      <form action="" method="post" autocomplete="off">
-        <?php echo isset($alert) ? $alert : ''; ?>
-        <div class="form-group">
-          <label>Proveedor</label>
-          <?php
-          $query_proveedor = mysqli_query($conexion, "SELECT codproveedor, proveedor FROM proveedor where estado='A' ORDER BY proveedor ASC");
-          $resultado_proveedor = mysqli_num_rows($query_proveedor);
+            <form action="" method="post" autocomplete="off">
+              <?php echo isset($alert) ? $alert : ''; ?>
+              <div class="form-group">
+                <label>Proveedor</label>
+                <?php
+                $query_proveedor = mysqli_query($conexion, "SELECT codproveedor, proveedor FROM proveedor where estado='A' ORDER BY proveedor ASC");
+                $resultado_proveedor = mysqli_num_rows($query_proveedor);
 
-          ?>
-          <select id="proveedor" name="proveedor" class="form-control" required>
-            <?php
-            if ($resultado_proveedor > 0) {
-              while ($proveedor = mysqli_fetch_array($query_proveedor)) {
-                // code...
-            ?>
-                <option value="<?php echo $proveedor['codproveedor']; ?>"><?php echo $proveedor['proveedor']; ?></option>
-            <?php
+                ?>
+                <select id="proveedor" name="proveedor" class="form-control" required>
+                  <?php
+                  if ($resultado_proveedor > 0) {
+                    while ($proveedor = mysqli_fetch_array($query_proveedor)) {
+                      // code...
+                  ?>
+                      <option value="<?php echo $proveedor['codproveedor']; ?>"><?php echo $proveedor['proveedor']; ?></option>
+                  <?php
 
-              }
-            }
-            ?>
-          </select>
-        </div>
+                    }
+                  }
+                  ?>
+                </select>
+              </div>
 
-        <div class="form-group">
-          <label>Cliente</label>
-          <?php
-          $query_cliente = mysqli_query($conexion, "SELECT idcliente, nombre FROM cliente where estado='A' ORDER BY nombre ASC");
-          $resultado_cliente = mysqli_num_rows($query_cliente);
-          mysqli_close($conexion);
-          ?>
-          <select id="cliente" name="cliente" class="form-control" required>
-            <?php
-            if ($resultado_cliente > 0) {
-              while ($cliente = mysqli_fetch_array($query_cliente)) {
-                // code...
-            ?>
-                <option value="<?php echo $cliente['idcliente']; ?>"><?php echo $cliente['nombre']; ?></option>
-            <?php
-              }
-            }
-            ?>
-          </select>
-        </div>
-        <div class="form-group">
-          
-            <label for="fechapedido">Fecha de Pedido</label>
-            <input type="text" placeholder="Ingrese la fecha  de pedido  " class="form-control datepicker" name="fechapedido" id="fechapedido" required>         
+              <div class="form-group">
+                <label>Cliente</label>
+                <?php
+                $query_cliente = mysqli_query($conexion, "SELECT idcliente, nombre FROM cliente where estado='A' ORDER BY nombre ASC");
+                $resultado_cliente = mysqli_num_rows($query_cliente);
+                mysqli_close($conexion);
+                ?>
+                <select id="cliente" name="cliente" class="form-control" required>
+                  <?php
+                  if ($resultado_cliente > 0) {
+                    while ($cliente = mysqli_fetch_array($query_cliente)) {
+                      // code...
+                  ?>
+                      <option value="<?php echo $cliente['idcliente']; ?>"><?php echo $cliente['nombre']; ?></option>
+                  <?php
+                    }
+                  }
+                  ?>
+                </select>
+              </div>
+              <div class="form-group">
+
+                <label for="fechapedido">Fecha de Pedido</label>
+                <input type="text" placeholder="Ingrese la fecha  de pedido  " class="form-control datepicker" name="fechapedido" id="fechapedido" required>
+              </div>
+              <div class="form-group">
+                <label for="Precio Diario">Precio Diario</label>
+
+                <input type="number" placeholder="Ingrese el precio diario" name="preciodiario" id="precioDiario" class="form-control" data-field="Amount" min="0.1" step="0.1" required>
+
+              </div>
+              <div class="form-group">
+                <label for="Jabas de Macho">Jabas de Macho</label>
+                <input type="number" placeholder="Ingrese Las jabas de Macho" class="form-control" name="cjabamacho" id="cjabamacho">
+              </div>
+
+
+              <div class="form-group">
+                <label for="Jabas de Mixto">Jabas de Mixto</label>
+                <input type="number" placeholder="Ingrese Las bajas de Mixto" class="form-control" name="cjabamixto" id="cjabamixto">
+              </div>
+
+              <div class="form-group">
+                <label for="Jabas de Hembra">Jabas de Hembra </label>
+                <input type="number" placeholder="Ingrese las Jabas de hembra" class="form-control" name="cjabahembra" id="cjabahembra">
+              </div>
+
+              <input type="submit" value="Guardar" class="btn col-lg-5 btn-primary">
+              <a href="lista_pedido.php" class="btn col-lg-5 btn-danger" align="center">Regresar</a>
+
+            </form>
           </div>
-        <div class="form-group">
-          <label for="Precio Diario">Precio Diario</label>
-
-          <input type="number" placeholder="Ingrese el precio diario" name="preciodiario" id="precioDiario" class="form-control" data-field="Amount" min="0.1" step="0.1" required>
-
         </div>
-        <div class="form-group">
-          <label for="Jabas de Macho">Jabas de Macho</label>
-          <input type="number" placeholder="Ingrese Las jabas de Macho" class="form-control" name="cjabamacho" id="cjabamacho">
-        </div>
+      </div>
+      <!-- /.container-fluid -->
 
-
-        <div class="form-group">
-          <label for="Jabas de Mixto">Jabas de Mixto</label>
-          <input type="number" placeholder="Ingrese Las bajas de Mixto" class="form-control" name="cjabamixto" id="cjabamixto">
-        </div>
-
-        <div class="form-group">
-          <label for="Jabas de Hembra">Jabas de Hembra </label>
-          <input type="number" placeholder="Ingrese las Jabas de hembra" class="form-control" name="cjabahembra" id="cjabahembra">
-        </div>
-
-        <input type="submit" value="Guardar" class="btn col-lg-5 btn-primary">
-        <a href="lista_pedido.php" class="btn col-lg-5 btn-danger" align="center">Regresar</a>
-
-      </form>
     </div>
   </div>
 </div>
-<!-- /.container-fluid -->
 
-</div>
 <!-- End of Main Content -->
 <?php include_once "includes/footer.php"; ?>
 
@@ -162,14 +165,14 @@ echo '<script>
     $("#precioDiario").click(function(e) {
       var fechavalidacionfil = $('#fechapedido').val();
       var codproveedorfil = $('#proveedor').val();
-      var action="obtenerprecio"
+      var action = "obtenerprecio"
       $.ajax({
         url: 'controller/pedidoController.php',
         type: "POST",
         dataType: 'json',
         async: true,
         data: {
-          action:action,
+          action: action,
           fechavalidacionfil: fechavalidacionfil,
           codproveedorfil: codproveedorfil
         },
