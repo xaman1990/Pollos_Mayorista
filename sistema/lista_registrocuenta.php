@@ -96,7 +96,7 @@
 								<th>Monto a cobrar</th>
 								<th>Fecha de pedido</th>
 								<th>Estado</th>
-								<th></th>
+								<th>Acciones</th>
 							</tr>
 						</thead>
 
@@ -215,7 +215,7 @@
 				rowCallback: function(row, data, index) {
 
 					
-					$('td', row).eq(10).html('<a href="editar_registrocuenta.php?idcuenta=' + data.idregistro + '&idpedido=' + data.idpedido + '" class="btn btn-success"><i class="fas fa-edit"></i> Editar</a><form action="eliminar_registrocuenta.php?id=' + data.idregistro + '" method="post" class="confirmar d-inline"><button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i> </button></form>');
+					$('td', row).eq(10).html('<a href="editar_registrocuenta.php?idcuenta=' + data.idregistro + '&idpedido=' + data.idpedido + '" class="btn btn-success"><i class="fas fa-edit"></i> Registrar</a><form action="eliminar_registrocuenta.php?id=' + data.idregistro + '" method="post" class="confirmar d-inline"><button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i> </button></form>');
 
 
 

@@ -1,11 +1,12 @@
 <?php
 function obtenerprecio()
 {
-  if (!empty($_POST['fechavalidacionfil']) || !empty($_POST['codproveedorfil'])) {
+  if (!empty($_POST['fechavalidacionfil']) || !empty($_POST['codproveedorfil']) || !empty($_POST['idcliente'])) {
     include "../../conexion.php";
     $fechavalidacionfil = $_POST['fechavalidacionfil'];
     $codproveedorfil = $_POST['codproveedorfil'];
-    $query_precio = mysqli_query($conexion, "SELECT * FROM precio where estado='A' and fechavalidacion='$fechavalidacionfil' and codproveedor='$codproveedorfil'");
+    $idcliente=$_POST['idcliente'];
+    $query_precio = mysqli_query($conexion, "SELECT pre.PrecioVentaF-cli.puntos as PrecioVentaF FROM precio pre join cliente cli on cli.Estado='A'  and pre.fechavalidacion='$fechavalidacionfil' and pre.codproveedor='$codproveedorfil' and cli.idcliente='$idcliente'");
     mysqli_close($conexion);
     $result = mysqli_num_rows($query_precio);
     if ($result > 0) {
