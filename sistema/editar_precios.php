@@ -15,8 +15,9 @@ if (!empty($_POST)) {
     $PrecioVenta = $_POST['precioVenta'];
     $SubidaInterna = $_POST['subidaInterna'];
     $PrecioVentaF = $SubidaInterna+$PrecioVenta;
-    
-    $query_update = mysqli_query($conexion, "UPDATE precio SET codproveedor = '$codproveedor', preciocompra= $preciocompra,PrecioVenta= $PrecioVenta ,SubidaInterna=$SubidaInterna,PrecioVentaF=$SubidaInterna+$PrecioVenta WHERE idprecio = $idprecio");
+    $usuario_id = $_SESSION['idUser'];
+
+    $query_update = mysqli_query($conexion, "UPDATE precio SET codproveedor = '$codproveedor', preciocompra= $preciocompra,PrecioVenta= $PrecioVenta ,SubidaInterna=$SubidaInterna,PrecioVentaF=$SubidaInterna+$PrecioVenta,Id_UserModify=$usuario_id,DateModify=NOW() WHERE idprecio = $idprecio");
     if ($query_update) {
       $alert = '<div class="alert alert-primary" role="alert">
               Modificado

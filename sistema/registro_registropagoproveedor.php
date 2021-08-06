@@ -14,8 +14,8 @@
       $montototal = $_POST['montototal'];
       $montodepositado = $_POST['montodepositado'];
       $fechapedido = $_POST['fechapedido'];
-
-      $query_insert = mysqli_query($conexion, "INSERT INTO registropagoproveedor(codproveedor,preciodiario,totaljaba,montototal,montodepositado,fechapedido) values ('$codproveedor', '$preciodiario', '$totaljaba', '$montototal','$montodepositado','$fechapedido')");
+      $usuario_id = $_SESSION['idUser'];
+      $query_insert = mysqli_query($conexion, "INSERT INTO registropagoproveedor(codproveedor,preciodiario,totaljaba,montototal,montodepositado,fechapedido,Id_UserEntry,DateEntry ) values ('$codproveedor', '$preciodiario', '$totaljaba', '$montototal','$montodepositado','$fechapedido','$usuario_id',NOW())");
       if ($query_insert) {
         $alert = '<div class="alert alert-primary" role="alert">
                 Precio Registrado

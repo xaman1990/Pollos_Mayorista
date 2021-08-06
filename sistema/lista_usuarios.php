@@ -11,7 +11,6 @@
 		</button>
 	</div>
 	<div>
-		<button id="Listar_Usuarios" class="btn btn-info"><i class="fas fa-search"></i>Listar</button>
 	</div>
 	<div class="row">
 		<div class="col-lg-12">

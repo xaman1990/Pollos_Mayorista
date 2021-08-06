@@ -10,8 +10,8 @@ if (!empty($_POST)) {
     $proveedor = $_POST['proveedor'];
     $tipoproveedor = $_POST['tipoproveedor'];
     $pesojaba = $_POST['pesojaba'];
-
-    $sql_update = mysqli_query($conexion, "UPDATE proveedor SET proveedor = '$proveedor', tipoproveedor = '$tipoproveedor', pesojaba='$pesojaba' WHERE codproveedor = $idproveedor");
+    $usuario_id = $_SESSION['idUser'];
+    $sql_update = mysqli_query($conexion, "UPDATE proveedor SET proveedor = '$proveedor', tipoproveedor = '$tipoproveedor', pesojaba='$pesojaba', Id_UserModify=$usuario_id,DateModify=NOW() WHERE codproveedor = $idproveedor");
 
     if ($sql_update) {
       $alert = '<p class"msg_save">Proveedor Actualizado correctamente</p>';

@@ -17,7 +17,8 @@ if (!empty($_POST)) {
     $cjabamixto = $_POST['cjabamixto'];
     $cjabahembra = $_POST['cjabahembra'];
     $totaldejabas = $cjabamacho+$cjabamixto+$cjabahembra;
-    $query_update = mysqli_query($conexion, "UPDATE pedidos SET idcliente=$idcliente ,codproveedor=$codproveedor,preciodiario=$preciodiario,cjabamacho=$cjabamacho,cjabamixto=$cjabamixto,cjabahembra=$cjabahembra, totaldejabas=$cjabamacho+$cjabamixto+$cjabahembra WHERE idpedido=$idpedido");
+    $usuario_id = $_SESSION['idUser'];
+    $query_update = mysqli_query($conexion, "UPDATE pedidos SET idcliente=$idcliente ,codproveedor=$codproveedor,preciodiario=$preciodiario,cjabamacho=$cjabamacho,cjabamixto=$cjabamixto,cjabahembra=$cjabahembra, totaldejabas=$cjabamacho+$cjabamixto+$cjabahembra,Id_UserModify=$usuario_id,DateModify=NOW() WHERE idpedido=$idpedido");
     if ($query_update) {
       $alert = '<div class="alert alert-primary" role="alert">
               Modificado

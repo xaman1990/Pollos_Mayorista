@@ -11,8 +11,9 @@ if (!empty($_POST)) {
     $correo = $_POST['correo'];
     $usuario = $_POST['usuario'];
     $rol = $_POST['rol'];
+    $usuario_id = $_SESSION['idUser'];
 
-    $sql_update = mysqli_query($conexion, "UPDATE usuario SET nombre = '$nombre', correo = '$correo' , usuario = '$usuario', rol = $rol WHERE idusuario = $idusuario");
+    $sql_update = mysqli_query($conexion, "UPDATE usuario SET nombre = '$nombre', correo = '$correo' , usuario = '$usuario', rol = $rol , Id_UserModify=$usuario_id,DateModify=NOW() WHERE idusuario = $idusuario");
     $alert = '<p>Usuario Actualizado</p>';
   }
 }

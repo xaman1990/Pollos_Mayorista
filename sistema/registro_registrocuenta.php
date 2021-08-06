@@ -27,8 +27,8 @@
       $pesototal = $_POST['pesototal'];
       $montoacobrar = $_POST['montoacobrar'];
       $TotalDestare = $_POST['TotalDestare'];
-
-      $query_insert = mysqli_query($conexion, "INSERT INTO registrocuentas(idcliente,codproveedor,fechapedido,preciodiario,totaldejabas,pesototal,montoacobrar,TotalDestare) values ('$idcliente', '$codproveedor','$fechapedido','$preciodiario', '$totaldejabas','$pesototal','$montoacobrar','$TotalDestare')");
+      $usuario_id = $_SESSION['idUser'];
+      $query_insert = mysqli_query($conexion, "INSERT INTO registrocuentas(idcliente,codproveedor,fechapedido,preciodiario,totaldejabas,pesototal,montoacobrar,TotalDestare,Id_UserEntry,DateEntry ) values ('$idcliente', '$codproveedor','$fechapedido','$preciodiario', '$totaldejabas','$pesototal','$montoacobrar','$TotalDestare','$usuario_id',NOW())");
       if ($query_insert) {
         echo '<script>
         Swal.fire({

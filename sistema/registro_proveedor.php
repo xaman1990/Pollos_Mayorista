@@ -32,7 +32,7 @@ if (!empty($_POST)) {
         //}else{
 
 
-        $query_insert = mysqli_query($conexion, "INSERT INTO proveedor(proveedor,tipoproveedor,pesojaba,usuario_id) values ('$proveedor', '$tipoproveedor','$pesojaba','$usuario_id')");
+        $query_insert = mysqli_query($conexion, "INSERT INTO proveedor(proveedor,tipoproveedor,pesojaba,Id_UserEntry,DateEntry ) values ('$proveedor', '$tipoproveedor','$pesojaba','$usuario_id',NOW())");
         if ($query_insert) {
             echo '<script>
             Swal.fire({
