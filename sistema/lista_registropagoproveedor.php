@@ -162,7 +162,7 @@
 			var cb_proveedor = $('#cb_proveedor').val();
 			var cb_cliente = $('#cb_cliente').val();
 			var errorAjax = '';
-			oListarCuentas = $('#tb-Listarpagoproveedor').DataTable({
+			oListarpagoproveedor = $('#tb-Listarpagoproveedor').DataTable({
 				ajax: {
 					url: 'controller/pagoproveedorController.php',
 					type: "POST",
@@ -192,7 +192,7 @@
 				rowCallback: function(row, data, index) {
 
 					
-					$('td', row).eq(7).html('<a href="editar_registropagoproveedor.php?idpagoproveedor=' + data.idpagoproveedor + '&idpagoproveedor=' + data.idpagoproveedor + '" class="btn btn-success"><i class="fas fa-edit"></i> Editar</a><form action="eliminar_registropagoproveedor.php?id=' + data.idpagoproveedor + '" method="post" class="confirmar d-inline"><button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i> </button></form>');
+					$('td', row).eq(7).html('<a href="editar_registropagoproveedor.php?idprecio='+data.idprecio+'&idregcuenta='+ data.idregistro+'" class="btn btn-success"><i class="fas fa-edit"></i> Editar</a><form action="eliminar_registropagoproveedor.php?idregcuenta='+ data.idregistro+'" method="post" class="confirmar d-inline"><button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i> </button></form>');
 
 
 

@@ -57,7 +57,7 @@ if ($_POST['action'] == 'Listarpagoproveedor') {
     }
 
     include "../../conexion.php";
-    $query = mysqli_query($conexion, "select pre.idprecio ,pro.proveedor,pre.preciocompra,sum(rc.totaldejabas) as totaldejabas,sum(rc.PesoNeto*pre.preciocompra) as MontoTotal,'' as Monto_Depositado,rc.fechapedido 
+    $query = mysqli_query($conexion, "select pre.idprecio,rc.idregistro ,pro.proveedor,pre.preciocompra,sum(rc.totaldejabas) as totaldejabas,sum(rc.PesoNeto*pre.preciocompra) as MontoTotal,'' as Monto_Depositado,rc.fechapedido 
     from registrocuentas rc
     left join precio pre on rc.codproveedor=pre.codproveedor and rc.fechapedido=pre.fechavalidacion and pre.Estado='A'
     left join proveedor pro on pro.codproveedor=rc.codproveedor
