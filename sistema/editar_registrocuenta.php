@@ -38,7 +38,7 @@ if (!empty($_POST)) {
   }
 }
 
-// Validar producto
+/// Validar producto
 
 if (empty($_REQUEST['idcuenta']) && empty($_REQUEST['idpedido'])) {
   header("Location: lista_registrocuenta.php");

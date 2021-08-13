@@ -21,7 +21,7 @@ if (!empty($_POST)) {
         $user = $_POST['usuario'];
         $clave = md5($_POST['clave']);
         $rol = $_POST['rol'];
-
+        $usuario_id = $_SESSION['idUser'];
         $query = mysqli_query($conexion, "SELECT * FROM usuario where correo = '$email'");
         $result = mysqli_fetch_array($query);
 
@@ -30,7 +30,7 @@ if (!empty($_POST)) {
                         El correo ya existe
                     </div>';
         } else {
-            $query_insert = mysqli_query($conexion, "INSERT INTO usuario(nombre,correo,usuario,clave,rol) values ('$nombre', '$email', '$user', '$clave', '$rol')");
+            $query_insert = mysqli_query($conexion, "INSERT INTO usuario(nombre,correo,usuario,clave,rol,Id_UserEntry,DateEntry) values ('$nombre', '$email', '$user', '$clave', '$rol','$usuario_id',NOW())");
             if ($query_insert) {
                 echo '<script>
                 Swal.fire({

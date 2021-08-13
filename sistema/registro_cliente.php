@@ -33,7 +33,7 @@ if (!empty($_POST)) {
                                    El Nombre ya existe
                               </div>';
         } else {
-            $query_insert = mysqli_query($conexion, "INSERT INTO cliente(puntos,nombre,telefono,direccion,pesodejaba, usuario_id) values ('$puntos', '$nombre', '$telefono', '$direccion','$pesodejaba', '$usuario_id')");
+            $query_insert = mysqli_query($conexion, "INSERT INTO cliente(puntos,nombre,telefono,direccion,pesodejaba,Id_UserEntry,DateEntry) values ('$puntos', '$nombre', '$telefono', '$direccion','$pesodejaba', '$usuario_id',NOW())");
             if ($query_insert) {
                  echo '<script>
                 Swal.fire({

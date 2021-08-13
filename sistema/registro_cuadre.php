@@ -14,8 +14,8 @@
       $importe = $_SESSION['importe'];
       $montocuenta = $_SESSION['montocuenta'];
       $saldoafavor = $_SESSION['saldoafavor'];
-
-      $query_insert = mysqli_query($conexion, "INSERT INTO cuadre(fechapedido,pesototal,destare,pesonetojabas,importe,montocuenta,saldoafavor) values ('$fechapedido', '$pesototal', '$destare', '$pesonetojabas','$importe','$montocuenta','$saldoafavor')");
+      $usuario_id = $_SESSION['idUser'];
+      $query_insert = mysqli_query($conexion, "INSERT INTO cuadre(fechapedido,pesototal,destare,pesonetojabas,importe,montocuenta,saldoafavor,Id_UserEntry,DateEntry) values ('$fechapedido', '$pesototal', '$destare', '$pesonetojabas','$importe','$montocuenta','$saldoafavor','$usuario_id',NOW())");
       if ($query_insert) {
         $alert = '<div class="alert alert-primary" role="alert">
                 Producto Registrado

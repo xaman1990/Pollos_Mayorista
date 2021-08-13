@@ -11,8 +11,9 @@ if (!empty($_POST)) {
     $telefono = $_POST['telefono'];
     $direccion = $_POST['direccion'];
     $pesodejaba = $_POST['pesodejaba'];
+    $usuario_id = $_SESSION['idUser'];
 
-      $sql_update = mysqli_query($conexion, "UPDATE cliente SET puntos = $puntos, nombre = '$nombre' , telefono = '$telefono', direccion = '$direccion',pesodejaba='$pesodejaba' WHERE idcliente = $idcliente");
+      $sql_update = mysqli_query($conexion, "UPDATE cliente SET puntos = $puntos, nombre = '$nombre' , telefono = '$telefono', direccion = '$direccion',pesodejaba='$pesodejaba', Id_UserModify=$usuario_id,DateModify=NOW() WHERE idcliente = $idcliente");
 
       if ($sql_update) {
         $alert = '<p class"exito">Cliente Actualizado correctamente</p>';

@@ -27,9 +27,6 @@ if (!empty($_POST)) {
     $totaldestare = $_POST['TotalDestare'];
     $montoacobrar = $_POST['montoacobrar'];
     $usuario_id = $_SESSION['idUser'];
-
-
-
     $query_insert = mysqli_query($conexion, "INSERT INTO registrocuentas (idcliente,codproveedor,preciodiario,totaldejabas,fechapedido,pesototal,montoacobrar,estado,TotalDestare,PesoNeto,Id_UserEntry,DateEntry) values ( '$idcliente','$codproveedor','$preciodiario','$totaldejabas','$fechapedido','$pesototal','$montoacobrar','A','$totaldestare','$pesoneto','$usuario_id',NOW())");
     if ($query_insert) {
       echo '<script>

@@ -23,8 +23,9 @@ if (!empty($_POST)) {
     $SubidaInterna = $_POST['subidaInterna'];
     $PrecioVentaF = $SubidaInterna + $PrecioVenta;
     $fechavalida = $_POST['fechavalida'];
+    $usuario_id = $_SESSION['idUser'];
 
-    $query_insert = mysqli_query($conexion, "INSERT INTO precio(codproveedor,preciocompra,PrecioVenta,SubidaInterna,PrecioVentaF,fechavalidacion) values ('$codproveedor', '$preciocompra', '$PrecioVenta', '$SubidaInterna','$PrecioVentaF','$fechavalida')");
+    $query_insert = mysqli_query($conexion, "INSERT INTO precio(codproveedor,preciocompra,PrecioVenta,SubidaInterna,PrecioVentaF,fechavalidacion,Id_UserEntry,DateEntry) values ('$codproveedor', '$preciocompra', '$PrecioVenta', '$SubidaInterna','$PrecioVentaF','$fechavalida','$usuario_id',NOW())");
     if ($query_insert) {
       echo '<script>
             Swal.fire({

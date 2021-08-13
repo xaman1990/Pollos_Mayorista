@@ -15,8 +15,9 @@ if (!empty($_POST)) {
     $totaljaba = $_POST['totaljaba'];
     $montototal = $_POST['montototal'];
     $montodepositado = $_POST['montodepositado'];
+    $usuario_id = $_SESSION['idUser'];
 
-    $query_update = mysqli_query($conexion, "UPDATE registropagoproveedor SET codproveedor = '$codproveedor', preciodiario= $preciodiario,totaljaba= $totaljaba ,montototal=$montototal,montodepositado=$montodepositado WHERE idpagoproveedor = $idpagoproveedor");
+    $query_update = mysqli_query($conexion, "UPDATE registropagoproveedor SET codproveedor = '$codproveedor', preciodiario= $preciodiario,totaljaba= $totaljaba ,montototal=$montototal,montodepositado=$montodepositado,Id_UserModify=$usuario_id,DateModify=NOW() WHERE idpagoproveedor = $idpagoproveedor");
     if ($query_update) {
       $alert = '<div class="alert alert-primary" role="alert">
               Modificado
