@@ -29,9 +29,7 @@ if (!empty($_POST)) {
     }
   }
 }
-
 // Validar producto
-
 if (empty($_REQUEST['idregcuenta'])) {
   header("Location: lista_registropagoproveedor.php");
 } else {
@@ -115,8 +113,6 @@ if (empty($_REQUEST['idregcuenta'])) {
       </div>
     </div>
   </div>
-
-
 </div>
 <!-- /.container-fluid -->
 

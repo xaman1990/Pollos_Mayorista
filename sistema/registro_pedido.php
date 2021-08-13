@@ -57,16 +57,11 @@ if (!empty($_POST)) {
     }
   }
 }
-
 ?>
 <!-- Begin Page Content -->
 <div id="modalAgregarpedido" class="modal fade" role="dialog">
-
   <div class="modal-dialog">
-
     <div class="modal-content" class="align-items-center">
-
-
       <!-- Page Heading -->
       <div class="modal-body">
         <div class="box-body">

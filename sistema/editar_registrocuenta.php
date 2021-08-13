@@ -190,8 +190,6 @@ SELECT IFNULL(rc.idregistro,0) as idregistro , ped.idpedido, cli.nombre,ped.idcl
       InitAutocalculos();
 
     }
-
-
     function InitAutocalculos() {
       var montocobrar = 0;
       var pesoneto = 0;
